@@ -1,18 +1,20 @@
 import { Realm, createRealmContext } from "@realm/react";
 
 // Defining a schema for a Profile object
-export class Profile extends Realm.Object {
-    constructor({ id = new Realm.BSON.ObjectId(), name = 'John Doe' }) {  
-      this.name = name;
+export class User extends Realm.Object {
+    constructor({ id = new Realm.BSON.ObjectId(), name = 'John Doe', password = 'password' }) {  
+      this.username = name;
+      this.password = password;
       this._id = id;
     }
 
  
   static schema = {
-      name: 'Profile',
+      name: 'User',
       properties: {
         _id: 'objectId',
-        name: 'string',
+        username: 'string',
+        password: 'string',
       },
       primaryKey: '_id',
     };
@@ -22,6 +24,5 @@ export class Profile extends Realm.Object {
 
   // Create a configuration object
 export const {useRealm, useQuery, RealmProvider, useObject} = createRealmContext({
-    schema: [Profile.schema],
-    deleteRealmIfMigrationNeeded: true,
+    schema: [User.schema],
   });
