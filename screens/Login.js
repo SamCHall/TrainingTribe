@@ -1,13 +1,16 @@
 import { useApp } from "@realm/react";
-import { Text, View, KeyboardAvoidingView } from "react-native";
+import { Text, View, KeyboardAvoidingView, Keyboard, TouchableOpacity } from "react-native";
 import Realm from "realm";
 import { OvalButton } from "../components";
-import { ScrollView, TextInput } from "react-native-gesture-handler";
+import { TextInput } from "react-native-gesture-handler";
 import React, { useState } from "react";
 import { Alert } from "react-native";
 import globalStyles from "../constants/GlobalStyle";
 import { COLORS } from "../constants";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import Collapsible from "react-native-collapsible";
+import { StatusBar } from "expo-status-bar";
+
 
 
 const Login = ({ navigation }) => {
@@ -20,6 +23,16 @@ const Login = ({ navigation }) => {
     const [registerPassword, setRegisterPassword] = useState('');
     const [confirmRegisterPassword, setRegisterConfirm] = useState('');
 
+    const [registerCollapsed, setRegisterCollapsed] = useState(true);
+    const [loginCollapsed, setLoginCollapsed] = useState(false);
+
+    const toggleRegisterExpanded = () => {
+        setRegisterCollapsed(!registerCollapsed)
+        setLoginCollapsed(true)
+        if(!registerCollapsed){
+            setLoginCollapsed(false)
+        }
+    }
     
 
     async function registerUser() {
@@ -67,26 +80,34 @@ const Login = ({ navigation }) => {
    
     
     return (
-        <KeyboardAwareScrollView contentContainerStyle={{flex: 1, backgroundColor: COLORS.white}}>
+        
+        <KeyboardAwareScrollView keyboardShouldPersistTaps={'always'} showsVerticalScrollIndicator={false} contentContainerStyle={globalStyles.container}>
+            <StatusBar />
+            <Collapsible collapsed={loginCollapsed} style={{}}>
             <View>
                 <TextInput style={[globalStyles.input, {alignSelf: "center"}]}  mode="outlined" placeholder="Email" placeholderTextColor={COLORS.gray} autoComplete="email" inputMode="email" onChangeText={(text) => setEmail(text)}/>
                 <TextInput style={[globalStyles.input, {alignSelf: "center"}]} placeholder="Password" placeholderTextColor={COLORS.gray} onChangeText={(text) => setPassword(text)} secureTextEntry={true} />
-            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <OvalButton text="Log In" onPress={logInUser} />
-                <OvalButton text="Log In as Guest" onPress={logInGuestUser} />
+                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <OvalButton text="Log In" onPress={logInUser} />
+                    <OvalButton text="Log In as Guest" onPress={logInGuestUser} />
+                </View>
             </View>
-
-            </View>
+            </Collapsible>
            
 
             <Text style={[globalStyles.text, {marginTop: 50}]}>Don't have an account?</Text>
-            <View>
-                <TextInput style={globalStyles.input} placeholder="Email" placeholderTextColor={COLORS.gray} autoComplete="email" inputMode="email" onChangeText={(text) => setRegisterEmail(text)}/>
-                <TextInput style={globalStyles.input} placeholder="Password" placeholderTextColor={COLORS.gray} onChangeText={(text) => setRegisterPassword(text)} secureTextEntry={true} />
-                <TextInput style={globalStyles.input} placeholder="Confirm Password" placeholderTextColor={COLORS.gray} onChangeText={(text) => setRegisterConfirm(text)} secureTextEntry={true}/>
+            <TouchableOpacity onPress={toggleRegisterExpanded} style={{backgroundColor:COLORS.primary}}>
+                <Text style={[globalStyles.text, {color: COLORS.secondary, textDecorationLine: 'underline'}]}>Register here</Text>
+            </TouchableOpacity>
+            <Collapsible collapsed={registerCollapsed} style={{backgroundColor: COLORS.primary}}>
+                <View>
+                    <TextInput style={globalStyles.input} placeholder="Email" placeholderTextColor={COLORS.gray} autoComplete="email" inputMode="email" onChangeText={(text) => setRegisterEmail(text) }/>
+                    <TextInput style={globalStyles.input} placeholder="Password" placeholderTextColor={COLORS.gray} onChangeText={(text) => setRegisterPassword(text)} secureTextEntry={true} />
+                    <TextInput style={globalStyles.input} placeholder="Confirm Password" placeholderTextColor={COLORS.gray} onChangeText={(text) => setRegisterConfirm(text)} secureTextEntry={true}/>
 
-                <OvalButton text="Register" onPress={registerUser} />
-            </View>
+                    <OvalButton text="Register" onPress={registerUser} />
+                </View>
+            </Collapsible>
         </KeyboardAwareScrollView>
     );
   

@@ -14,7 +14,6 @@ const globalStyles = StyleSheet.create({
         margin: 10,
 
         borderBottomWidth: 1,
-        borderBottomRadius:25,
         borderBottomColor: COLORS.white,
         color: COLORS.white,
         fontFamily: FONTS.regular,
