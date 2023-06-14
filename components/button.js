@@ -1,24 +1,30 @@
 import { View, Text, TouchableOpacity } from 'react-native'
+import { FONTS, SHADOWS, COLORS } from '../constants'
 import React from 'react'
 
 export const OvalButton = ({text, onPress, ...props}) => {
     return(
         <TouchableOpacity
             style={{
-                backgroundColor: 'black',
+                backgroundColor: COLORS.secondary,
                 borderRadius: 25,
-                width: 200,
-                height: 50,
+                width: 150,
+                height: 40,
+                marginTop: 15,
                 margin: 10,
                 justifyContent: 'center',
                 alignItems: 'center',
+                justifySelf: 'center',
+                alignSelf: 'center',
                 ...props
             }}
             onPress={onPress}
             title={text}
         >
-            <Text style={{color: 'white'}}>{text}</Text>
+            <Text style={{
+                color: COLORS.black,
+                fontFamily: FONTS.bold,
+            }}>{text}</Text>
         </TouchableOpacity>
     )
 }
-

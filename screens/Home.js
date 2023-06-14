@@ -3,13 +3,13 @@ import React from 'react'
 import { useApp } from '@realm/react'
 import { HomeHeader, OvalButton } from '../components'
 
-const Home = ({ navigation }) => {
+const Home = () => {
   const app = useApp();
  
   const logOutUser = () => {
     app.currentUser.logOut();
   }
-
+  
   return (
     <View>
       <HomeHeader />
