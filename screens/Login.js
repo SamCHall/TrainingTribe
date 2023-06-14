@@ -1,5 +1,5 @@
 import { useApp } from "@realm/react";
-import { Text, View, KeyboardAvoidingView, Keyboard, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import Realm from "realm";
 import { OvalButton } from "../components";
 import { TextInput } from "react-native-gesture-handler";
