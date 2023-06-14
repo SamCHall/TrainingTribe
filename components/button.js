@@ -6,9 +6,10 @@ export const OvalButton = ({text, onPress, ...props}) => {
         <TouchableOpacity
             style={{
                 backgroundColor: 'black',
-                borderRadius: 10,
+                borderRadius: 25,
                 width: 200,
                 height: 50,
+                margin: 10,
                 justifyContent: 'center',
                 alignItems: 'center',
                 ...props
@@ -20,3 +21,4 @@ export const OvalButton = ({text, onPress, ...props}) => {
         </TouchableOpacity>
     )
 }
+

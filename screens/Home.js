@@ -1,27 +1,21 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-import app from '../App'
 import { useApp } from '@realm/react'
+import { HomeHeader, OvalButton } from '../components'
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const app = useApp();
-  if (!app.currentUser) {
-    return null;
+ 
+  const logOutUser = () => {
+    app.currentUser.logOut();
   }
-  if (app.currentUser.identities[0].providerType === 'anon-user') {
-    return (
-      <View>
-        <Text>Welcome Guest</Text>
-      </View>
-    )
-  }
-  else {
+
   return (
     <View>
-      <Text>Welcome {app.currentUser.profile.name}</Text>
+      <HomeHeader />
+      <OvalButton text="Log Out" onPress={logOutUser} />
     </View>
   )
-  }
 }
 
 export default Home
