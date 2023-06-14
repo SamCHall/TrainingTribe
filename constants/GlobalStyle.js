@@ -22,6 +22,11 @@ const globalStyles = StyleSheet.create({
         color: COLORS.white,
         fontFamily: FONTS.regular,
     },
+    title: {
+        color: COLORS.white,
+        fontFamily: FONTS.bold,
+        fontSize: 30,
+    },
 });
 
 export default globalStyles;

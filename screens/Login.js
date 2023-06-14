@@ -83,6 +83,8 @@ const Login = ({ navigation }) => {
         
         <KeyboardAwareScrollView keyboardShouldPersistTaps={'always'} showsVerticalScrollIndicator={false} contentContainerStyle={globalStyles.container}>
             <StatusBar />
+                <Text style={[globalStyles.title]}>TrainingTribe</Text>
+                <Text style={[globalStyles.text]}>Image WIP</Text>
             <Collapsible collapsed={loginCollapsed} style={{}}>
             <View>
                 <TextInput style={[globalStyles.input, {alignSelf: "center"}]}  mode="outlined" placeholder="Email" placeholderTextColor={COLORS.gray} autoComplete="email" inputMode="email" onChangeText={(text) => setEmail(text)}/>
