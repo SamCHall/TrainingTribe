@@ -26,6 +26,8 @@ const Login = ({ navigation }) => {
     const [registerCollapsed, setRegisterCollapsed] = useState(true);
     const [loginCollapsed, setLoginCollapsed] = useState(false);
 
+    const TouchableText = registerCollapsed ? "Register here" : "Back to Login";
+
     const toggleRegisterExpanded = () => {
         setRegisterCollapsed(!registerCollapsed)
         setLoginCollapsed(true)
@@ -84,8 +86,8 @@ const Login = ({ navigation }) => {
         <KeyboardAwareScrollView keyboardShouldPersistTaps={'always'} showsVerticalScrollIndicator={false} contentContainerStyle={globalStyles.container}>
             <StatusBar />
                 <Text style={[globalStyles.title]}>TrainingTribe</Text>
-                <Text style={[globalStyles.text]}>Image WIP</Text>
-            <Collapsible collapsed={loginCollapsed} style={{}}>
+                <Text style={[globalStyles.text, {marginBottom: 10}]}>Image WIP</Text>
+            <Collapsible collapsed={loginCollapsed} align="bottom">
             <View>
                 <TextInput style={[globalStyles.input, {alignSelf: "center"}]}  mode="outlined" placeholder="Email" placeholderTextColor={COLORS.gray} autoComplete="email" inputMode="email" onChangeText={(text) => setEmail(text)}/>
                 <TextInput style={[globalStyles.input, {alignSelf: "center"}]} placeholder="Password" placeholderTextColor={COLORS.gray} onChangeText={(text) => setPassword(text)} secureTextEntry={true} />
@@ -94,12 +96,11 @@ const Login = ({ navigation }) => {
                     <OvalButton text="Log In as Guest" onPress={logInGuestUser} />
                 </View>
             </View>
+            <Text style={[globalStyles.text, {marginTop: 50, alignSelf:"center"}]}>Don't have an account?</Text>
             </Collapsible>
-           
 
-            <Text style={[globalStyles.text, {marginTop: 50}]}>Don't have an account?</Text>
             <TouchableOpacity onPress={toggleRegisterExpanded} style={{backgroundColor:COLORS.primary}}>
-                <Text style={[globalStyles.text, {color: COLORS.secondary, textDecorationLine: 'underline'}]}>Register here</Text>
+                <Text style={[globalStyles.text, {color: COLORS.secondary, textDecorationLine: 'underline'}]}>{TouchableText}</Text>
             </TouchableOpacity>
             <Collapsible collapsed={registerCollapsed} style={{backgroundColor: COLORS.primary}}>
                 <View>
