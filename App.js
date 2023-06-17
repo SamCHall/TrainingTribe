@@ -68,8 +68,6 @@ return (
             subs.add(Realm.objects('User'))
           }
         },
-        read: true,
-        write: true,
       }}>
        
           <App />
