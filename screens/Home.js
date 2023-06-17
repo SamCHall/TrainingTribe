@@ -6,7 +6,7 @@ import { HomeHeader, OvalButton } from '../components'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import Feed from './Feed'
-import Workouts from './Workouts'
+import Workouts from './Workouts/Workouts'
 import MyTribe from './MyTribe'
 import Account from './Account'
 import { COLORS } from '../constants'

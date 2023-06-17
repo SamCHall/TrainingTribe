@@ -63,6 +63,13 @@ return (
       <RealmProvider sync={{
         flexible: true,
         onError: console.error,
+        initialSubscriptions:{
+          update(subs, realm){
+            subs.add(Realm.objects('User'))
+          }
+        },
+        read: true,
+        write: true,
       }}>
        
           <App />

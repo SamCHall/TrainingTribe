@@ -3,6 +3,7 @@ import React from 'react'
 import { useApp } from '@realm/react'
 import { OvalButton } from '../components'
 import globalStyles from '../constants/GlobalStyle'
+import { StatusBar } from 'expo-status-bar'
 
 const Account = () => {
 
@@ -14,6 +15,7 @@ const Account = () => {
 
   return (
     <View style={globalStyles.container}>
+      <StatusBar/>
       <OvalButton text="Log Out" onPress={logOutUser} />
     </View>
   )
