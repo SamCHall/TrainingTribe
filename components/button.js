@@ -28,3 +28,25 @@ export const OvalButton = ({text, onPress, ...props}) => {
         </TouchableOpacity>
     )
 }
+
+export const TextButton = ({text, onPress, ...props}) => {
+    return(
+        <TouchableOpacity
+            style={{
+                backgroundColor: COLORS.primary,
+                margin: 10,
+                padding: 10,
+                justifyContent: 'center',
+                alignItems: 'center',
+                ...props
+            }}
+            onPress={onPress}
+            title={text}
+        >
+            <Text style={{
+                color: COLORS.secondary,
+                fontFamily: FONTS.bold,
+            }}>{text}</Text>
+        </TouchableOpacity>
+    )
+}

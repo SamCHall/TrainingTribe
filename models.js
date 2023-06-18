@@ -12,7 +12,7 @@ export class User extends Realm.Object {
   static schema = {
       name: 'User',
       properties: {
-        _id: 'objectId',
+        _id: 'string',
         username: 'string',
         email: 'string',
         workouts: 'Workout[]',
@@ -26,9 +26,10 @@ export class Workout extends Realm.Object {
     name: 'Workout',
     properties: {
       _id: 'objectId',
-      owner_id: 'objectId',
+      owner_id: 'string',
       name: 'string',
-      date: 'date',
+      date: {type: 'date', default: new Date()},
+      type: {type: 'string', default: 'undefined'},
       exercises: 'Exercise[]',
     },
     primaryKey: '_id',

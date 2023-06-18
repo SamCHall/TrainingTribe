@@ -1,3 +1,5 @@
+import Constants from "expo-constants";
+const { statusBarHeight } = Constants;
 
 export const COLORS = {
   primary: "#001F2D",
@@ -15,6 +17,7 @@ export const SIZES = {
   medium: 16,
   large: 18,
   extraLarge: 24,
+  statusBarHeight: statusBarHeight,
 };
 
 export const FONTS = {

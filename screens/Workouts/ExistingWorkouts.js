@@ -5,22 +5,17 @@ import { StatusBar } from 'expo-status-bar'
 import { OvalButton } from '../../components'
 import { useQuery, useRealm } from '../../models'
 import { FlatList } from 'react-native-gesture-handler'
-import { useApp } from '@realm/react'
+import { useApp, useUser } from '@realm/react'
+import WorkoutCard from '../../components/WorkoutCard'
 
 
 const ExistingWorkouts = ({ navigation }) => {
   const realm = useRealm()
-  const app = useApp()
+  const user = useUser()
   const getWorkouts = () => {
-    const workouts = useQuery('Workout')
+    const workouts = realm.objects('Workout').filtered('owner_id == $0', user.id)
     return workouts
   }
-  const getUsers = () => {
-    const users = realm.objects('User')
-    return users
-  }
-
-  console.log(getWorkouts())
 
   const handleNewWorkoutPress = () => {
     navigation.navigate('NewWorkout')
@@ -31,9 +26,8 @@ const ExistingWorkouts = ({ navigation }) => {
       
       <FlatList
         data={getWorkouts()}
-        renderItem={({ item }) => <Text style={globalStyles.text}>{item.name}</Text>}
+        renderItem={({ item }) => <WorkoutCard workout={item} />}
         keyExtractor={item => item._id}
-        style={{marginTop: 20}}
       />
       <OvalButton text='New Workout' onPress={handleNewWorkoutPress}/>
 

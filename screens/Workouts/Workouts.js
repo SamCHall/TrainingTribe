@@ -1,8 +1,4 @@
-import { View, Text } from 'react-native'
 import React from 'react'
-import globalStyles from '../../constants/GlobalStyle'
-import { StatusBar } from 'expo-status-bar'
-import { OvalButton } from '../../components'
 import { createStackNavigator } from '@react-navigation/stack'
 import ExistingWorkouts from './ExistingWorkouts'
 import NewWorkout from './NewWorkout'

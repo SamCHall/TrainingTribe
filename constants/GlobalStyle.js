@@ -1,12 +1,11 @@
 import { StyleSheet } from "react-native";
-import { COLORS, FONTS, SHADOWS } from "./theme";
+import { COLORS, FONTS, SHADOWS, SIZES } from "./theme";
 
 const globalStyles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: COLORS.primary,
-        alignItems: 'center',
-        justifyContent: 'center',
+        marginTop: SIZES.statusBarHeight,
     },
     input: {
         width: 250,
@@ -26,6 +25,16 @@ const globalStyles = StyleSheet.create({
         color: COLORS.white,
         fontFamily: FONTS.bold,
         fontSize: 30,
+    },
+    subTitle: {
+        color: COLORS.white,
+        fontFamily: FONTS.bold,
+        fontSize: 20,
+    },
+    h3: {
+        color: COLORS.white,
+        fontFamily: FONTS.bold,
+        fontSize: 15,
     },
 });
 
