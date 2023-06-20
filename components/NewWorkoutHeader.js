@@ -10,7 +10,7 @@ import { Alert } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
 
-const NewWorkoutHeader = () => {
+const NewWorkoutHeader = ({onFinishWorkout, WorkoutData}) => {
     const realm = useRealm()
     const app = useApp()
     const user = useUser()
@@ -97,7 +97,7 @@ const NewWorkoutHeader = () => {
         <View style={{
             alignItems: 'flex-end'
         }}>
-            <TextButton text='Finish' onPress={handleAddWorkoutPress}/>
+            <TextButton text='Finish' onPress={onFinishWorkout}/>
         </View>
         
     </View>

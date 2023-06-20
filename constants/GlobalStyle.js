@@ -43,6 +43,38 @@ const globalStyles = StyleSheet.create({
         fontFamily: FONTS.bold,
         fontSize: 15,
     },
+    modalContainer: {
+        flex: 1,
+        backgroundColor: COLORS.primary,
+        borderRadius: 20,
+        padding: 20,
+        marginTop: 100,
+        marginBottom: 100,
+        margin: 20,
+        ...SHADOWS.medium,
+    },
+    exerciseItemText: {
+        color: COLORS.white,
+        fontFamily: FONTS.regular
+    },
+    exerciseItem: {
+        padding: 10,
+        margin: 10,
+        borderRadius: 10,
+        backgroundColor: COLORS.primary,
+        justifyContent: 'center',
+        alignItems: 'center',
+        ...SHADOWS.light,
+    },
+    smallInput: {
+        width: 100,
+        height: 50,
+        margin: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: COLORS.white,
+        color: COLORS.white,
+        fontFamily: FONTS.regular,
+    },
 });
 
 export default globalStyles;
