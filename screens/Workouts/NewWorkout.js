@@ -2,10 +2,11 @@ import { View, Text } from 'react-native'
 import React, { useEffect } from 'react'
 import globalStyles from '../../constants/GlobalStyle'
 import { StatusBar } from 'expo-status-bar'
-import { ExerciseCard, OvalButton, TextButton } from '../../components'
+import { ExerciseCard, OvalButton, TextButton, NewWorkoutHeader } from '../../components'
 import { useQuery, useRealm } from '../../models'
 import { useApp, useUser } from '@realm/react'
 import { FlatList } from 'react-native-gesture-handler'
+
 
 import { SIZES } from '../../constants'
 
@@ -67,23 +68,12 @@ const NewWorkout = ({navigation}) => {
 
     <View style={globalStyles.container}>
       <StatusBar/>
-      <View style={{
-        height: 65,
-        width: '100%',
-        alignItems: 'flex-end'
-      }}>
-        <TextButton text='Add Workout' onPress={handleAddWorkoutPress}/>
-      </View>
-      <View style={{
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-        <Text style={globalStyles.subTitle}>Workout Name</Text>
-      </View>
+      <NewWorkoutHeader/>
       <FlatList
         data={exercises}
         renderItem={({ item }) => <ExerciseCard exercise={item}  />}
         keyExtractor={item => item._id}
+        StickyHeaderComponent={<NewWorkoutHeader/>}
       />
       <View>
         {/* need to add route to pick an exercise from a list of predefined exercises */}

@@ -83,7 +83,7 @@ const Login = ({ navigation }) => {
     
     return (
         
-        <KeyboardAwareScrollView keyboardShouldPersistTaps={'always'} showsVerticalScrollIndicator={false} contentContainerStyle={globalStyles.container}>
+        <KeyboardAwareScrollView keyboardShouldPersistTaps={'always'} showsVerticalScrollIndicator={false} contentContainerStyle={globalStyles.centeredContainer}>
             <StatusBar />
                 <Text style={[globalStyles.title]}>TrainingTribe</Text>
                 <Text style={[globalStyles.text, {marginBottom: 10}]}>Image WIP</Text>

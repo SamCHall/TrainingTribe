@@ -7,6 +7,13 @@ const globalStyles = StyleSheet.create({
         backgroundColor: COLORS.primary,
         marginTop: SIZES.statusBarHeight,
     },
+    centeredContainer: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: COLORS.primary,
+        marginTop: SIZES.statusBarHeight,
+    },
     input: {
         width: 250,
         height: 50,
