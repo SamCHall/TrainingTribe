@@ -17,6 +17,7 @@
       "bundleIdentifier": "com.samchall.TrainingTribe"
     },
     "android": {
+      "windowSoftInputMode": "adjustResize",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"

@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { View, Text, Modal, TouchableOpacity } from 'react-native';
+import React, { useRef, useState, useEffect } from 'react';
+import { View, Text, Modal, TouchableOpacity, FlatList, KeyboardAvoidingView, Platform } from 'react-native';
 import { COLORS, SIZES } from '../../constants';
 import globalStyles from '../../constants/GlobalStyle';
-import { FlatList } from 'react-native-gesture-handler';
 import Collapsible from 'react-native-collapsible';
 import { useQuery, useRealm } from '../../models';
 import { useApp, useUser } from '@realm/react';
 import { CustomStatusBar, ExerciseCard, NewWorkoutHeader, TextButton } from '../../components';
+import { exerciseList } from '../../constants/exerciseList';
 
 const NewWorkout = ({ navigation }) => {
   const realm = useRealm();
@@ -29,20 +29,66 @@ const NewWorkout = ({ navigation }) => {
     setModalVisible(false);
   };
 
-  const handleAddExerciseSet = (exercise, sets) => {
+  const handleAdjustedExercise = (index, adjustedExerciseData) => {
     setWorkoutData((prevData) => {
-      const updatedData = prevData.map((data) => {
-        if (data.exercise === exercise) {
-          return { ...data, sets };
-        }
-        return data;
-      });
-      return updatedData;
+      const newData = [...prevData];
+      newData[index] = adjustedExerciseData;
+      return newData;
     });
   };
 
+  const workoutId = Realm.BSON.ObjectId();
+  const saveWorkoutData  = async () => {
+    console.log(user.id)
+    realm.write(() => {
+      const workout = realm.create('Workout', {
+        _id: workoutId,
+        owner_id: user.id,
+        name: 'Workout Name',
+        date: new Date(),
+        type: 'Workout Type',
+        exercises: workoutData.map((exerciseData) => {
+          const exercise = realm.create('Exercise', {
+            _id: Realm.BSON.ObjectId(),
+            name: exerciseData.exercise.name,
+            type: exerciseData.exercise.type,
+          });
+  
+          const sets = exerciseData.sets.map((set) =>
+            realm.create('Set', {
+              _id: Realm.BSON.ObjectId(),
+              weight: set.weight,
+              reps: set.reps,
+            })
+          );
+  
+          exercise.sets = sets;
+  
+          return exercise;
+        }),
+      });
+  
+     
+      
+  
+    });
+    const customDataCollection = user.mongoClient("mongodb-atlas").db("todo").collection("User");
+    const filter = {_id: user.id};
+    const update = {
+      $push: {
+        workouts: workoutId,
+        }
+      }
+      await customDataCollection.updateOne(filter, update);
+      await user.refreshCustomData();
+      await realm.syncSession.uploadAllLocalChanges();
+      navigation.replace('ExistingWorkouts')
+  };
+  
+  
+
   const handleFinishWorkout = () => {
-    console.log(workoutData);
+    saveWorkoutData();
   };
 
   const categoryHandler = (category) => {
@@ -78,83 +124,86 @@ const NewWorkout = ({ navigation }) => {
     { name: 'Cardio' },
     { name: 'Other' },
   ];
+  
 
-  const exerciseList = [
-    {
-      name: 'Bench Press',
-      type: 'Chest',
-    },
-    {
-      name: 'Squat',
-      type: 'Legs',
-    },
-    {
-      name: 'Deadlift',
-      type: 'Back',
-    },
-    {
-      name: 'Bicep Curl',
-      type: 'Arms',
-    },
-  ];
+  // Handling the scroll to input
+
+  const flatListRef = useRef(null);
+
+  const scrollToInput = (index) => {
+    if (flatListRef.current && index !== undefined) {
+      flatListRef.current.scrollToIndex({ index });
+    }
+  };
+
+  const renderExerciseCard = ({ item, index }) => (
+    <ExerciseCard onFocus={() => scrollToInput(index)} exercise={item} onAdjustedExercise={(adjustedExerciseData) => handleAdjustedExercise(index, adjustedExerciseData)}/>
+  );
+  
 
   return (
     <View style={globalStyles.container}>
       <CustomStatusBar />
-
       {/* Render the header with the finish workout button */}
       <NewWorkoutHeader onFinishWorkout={handleFinishWorkout} />
 
-      {/* Render the exercise cards */}
-      <FlatList
+      <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
+      >
+        <FlatList
+        ref={flatListRef}
         data={selectedExerciseList}
-        renderItem={({ item }) => (
-          <ExerciseCard exercise={item} onAddExerciseSet={handleAddExerciseSet} />
-        )}
-        keyExtractor={(item) => item.name}
-        ListEmptyComponent={() => (
-          <Text style={globalStyles.emptyListComponent}>No exercises added</Text>
-        )}
-      />
+        renderItem={renderExerciseCard}
+        keyExtractor={(item, index) => `${item.name}-${index}`}
+        ListEmptyComponent={() => <Text style={globalStyles.emptyListComponent}>No exercises added</Text>}
+        keyboardShouldPersistTaps="always"
+        contentContainerStyle={{ paddingBottom: 100 }}
+        />
+      </KeyboardAvoidingView>
+      {/* Render the exercise cards */}
+      
 
+      {/* Button to add a new exercise */}
       <View>
-        {/* Button to add a new exercise */}
         <TextButton text="Add Exercise" onPress={() => setModalVisible(true)} />
       </View>
 
       {/* Modal */}
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
         <View style={globalStyles.modalContainer}>
-          <Text style={globalStyles.subTitle}>Select an Exercise</Text>
+          
+          <Text style={[globalStyles.subTitle, { marginBottom: 10 }]}>Select an Exercise</Text>
           <FlatList
             data={categoryList}
             renderItem={({ item }) => (
               <View>
-                <TouchableOpacity
-                  style={globalStyles.exerciseItem}
-                  onPress={() => handleCollapse(item.name)}
-                >
+                <TouchableOpacity style={globalStyles.categoryItem} onPress={() => handleCollapse(item.name)}>
                   <Text style={globalStyles.exerciseItemText}>{item.name}</Text>
                 </TouchableOpacity>
 
                 <Collapsible collapsed={collapsed !== item.name} align="top">
-                  <FlatList
-                    data={categoryHandler(item.name)}
-                    renderItem={({ item }) => (
-                      <TouchableOpacity
-                        style={globalStyles.exerciseItem}
-                        onPress={() => handleSelectExercise(item)}
-                      >
-                        <Text style={globalStyles.exerciseItemText}>{item.name}</Text>
-                      </TouchableOpacity>
-                    )}
-                    keyExtractor={(item, index) => index.toString()}
-                  />
+                  <View style={globalStyles.collapsibleContainer}>
+                    <FlatList
+                      data={categoryHandler(item.name)}
+                      renderItem={({ item }) => (
+                        <TouchableOpacity
+                          style={globalStyles.exerciseItem}
+                          onPress={() => handleSelectExercise(item)}
+                        >
+                          <Text style={globalStyles.exerciseItemText}>{item.name}</Text>
+                        </TouchableOpacity>
+                      )}
+                      keyExtractor={(item, index) => index.toString()}
+                    />
+                  </View>
                 </Collapsible>
               </View>
             )}
             keyExtractor={(item, index) => index.toString()}
           />
+          <TextButton text="Close" onPress={() => setModalVisible(false)} />
         </View>
       </Modal>
     </View>

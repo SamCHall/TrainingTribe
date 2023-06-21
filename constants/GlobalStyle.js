@@ -37,6 +37,7 @@ const globalStyles = StyleSheet.create({
         color: COLORS.white,
         fontFamily: FONTS.bold,
         fontSize: 20,
+        alignSelf: 'center',
     },
     h3: {
         color: COLORS.white,
@@ -53,6 +54,21 @@ const globalStyles = StyleSheet.create({
         margin: 20,
         ...SHADOWS.medium,
     },
+    categoryItem: {
+        padding: 10,
+        backgroundColor: COLORS.primary,
+        borderColor: COLORS.secondary,
+        borderWidth: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    collapsibleContainer: {
+        backgroundColor: COLORS.primary,
+        borderColor: COLORS.secondary,
+        borderLeftWidth: 1,
+        borderRightWidth: 1,
+        
+    },
     exerciseItemText: {
         color: COLORS.white,
         fontFamily: FONTS.regular
@@ -67,14 +83,32 @@ const globalStyles = StyleSheet.create({
         ...SHADOWS.light,
     },
     smallInput: {
-        width: 100,
+        width: 75,
         height: 50,
         margin: 10,
+        marginLeft:30,
+        marginRight:30,
         borderBottomWidth: 1,
         borderBottomColor: COLORS.white,
         color: COLORS.white,
         fontFamily: FONTS.regular,
     },
+    bottomButtonContainer: {
+        position: 'absolute',
+        bottom: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+    },
+    emptyListComponent: {
+        flex: 1,
+        marginTop: 300,
+        marginBottom: 300,
+        alignSelf: 'center',
+        color: COLORS.white,
+        fontFamily: FONTS.regular,
+    },
+
 });
 
 export default globalStyles;

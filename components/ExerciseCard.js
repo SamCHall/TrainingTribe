@@ -6,12 +6,17 @@ import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { TextButton } from './button';
 import WeightRepInput from './WeightRepInput';
 
-const ExerciseCard = ({ exercise, onAddExerciseSet }) => {
+const ExerciseCard = ({ exercise, onAdjustedExercise, onFocus }) => {
   const [setNumber, setSetNumber] = useState(1);
-  const [weightReps, setWeightReps] = useState([]);
+  const [weightReps, setWeightReps] = useState([{ weight: '', reps: ''}]);
 
   const handleAddSet = () => {
     setSetNumber((prevNumber) => prevNumber + 1);
+    setWeightReps((prevWeightReps) => [...prevWeightReps, { weight: '', reps: '' }]);
+  };
+
+  onchangeWeightReps = () => {
+    handleAdjustedExercise();
   };
 
   const handleWeightChange = (setIndex, weight) => {
@@ -20,6 +25,7 @@ const ExerciseCard = ({ exercise, onAddExerciseSet }) => {
       updatedWeightReps[setIndex].weight = weight;
       return updatedWeightReps;
     });
+    handleAdjustedExercise();
   };
 
   const handleRepChange = (setIndex, reps) => {
@@ -28,6 +34,7 @@ const ExerciseCard = ({ exercise, onAddExerciseSet }) => {
       updatedWeightReps[setIndex].reps = reps;
       return updatedWeightReps;
     });
+    handleAdjustedExercise();
   };
 
   const renderWeightRepInputs = () => {
@@ -37,18 +44,18 @@ const ExerciseCard = ({ exercise, onAddExerciseSet }) => {
         <WeightRepInput
           key={i}
           number={i + 1}
-          weight={weightReps[i]?.weight}
-          reps={weightReps[i]?.reps}
           onWeightChange={(weight) => handleWeightChange(i, weight)}
           onRepChange={(reps) => handleRepChange(i, reps)}
+          onFocus={onFocus}
         />
       );
     }
     return inputs;
   };
 
-  const handleFinishExercise = () => {
-    onAddExerciseSet(exercise, weightReps);
+  const handleAdjustedExercise = () => {
+    const exerciseData = {exercise: exercise, sets: weightReps};
+    onAdjustedExercise(exerciseData);
   };
 
   return (
@@ -63,7 +70,7 @@ const ExerciseCard = ({ exercise, onAddExerciseSet }) => {
         ...SHADOWS.medium,
       }}
     >
-      <Text style={globalStyles.h3}>{exercise.name}</Text>
+      <Text style={[globalStyles.h3, {marginTop:10}]}>{exercise.name}</Text>
 
       {/* Render weight and rep inputs */}
       {renderWeightRepInputs()}

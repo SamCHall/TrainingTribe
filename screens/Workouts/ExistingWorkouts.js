@@ -15,7 +15,7 @@ const ExistingWorkouts = ({ navigation }) => {
   const user = useUser()
 
   const getWorkouts = () => {
-    const workouts = realm.objects('Workout').filtered('owner_id == $0', user.id)
+    const workouts = realm.objects('Workout').filtered('owner_id == $0', user.id).sorted('date', true)
     return workouts
   }
   
@@ -30,7 +30,10 @@ const ExistingWorkouts = ({ navigation }) => {
         renderItem={({ item }) => <WorkoutCard workout={item} />}
         keyExtractor={item => item._id}
       />
-      <OvalButton text='New Workout' onPress={handleNewWorkoutPress}/>
+      <View style={globalStyles.bottomButtonContainer}>
+         <OvalButton text='New Workout' onPress={handleNewWorkoutPress}/>
+      </View>
+     
 
     </View>
   )

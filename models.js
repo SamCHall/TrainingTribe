@@ -42,6 +42,7 @@ export class Exercise extends Realm.Object {
     properties: {
       _id: 'objectId',
       name: 'string',
+      type: 'string',
       sets: 'Set[]',
     },
     primaryKey: '_id',
@@ -66,3 +67,4 @@ export const {useRealm, useQuery, RealmProvider, useObject} = createRealmContext
     schema: [User.schema, Workout.schema, Exercise.schema, Set.schema],
     schemaVersion: 1,
   });
+  

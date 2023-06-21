@@ -13,7 +13,7 @@ const Account = () => {
     }
 
   return (
-    <View style={globalStyles.container}>
+    <View style={globalStyles.centeredContainer}>
       <CustomStatusBar />
       <OvalButton text="Log Out" onPress={logOutUser} />
     </View>

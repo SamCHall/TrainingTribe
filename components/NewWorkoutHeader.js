@@ -25,13 +25,6 @@ const NewWorkoutHeader = ({onFinishWorkout, WorkoutData}) => {
       })
     }
   
-    useEffect(() => {
-      realm.subscriptions.update((mutableSubs, realm) => {
-        const workouts = realm.objects('Workout')
-        mutableSubs.add(workouts)
-      })
-    }, [])
-  
     const handleAddWorkoutPress = async () => {
       
       

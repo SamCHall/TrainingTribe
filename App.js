@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -7,11 +7,12 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useFonts } from 'expo-font';
 
 import { RealmProvider } from "./models";
-
+import { useRealm } from "./models";
 import Home from './screens/Home';
 import Login from './screens/Login';
 import { AppProvider, UserProvider } from '@realm/react';
-;
+
+
 
 
 const Stack = createStackNavigator();
@@ -25,6 +26,22 @@ const theme = {
 };
 
 function App() {
+
+  const realm = useRealm()
+
+  useEffect(() => {
+    realm.subscriptions.update((mutableSubs, realm) => {
+      mutableSubs.add(realm.objects('Exercise'))
+      mutableSubs.add(realm.objects('Workout'))
+      mutableSubs.add(realm.objects('User'))
+      mutableSubs.add(realm.objects('Set'))
+    
+    })
+  }, [])
+
+    console.log(realm.subscriptions)
+
+
 
   const [loaded] = useFonts({
     'Roboto-Regular': require('./assets/fonts/Roboto-Regular.ttf'),
@@ -63,11 +80,6 @@ return (
       <RealmProvider sync={{
         flexible: true,
         onError: console.error,
-        initialSubscriptions:{
-          update(subs, realm){
-            subs.add(Realm.objects('User'))
-          }
-        },
       }}>
        
           <App />

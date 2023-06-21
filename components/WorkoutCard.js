@@ -31,13 +31,15 @@ const WorkoutCard = ({ workout }) => {
                     <Text style={globalStyles.text}>{workout.type}</Text>
                     <Text style={globalStyles.text}>{(workout.date).toDateString()}</Text>
                 </View>
-            <Text>
+            <View
+            style={{flex:1}}
+            >
                 {topExercises.map((exercise) => {
                     return (
-                        <Text style={globalStyles.text}>{exercise.name}</Text>
+                        <Text style={globalStyles.text}>{exercise.name}     {exercise.sets.length} sets</Text>
                     )
                 })}
-            </Text>
+            </View>
         </View>
       
         
