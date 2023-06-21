@@ -1,13 +1,13 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import globalStyles from '../constants/GlobalStyle'
-import { StatusBar } from 'expo-status-bar'
+import { CustomStatusBar } from '../components'
 
 const MyTribe = () => {
   return (
 
-    <View style={globalStyles.container}>
-      <StatusBar/>
+    <View style={globalStyles.centeredContainer}>
+      <CustomStatusBar />
       <Text style={globalStyles.text}>MyTribe</Text>
     </View>
   )

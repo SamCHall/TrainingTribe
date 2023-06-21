@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { View, Text, Modal, TouchableOpacity } from 'react-native';
 import { COLORS, SIZES } from '../../constants';
 import globalStyles from '../../constants/GlobalStyle';
-import { StatusBar } from 'expo-status-bar';
 import { FlatList } from 'react-native-gesture-handler';
 import Collapsible from 'react-native-collapsible';
 import { useQuery, useRealm } from '../../models';
 import { useApp, useUser } from '@realm/react';
-import { ExerciseCard, NewWorkoutHeader, TextButton } from '../../components';
+import { CustomStatusBar, ExerciseCard, NewWorkoutHeader, TextButton } from '../../components';
 
 const NewWorkout = ({ navigation }) => {
   const realm = useRealm();
@@ -101,7 +100,7 @@ const NewWorkout = ({ navigation }) => {
 
   return (
     <View style={globalStyles.container}>
-      <StatusBar />
+      <CustomStatusBar />
 
       {/* Render the header with the finish workout button */}
       <NewWorkoutHeader onFinishWorkout={handleFinishWorkout} />

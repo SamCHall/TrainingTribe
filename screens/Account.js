@@ -1,9 +1,8 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import { useApp } from '@realm/react'
-import { OvalButton } from '../components'
+import { CustomStatusBar, OvalButton } from '../components'
 import globalStyles from '../constants/GlobalStyle'
-import { StatusBar } from 'expo-status-bar'
 
 const Account = () => {
 
@@ -15,7 +14,7 @@ const Account = () => {
 
   return (
     <View style={globalStyles.container}>
-      <StatusBar/>
+      <CustomStatusBar />
       <OvalButton text="Log Out" onPress={logOutUser} />
     </View>
   )

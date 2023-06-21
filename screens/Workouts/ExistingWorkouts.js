@@ -1,8 +1,7 @@
 import { View, Text } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import globalStyles from '../../constants/GlobalStyle'
-import { StatusBar } from 'expo-status-bar'
-import { OvalButton } from '../../components'
+import { CustomStatusBar, OvalButton } from '../../components'
 import { useQuery, useRealm } from '../../models'
 import { FlatList, RefreshControl } from 'react-native-gesture-handler'
 import { useApp, useUser } from '@realm/react'
@@ -14,7 +13,6 @@ const ExistingWorkouts = ({ navigation }) => {
   
   const realm = useRealm()
   const user = useUser()
-  const [refreshing, setRefreshing] = useState(false)
 
   const getWorkouts = () => {
     const workouts = realm.objects('Workout').filtered('owner_id == $0', user.id)
@@ -26,7 +24,7 @@ const ExistingWorkouts = ({ navigation }) => {
   }
   return (
     <View style={globalStyles.container}>
-      <StatusBar/>
+      <CustomStatusBar />
       <FlatList
         data={getWorkouts()}
         renderItem={({ item }) => <WorkoutCard workout={item} />}

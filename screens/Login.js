@@ -1,7 +1,7 @@
 import { useApp } from "@realm/react";
 import { Text, View, TouchableOpacity } from "react-native";
 import Realm from "realm";
-import { OvalButton } from "../components";
+import { OvalButton, CustomStatusBar } from "../components";
 import { TextInput } from "react-native-gesture-handler";
 import React, { useState } from "react";
 import { Alert } from "react-native";
@@ -9,7 +9,6 @@ import globalStyles from "../constants/GlobalStyle";
 import { COLORS } from "../constants";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Collapsible from "react-native-collapsible";
-import { StatusBar } from "expo-status-bar";
 
 
 
@@ -84,7 +83,7 @@ const Login = ({ navigation }) => {
     return (
         
         <KeyboardAwareScrollView keyboardShouldPersistTaps={'always'} showsVerticalScrollIndicator={false} contentContainerStyle={globalStyles.centeredContainer}>
-            <StatusBar />
+            <CustomStatusBar/>
                 <Text style={[globalStyles.title]}>TrainingTribe</Text>
                 <Text style={[globalStyles.text, {marginBottom: 10}]}>Image WIP</Text>
             <Collapsible collapsed={loginCollapsed} align="bottom">
