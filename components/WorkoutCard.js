@@ -30,6 +30,7 @@ const WorkoutCard = ({ workout }) => {
         justifyContent: 'center',
         alignItems: 'center',
         ...SHADOWS.medium,
+        padding: SIZES.base,
     }}>
         <View style={{
             width: 350,
