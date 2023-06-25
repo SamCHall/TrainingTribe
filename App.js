@@ -11,6 +11,7 @@ import { useRealm } from "./models";
 import Home from './screens/Home';
 import Login from './screens/Login';
 import { AppProvider, UserProvider } from '@realm/react';
+import 'react-native-get-random-values'
 
 
 

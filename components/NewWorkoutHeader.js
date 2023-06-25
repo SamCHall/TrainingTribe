@@ -5,10 +5,16 @@ import { useApp, useUser } from '@realm/react'
 import { useQuery, useRealm } from '../models'
 import { useEffect } from 'react'
 import globalStyles from '../constants/GlobalStyle'
-import { COLORS } from '../constants'
+import { COLORS, SIZES } from '../constants'
 import { Alert } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-
+import { Modal } from 'react-native'
+import { useState } from 'react'
+import { TextInput } from 'react-native-gesture-handler'
+import SelectDropdown from 'react-native-select-dropdown'
+import 'react-native-get-random-values'
+import { KeyboardAvoidingView } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 const NewWorkoutHeader = ({onFinishWorkout, WorkoutData}) => {
     const realm = useRealm()
@@ -17,45 +23,10 @@ const NewWorkoutHeader = ({onFinishWorkout, WorkoutData}) => {
     const workouts = useQuery('Workout')
     const exercises = useQuery('Exercise')
     const navigation = useNavigation()
-  
-    function OnChange(workouts, changes) {
-      changes.insertions.forEach(index => {
-        console.log(`Inserted at position ${index}`)
-        const newWorkout = workouts[index]
-      })
-    }
-  
-    const handleAddWorkoutPress = async () => {
-      
-      
-      const workoutId = Realm.BSON.ObjectId();
-      
-      
-      realm.write(() => {
-        realm.create('Workout', {
-          _id: workoutId,
-          name: 'New Workout',
-          owner_id: user.id,
-          type: 'Strength',
-          date: new Date(),
-          exercises: [],
-        })
-      })
-      workouts.addListener(OnChange)
-  
-      const customDataCollection = user.mongoClient("mongodb-atlas").db("todo").collection("User");
-      const filter = {_id: user.id};
-      const update = {
-        $push: {
-          workouts: workoutId,
-          }
-        }
-      await customDataCollection.updateOne(filter, update);
-      await user.refreshCustomData();
-      await realm.syncSession.uploadAllLocalChanges();
-      navigation.replace('ExistingWorkouts')
-  
-    };
+
+    const [modalVisible, setModalVisible] = useState(false)
+    const [workoutName, setWorkoutName] = useState('')
+    const [workoutType, setWorkoutType] = useState('')
 
   return (
     <View style={{
@@ -90,9 +61,66 @@ const NewWorkoutHeader = ({onFinishWorkout, WorkoutData}) => {
         <View style={{
             alignItems: 'flex-end'
         }}>
-            <TextButton text='Finish' onPress={onFinishWorkout}/>
+            <TextButton text='Finish' onPress={() => {setModalVisible(true)}}/>
         </View>
-        
+        <Modal animationType="slide" visible={modalVisible} transparent={true}>
+            <View style={globalStyles.outerModalContainer}>
+              <View style={globalStyles.innerModalContainer}>
+              
+                <Text style={globalStyles.subTitle}>Finish Workout</Text>
+                <View style={{flexDirection: 'row', alignItems:'center'}}>
+                  <Text style={[globalStyles.text]}>Workout Name:</Text><TextInput style={[globalStyles.input, {width: 150}]} placeholder='Workout Name' placeholderTextColor={COLORS.gray} onChangeText={(text) => (setWorkoutName(text))}/>
+                </View>
+                <View style={{flexDirection:'row', alignItems:'center'}}>
+                  <Text style={[globalStyles.text]}>Workout Type:</Text>
+                  <SelectDropdown
+                    showsVerticalScrollIndicator={true}
+                  
+                    dropdownStyle={{width: 150, height: 250, backgroundColor: COLORS.primary, borderColor: COLORS.secondary, borderWidth: 1, borderRadius: 10}}
+                    rowTextStyle={[globalStyles.text, {fontSize: SIZES.small}]}
+                    dropdownOverlayColor='transparent'
+                    buttonStyle={{width: 150, height: 50, backgroundColor: COLORS.primary, borderColor: COLORS.secondary, borderWidth: 1, borderRadius: 10, alignItems: 'center', justifyContent: 'center', margin: 10, marginRight: 15}}
+                    buttonTextStyle={[globalStyles.text, {fontSize: SIZES.small}]}
+                    defaultButtonText='Select Workout Type'
+                    data={['Push', 'Pull', 'Legs', 'Core', 'Cardio', 'Upper', 'Lower', 'Push/Pull', 'Push/Pull/Legs', 'Upper/Lower', 'Full Body', 'Other']}
+                    onSelect={(selectedItem, index) => {
+                        setWorkoutType(selectedItem)
+                    }}
+                    buttonTextAfterSelection={(selectedItem, index) => {
+                        return selectedItem
+                    }}
+                    rowTextForSelection={(item, index) => {
+                        return item
+                    }}
+                />
+                </View>
+                <View style={{flexDirection: 'row', justifyContent:'space-between', marginTop: 20}}>
+                <TextButton text='Cancel' onPress={() => setModalVisible(false)}/>
+                <TextButton text='Finish' onPress={() => {
+                  if (workoutName == '' || workoutType == ''){
+                    Alert.alert('Error', 'Please fill out all fields')
+                    return
+                  }
+                    Alert.alert('Finish Workout', 'Are you sure you want to finish this workout?',
+                    [
+                        {
+                            text: 'Yes',
+                            onPress: () => {
+                                onFinishWorkout(workoutName, workoutType)
+                                setModalVisible(false)
+                            }
+                        },
+                        {
+                            text: 'No',
+                        }
+                    ]
+                    )
+
+                }}/>  
+                </View>
+                </View>
+            </View>
+        </Modal>
     </View>
   )
 }

@@ -44,14 +44,18 @@ const globalStyles = StyleSheet.create({
         fontFamily: FONTS.bold,
         fontSize: 15,
     },
-    modalContainer: {
+    outerModalContainer: {
         flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor:'#00000080'
+    },
+    innerModalContainer: {
+        width: 300,
+        height: 300,
         backgroundColor: COLORS.primary,
         borderRadius: 20,
         padding: 20,
-        marginTop: 100,
-        marginBottom: 100,
-        margin: 20,
         ...SHADOWS.medium,
     },
     categoryItem: {

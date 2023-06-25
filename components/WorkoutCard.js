@@ -2,11 +2,25 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import {COLORS, FONTS, SHADOWS, SIZES} from '../constants'
 import globalStyles from '../constants/GlobalStyle'
+import { OvalButton } from './button'
 
 
 const WorkoutCard = ({ workout }) => {
-    const topExercises = workout.exercises.slice(0, 3)
-   
+    const totalVolume = (exercise) => {
+        let volume = 0
+        exercise.sets.forEach((set) => {
+            volume += set.reps * set.weight
+        })
+        return volume
+    }
+    const totalWorkoutVolume = (workout) => {
+        let volume = 0
+        workout.exercises.forEach((exercise) => {
+            volume += totalVolume(exercise)
+        })
+        return volume
+    }
+
   return (
     <View style={{
         backgroundColor: COLORS.primary,
@@ -19,7 +33,7 @@ const WorkoutCard = ({ workout }) => {
     }}>
         <View style={{
             width: 350,
-            height: 100,
+            height: 190,
             padding: SIZES.base
         }}>
             <Text style={[globalStyles.subTitle, {alignSelf:'center', marginBottom: 5}]}>{workout.name}</Text>
@@ -31,15 +45,20 @@ const WorkoutCard = ({ workout }) => {
                     <Text style={globalStyles.text}>{workout.type}</Text>
                     <Text style={globalStyles.text}>{(workout.date).toDateString()}</Text>
                 </View>
-            <View
-            style={{flex:1}}
-            >
-                {topExercises.map((exercise) => {
-                    return (
-                        <Text style={globalStyles.text}>{exercise.name}     {exercise.sets.length} sets</Text>
-                    )
-                })}
+           
+            <View style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginTop: 5,
+            }}>
+                <Text style={globalStyles.text}>Exercises: {workout.exercises.length}</Text>
+                <Text style={globalStyles.text}>Sets: {workout.exercises.reduce((a, b) => a + b.sets.length, 0)}</Text>
+                </View> 
+            <View style={{flex:1}}>
+                <Text style={[globalStyles.text, {alignSelf:'center', marginTop: 5}]}>Total Volume: {totalWorkoutVolume(workout)} kg</Text>
             </View>
+            <OvalButton text='View Workout' onPress={() => console.log('View Workout Pressed')}/>
         </View>
       
         

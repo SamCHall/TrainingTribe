@@ -7,6 +7,7 @@ import { useQuery, useRealm } from '../../models';
 import { useApp, useUser } from '@realm/react';
 import { CustomStatusBar, ExerciseCard, NewWorkoutHeader, TextButton } from '../../components';
 import { exerciseList } from '../../constants/exerciseList';
+import 'react-native-get-random-values';
 
 const NewWorkout = ({ navigation }) => {
   const realm = useRealm();
@@ -38,15 +39,15 @@ const NewWorkout = ({ navigation }) => {
   };
 
   const workoutId = Realm.BSON.ObjectId();
-  const saveWorkoutData  = async () => {
+  const saveWorkoutData  = async ({workoutName, workoutType}) => {
     console.log(user.id)
     realm.write(() => {
       const workout = realm.create('Workout', {
         _id: workoutId,
         owner_id: user.id,
-        name: 'Workout Name',
+        name: workoutName,
         date: new Date(),
-        type: 'Workout Type',
+        type: workoutType,
         exercises: workoutData.map((exerciseData) => {
           const exercise = realm.create('Exercise', {
             _id: Realm.BSON.ObjectId(),
@@ -87,8 +88,8 @@ const NewWorkout = ({ navigation }) => {
   
   
 
-  const handleFinishWorkout = () => {
-    saveWorkoutData();
+  const handleFinishWorkout = (workoutName, workoutType) => {
+    saveWorkoutData({workoutName, workoutType});
   };
 
   const categoryHandler = (category) => {
@@ -172,38 +173,39 @@ const NewWorkout = ({ navigation }) => {
 
       {/* Modal */}
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
-        <View style={globalStyles.modalContainer}>
-          
-          <Text style={[globalStyles.subTitle, { marginBottom: 10 }]}>Select an Exercise</Text>
-          <FlatList
-            data={categoryList}
-            renderItem={({ item }) => (
-              <View>
-                <TouchableOpacity style={globalStyles.categoryItem} onPress={() => handleCollapse(item.name)}>
-                  <Text style={globalStyles.exerciseItemText}>{item.name}</Text>
-                </TouchableOpacity>
+        <View style={globalStyles.outerModalContainer}>
+          <View style={[globalStyles.innerModalContainer, {height: 500}]}>
+            <Text style={[globalStyles.subTitle, { marginBottom: 10 }]}>Select an Exercise</Text>
+            <FlatList
+              data={categoryList}
+              renderItem={({ item }) => (
+                <View>
+                  <TouchableOpacity style={globalStyles.categoryItem} onPress={() => handleCollapse(item.name)}>
+                    <Text style={globalStyles.exerciseItemText}>{item.name}</Text>
+                  </TouchableOpacity>
 
-                <Collapsible collapsed={collapsed !== item.name} align="top">
-                  <View style={globalStyles.collapsibleContainer}>
-                    <FlatList
-                      data={categoryHandler(item.name)}
-                      renderItem={({ item }) => (
-                        <TouchableOpacity
-                          style={globalStyles.exerciseItem}
-                          onPress={() => handleSelectExercise(item)}
-                        >
-                          <Text style={globalStyles.exerciseItemText}>{item.name}</Text>
-                        </TouchableOpacity>
-                      )}
-                      keyExtractor={(item, index) => index.toString()}
-                    />
-                  </View>
-                </Collapsible>
-              </View>
-            )}
-            keyExtractor={(item, index) => index.toString()}
-          />
-          <TextButton text="Close" onPress={() => setModalVisible(false)} />
+                  <Collapsible collapsed={collapsed !== item.name} align="top">
+                    <View style={globalStyles.collapsibleContainer}>
+                      <FlatList
+                        data={categoryHandler(item.name)}
+                        renderItem={({ item }) => (
+                          <TouchableOpacity
+                            style={globalStyles.exerciseItem}
+                            onPress={() => handleSelectExercise(item)}
+                          >
+                            <Text style={globalStyles.exerciseItemText}>{item.name}</Text>
+                          </TouchableOpacity>
+                        )}
+                        keyExtractor={(item, index) => index.toString()}
+                      />
+                    </View>
+                  </Collapsible>
+                </View>
+              )}
+              keyExtractor={(item, index) => index.toString()}
+            />
+            <TextButton text="Close" onPress={() => setModalVisible(false)} />
+          </View>
         </View>
       </Modal>
     </View>
