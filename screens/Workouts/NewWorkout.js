@@ -8,6 +8,7 @@ import { useApp, useUser } from '@realm/react';
 import { CustomStatusBar, ExerciseCard, NewWorkoutHeader, TextButton } from '../../components';
 import { exerciseList } from '../../constants/exerciseList';
 import 'react-native-get-random-values';
+import { Alert } from 'react-native';
 
 const NewWorkout = ({ navigation }) => {
   const realm = useRealm();
@@ -89,6 +90,10 @@ const NewWorkout = ({ navigation }) => {
   
 
   const handleFinishWorkout = (workoutName, workoutType) => {
+    if (workoutData.length === 0) {
+      Alert.alert('No exercises added', 'Please add at least one exercise to continue');
+      return;
+    }
     saveWorkoutData({workoutName, workoutType});
   };
 

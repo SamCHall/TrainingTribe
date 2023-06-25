@@ -44,7 +44,7 @@ const NewWorkoutHeader = ({onFinishWorkout, WorkoutData}) => {
             [
                 {
                     text: 'Yes',
-                    onPress: () => navigation.replace('Home')
+                    onPress: () => navigation.replace('ExistingWorkouts')
                 },
                 {
                     text: 'No',
@@ -99,6 +99,10 @@ const NewWorkoutHeader = ({onFinishWorkout, WorkoutData}) => {
                 <TextButton text='Finish' onPress={() => {
                   if (workoutName == '' || workoutType == ''){
                     Alert.alert('Error', 'Please fill out all fields')
+                    return
+                  }
+                  else if (workoutName.length > 20){
+                    Alert.alert('Error', 'Workout name must be less than 20 characters')
                     return
                   }
                     Alert.alert('Finish Workout', 'Are you sure you want to finish this workout?',
