@@ -3,9 +3,12 @@ import React from 'react'
 import {COLORS, FONTS, SHADOWS, SIZES} from '../constants'
 import globalStyles from '../constants/GlobalStyle'
 import { OvalButton } from './button'
+import { useNavigation } from '@react-navigation/native'
 
 
 const WorkoutCard = ({ workout }) => {
+    const navigation = useNavigation()
+
     const totalVolume = (exercise) => {
         let volume = 0
         exercise.sets.forEach((set) => {
@@ -59,7 +62,12 @@ const WorkoutCard = ({ workout }) => {
             <View style={{flex:1}}>
                 <Text style={[globalStyles.text, {alignSelf:'center', marginTop: 5}]}>Total Volume: {totalWorkoutVolume(workout)} kg</Text>
             </View>
-            <OvalButton text='View Workout' onPress={() => console.log('View Workout Pressed')}/>
+            <OvalButton text='View Workout' onPress={() => navigation.navigate('WorkoutDetails', {
+                name: workout.name,
+                type: workout.type,
+                date: (workout.date).toDateString(),
+                exercises: workout.exercises,
+                })}/>
         </View>
       
         

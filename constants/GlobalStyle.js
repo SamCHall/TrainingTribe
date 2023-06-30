@@ -14,6 +14,12 @@ const globalStyles = StyleSheet.create({
         backgroundColor: COLORS.primary,
         marginTop: SIZES.statusBarHeight,
     },
+    fullPageContainer: {
+        flex: 1,
+        backgroundColor: COLORS.primary,
+        marginTop: SIZES.statusBarHeight,
+        margin: SIZES.medium,
+    },
     input: {
         width: 250,
         height: 50,
