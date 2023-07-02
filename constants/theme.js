@@ -2,10 +2,11 @@ import Constants from "expo-constants";
 const { statusBarHeight } = Constants;
 
 export const COLORS = {
-  primary: "#001F2D",
-  secondary: "#ADD8E6",
+  primary: "#001C30",
+  secondary: "#64CCC5",
+  tertiary: "#176B87",
 
-  white: "#FFF",
+  white: "#DAFFFB",
   gray: "#74858C",
   darkgray: "#4D626C",
 };
@@ -31,7 +32,7 @@ export const FONTS = {
 
 export const SHADOWS = {
   light: {
-    shadowColor: COLORS.gray,
+    shadowColor: COLORS.tertiary,
     shadowOffset: {
       width: 0,
       height: 1,
@@ -42,7 +43,7 @@ export const SHADOWS = {
     elevation: 3,
   },
   medium: {
-    shadowColor: COLORS.gray,
+    shadowColor: COLORS.tertiary,
     shadowOffset: {
       width: 0,
       height: 3,
@@ -53,7 +54,7 @@ export const SHADOWS = {
     elevation: 7,
   },
   dark: {
-    shadowColor: COLORS.gray,
+    shadowColor: COLORS.tertiary,
     shadowOffset: {
       width: 0,
       height: 7,

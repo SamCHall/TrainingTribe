@@ -34,7 +34,7 @@ const NewWorkoutHeader = ({onFinishWorkout, WorkoutData}) => {
         justifyContent: 'space-between',
         alignItems: 'center',
         borderBottomWidth: 1,
-        borderBottomColor: COLORS.secondary,
+        borderBottomColor: COLORS.tertiary,
     }}>
         <View style={{
            

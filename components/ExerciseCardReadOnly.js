@@ -6,13 +6,10 @@ import globalStyles from '../constants/GlobalStyle';
 const ExerciseCardReadOnly = ({exercise}) => {
   const renderWeightRepInputs = () => {
     return exercise.sets.map((set, index) => (
-      <View key={index} style={{flexDirection:'row', width:'100%', justifyContent:'space-between', alignItems:'center', padding:20}}>
+      <View key={index} style={{flexDirection:'row', width:'100%', justifyContent:'space-around', alignItems:'center', paddingVertical: 20}}>
         <Text style={globalStyles.text}>{index + 1}</Text>
-        <View style={{flexDirection:'row', justifyContent:'space-between', width:'70%'}}>
-          <Text style={globalStyles.text}>Weight: {set.weight}kg</Text>
-          <Text style={globalStyles.text}>Reps: {set.reps}</Text>
-        </View>
-        
+        <Text style={globalStyles.text}>Weight: {set.weight}kg</Text>
+        <Text style={globalStyles.text}>Reps: {set.reps}</Text>
       </View>
     ));
   };
@@ -29,7 +26,10 @@ const ExerciseCardReadOnly = ({exercise}) => {
         ...SHADOWS.medium,
       }}
     >
-      <Text style={[globalStyles.subTitle, { marginTop: 10 }]}>{exercise.name}</Text>
+      <View style={{borderBottomWidth: 1, borderBottomColor: COLORS.tertiary, width: '100%', paddingVertical: 10}}>
+        <Text style={[globalStyles.subTitle]}>{exercise.name}</Text>
+      </View>
+      
 
       {/* Render weight and rep inputs */}
       {renderWeightRepInputs()}

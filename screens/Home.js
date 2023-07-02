@@ -21,11 +21,13 @@ const Home = () => {
       headerShown: false,
       tabBarStyle: {
         backgroundColor: COLORS.primary,
-        borderTopColor: COLORS.secondary,
+        borderTopColor: COLORS.tertiary,
         borderTopWidth: 1,
         height:60,
         paddingBottom: 5,
+        
       },
+      tabBarActiveTintColor: COLORS.tertiary,
       }}
       initialRouteName='Feed'
       sceneContainerStyle={{ backgroundColor: COLORS.primary}}
