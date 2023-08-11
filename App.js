@@ -10,6 +10,7 @@ import { RealmProvider } from "./models";
 import { useRealm } from "./models";
 import Home from './screens/Home';
 import Login from './screens/Login';
+import UsernameChooser from './screens/UsernameChooser';
 import { AppProvider, UserProvider } from '@realm/react';
 import 'react-native-get-random-values'
 
@@ -66,6 +67,7 @@ function App() {
         initialRouteName='Home'
       >
           <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="UsernameChooser" component={UsernameChooser} />
           <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
     </NavigationContainer>

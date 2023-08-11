@@ -16,6 +16,7 @@ export class User extends Realm.Object {
         username: 'string',
         email: 'string',
         workouts: 'Workout[]',
+        tribes: 'Tribe[]',
       },
       primaryKey: '_id',
     };
@@ -61,10 +62,24 @@ export class Set extends Realm.Object {
   };
 }
 
+export class Tribe extends Realm.Object {
+  static schema = {
+    name: 'Tribe',
+    properties: {
+      _id: 'objectId',
+      name: 'string',
+      description: 'string',
+      members: 'User[]',
+      level: {type: 'int', default: 1},
+      owner_id: 'string',
+    },
+    primaryKey: '_id',
+  };
+}
 
   // Create a configuration object
 export const {useRealm, useQuery, RealmProvider, useObject} = createRealmContext({
-    schema: [User.schema, Workout.schema, Exercise.schema, Set.schema],
+    schema: [User.schema, Workout.schema, Exercise.schema, Set.schema, Tribe.schema],
     schemaVersion: 1,
   });
   
