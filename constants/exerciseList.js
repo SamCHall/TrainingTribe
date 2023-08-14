@@ -131,4 +131,40 @@ export const exerciseList = [
         name: 'Dips',
         type: 'Arms',
     },       
+    {
+        name:'Outdoor Running',
+        type: 'Cardio',
+    },
+    {
+        name:'Cycling',
+        type: 'Cardio',
+    },
+    {
+        name:'Swimming',
+        type: 'Cardio',
+    },
+    {
+        name:'Treadmill',
+        type: 'Cardio',
+    },
+    {
+        name:'Elliptical',
+        type: 'Cardio',
+    },
+    {
+        name: 'Farmer\'s Walk',
+        type: 'Other',
+    },
+    {
+        name: 'Clean',
+        type: 'Other',
+    },
+    {
+        name: 'Snatch',
+        type: 'Other',
+    },
+    {
+        name: 'Kettlebell Swing',
+        type: 'Other',
+    },
 ];

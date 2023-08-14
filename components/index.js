@@ -5,5 +5,6 @@ import ExerciseCard from "./ExerciseCard";
 import NewWorkoutHeader from "./NewWorkoutHeader";
 import CustomStatusBar from "./CustomStatusBar";
 import ExerciseCardReadOnly from "./ExerciseCardReadOnly";
+import CardioInput from "./CardioInput";
 
-export { OvalButton, HomeHeader, TextButton, WorkoutCard, ExerciseCard, NewWorkoutHeader, CustomStatusBar, ExerciseCardReadOnly };
+export { OvalButton, HomeHeader, TextButton, WorkoutCard, ExerciseCard, NewWorkoutHeader, CustomStatusBar, ExerciseCardReadOnly, CardioInput };

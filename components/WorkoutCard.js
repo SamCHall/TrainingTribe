@@ -23,6 +23,19 @@ const WorkoutCard = ({ workout }) => {
         })
         return volume
     }
+    const renderCardio = (workout) => {
+        for(let i = 0; i < workout.exercises.length; i++){
+            if (workout.exercises[i].type === 'Cardio') {
+                return (
+                    <Text style={globalStyles.text}>Cardio: Yes</Text>
+                )
+            }
+        
+        }
+        return (
+                <Text style={globalStyles.text}>Cardio: No</Text>
+            )
+    }
 
   return (
     <View style={{
@@ -37,7 +50,7 @@ const WorkoutCard = ({ workout }) => {
     }}>
         <View style={{
             width: 350,
-            height: 190,
+            height: 210,
             padding: SIZES.base
         }}>
             <Text style={[globalStyles.subTitle, {alignSelf:'center', marginBottom: 5}]}>{workout.name}</Text>
@@ -58,7 +71,15 @@ const WorkoutCard = ({ workout }) => {
             }}>
                 <Text style={globalStyles.text}>Exercises: {workout.exercises.length}</Text>
                 <Text style={globalStyles.text}>Sets: {workout.exercises.reduce((a, b) => a + b.sets.length, 0)}</Text>
-                </View> 
+                </View>
+            <View style={{
+                marginTop: 5,
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexDirection: 'row',
+            }}>
+                {renderCardio(workout)}
+            </View>
             <View style={{flex:1}}>
                 <Text style={[globalStyles.text, {alignSelf:'center', marginTop: 5}]}>Total Volume: {totalWorkoutVolume(workout)} kg</Text>
             </View>

@@ -21,7 +21,7 @@ const WeightRepInput = ({number, onWeightChange, onRepChange, onFocus}) => {
         alignItems: 'center',
     }}>
       <Text style={[globalStyles.text, {marginRight:30}]}>{number}</Text>  
-      <TextInput style={globalStyles.smallInput} onFocus={onFocus} onChangeText={handleWeightChange} placeholder="Weight" placeholderTextColor={COLORS.gray} inputmode="Numeric" keyboardType="decimal-pad"/><Text style={[globalStyles.text, {position:'absolute', right:150}]}>kg</Text>
+      <TextInput style={globalStyles.smallInput} onFocus={onFocus} onChangeText={handleWeightChange} placeholder="Weight" placeholderTextColor={COLORS.gray} inputmode="Numeric" keyboardType="decimal-pad"/><Text style={[globalStyles.text, {position:'relative', right:25}]}>kg</Text>
       <TextInput style={globalStyles.smallInput} onFocus={onFocus} onChangeText={handleRepChange} placeholder="Reps" inputmode="Numeric" keyboardType="decimal-pad" placeholderTextColor={COLORS.gray} />
     </View>
   )

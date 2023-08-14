@@ -12,10 +12,8 @@ import { Alert } from 'react-native';
 
 const NewWorkout = ({ navigation }) => {
   const realm = useRealm();
-  const app = useApp();
   const user = useUser();
-  const workouts = useQuery('Workout');
-  const exercises = useQuery('Exercise');
+  const sortedExerciseList = exerciseList.sort((a, b) => a.name.localeCompare(b.name));
 
   const [selectedExerciseList, setSelectedExerciseList] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -100,23 +98,23 @@ const NewWorkout = ({ navigation }) => {
   const categoryHandler = (category) => {
     switch (category) {
       case 'Chest':
-        return exerciseList.filter((exercise) => exercise.type === 'Chest');
+        return sortedExerciseList.filter((exercise) => exercise.type === 'Chest');
       case 'Legs':
-        return exerciseList.filter((exercise) => exercise.type === 'Legs');
+        return sortedExerciseList.filter((exercise) => exercise.type === 'Legs');
       case 'Back':
-        return exerciseList.filter((exercise) => exercise.type === 'Back');
+        return sortedExerciseList.filter((exercise) => exercise.type === 'Back');
       case 'Arms':
-        return exerciseList.filter((exercise) => exercise.type === 'Arms');
+        return sortedExerciseList.filter((exercise) => exercise.type === 'Arms');
       case 'Shoulders':
-        return exerciseList.filter((exercise) => exercise.type === 'Shoulders');
+        return sortedExerciseList.filter((exercise) => exercise.type === 'Shoulders');
       case 'Core':
-        return exerciseList.filter((exercise) => exercise.type === 'Core');
+        return sortedExerciseList.filter((exercise) => exercise.type === 'Core');
       case 'Cardio':
-        return exerciseList.filter((exercise) => exercise.type === 'Cardio');
+        return sortedExerciseList.filter((exercise) => exercise.type === 'Cardio');
       case 'Other':
-        return exerciseList.filter((exercise) => exercise.type === 'Other');
+        return sortedExerciseList.filter((exercise) => exercise.type === 'Other');
       default:
-        return exerciseList;
+        return sortedExerciseList;
     }
   };
 

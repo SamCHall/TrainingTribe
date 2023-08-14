@@ -16,7 +16,7 @@ const HomeHeader = () => {
       else {
       return (
         <View>
-          <Text style={globalStyles.text}>Welcome {app.currentUser.profile.email}</Text>
+          <Text style={globalStyles.text}>Welcome {app.currentUser.customData.username}</Text>
         </View>
       )
 }

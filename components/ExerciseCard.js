@@ -5,6 +5,7 @@ import globalStyles from '../constants/GlobalStyle';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { TextButton } from './button';
 import WeightRepInput from './WeightRepInput';
+import CardioInput from './CardioInput';
 
 const ExerciseCard = ({ exercise, onAdjustedExercise, onFocus }) => {
   const [setNumber, setSetNumber] = useState(1);
@@ -72,11 +73,18 @@ const ExerciseCard = ({ exercise, onAdjustedExercise, onFocus }) => {
     >
       <Text style={[globalStyles.h3, {marginTop:10}]}>{exercise.name}</Text>
 
-      {/* Render weight and rep inputs */}
-      {renderWeightRepInputs()}
-
-      {/* Button to add a new set */}
-      <TextButton text="Add Set" onPress={handleAddSet} />
+      {exercise.type !== 'Cardio' && (
+      <>
+        {renderWeightRepInputs()}
+        <TextButton text="Add Set" onPress={handleAddSet} />
+      </>
+    )}
+    {exercise.type === 'Cardio' && (
+      <>
+      <CardioInput/>
+      </>
+        )
+          }
 
     </View>
   );
