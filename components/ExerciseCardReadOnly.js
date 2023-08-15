@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { COLORS, SIZES, SHADOWS } from '../constants';
 import globalStyles from '../constants/GlobalStyle';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const ExerciseCardReadOnly = ({exercise}) => {
   const renderWeightRepInputs = () => {
@@ -18,12 +19,28 @@ const ExerciseCardReadOnly = ({exercise}) => {
     return exercise.cardioTracking.map((set, index) => (
       <View style={{flexDirection:'row', width:'100%', justifyContent:'space-around', alignItems:'center'}}>
         <View style={{flexDirection:'column', paddingVertical: 20}}>
-          <Text style={[globalStyles.text, {paddingVertical:10}]}>Distance: {set.distance}km</Text>
-          <Text style={globalStyles.text}>Time: {set.time}min</Text>
+          <View style={{flexDirection:'row', paddingVertical: 10}}>
+            <Ionicons name="walk-outline" size={20} color={COLORS.tertiary} />
+            <Text style={[globalStyles.text, {paddingLeft:5}]}>Distance: {set.distance}km</Text>
+          </View>
+          
+          <View style={{flexDirection:'row'}}>
+            <Ionicons name="timer-outline" size={20} color={COLORS.tertiary} />
+            <Text style={[globalStyles.text, {paddingLeft:5}]}>Time: {set.time}min</Text>
+          </View>
+          
         </View>
         <View style={{flexDirection:'column',paddingVertical: 20}}>
-          <Text style={[globalStyles.text, {paddingVertical:10}]}>Speed: {set.speed}km/h</Text>
-          <Text style={globalStyles.text}>Elevation: {set.elevation}%</Text>
+          <View style={{flexDirection:'row', paddingVertical: 10}}>
+            <Ionicons name="speedometer-outline" size={20} color={COLORS.tertiary} />
+            <Text style={[globalStyles.text, {paddingLeft:5}]}>Speed: {set.speed}km/h</Text>
+          </View>
+          <View style={{flexDirection:'row'}}>
+            <Ionicons name="cellular-outline" size={20} color={COLORS.tertiary}/>
+            <Text style={[globalStyles.text, {paddingLeft: 5}]}>Elevation: {set.elevation}%</Text>
+          </View>
+          
+          
         </View>
       </View>
     )

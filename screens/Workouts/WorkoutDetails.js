@@ -12,7 +12,7 @@ import { COLORS } from '../../constants';
 
 const WorkoutDetails = ({navigation}) => {
   const route = useRoute()
-  const { name, type, date, exercises} = route.params
+  const {name, type, date, exercises} = route.params
 
   return (
     <View style={globalStyles.fullPageContainer}>
