@@ -39,9 +39,8 @@ const NewWorkout = ({ navigation }) => {
 
   const workoutId = Realm.BSON.ObjectId();
   const saveWorkoutData  = async ({workoutName, workoutType}) => {
-    console.log(user.id)
     realm.write(() => {
-      const workout = realm.create('Workout', {
+      realm.create('Workout', {
         _id: workoutId,
         owner_id: user.id,
         name: workoutName,
@@ -53,19 +52,35 @@ const NewWorkout = ({ navigation }) => {
             name: exerciseData.exercise.name,
             type: exerciseData.exercise.type,
           });
-  
-          const sets = exerciseData.sets.map((set) =>
+          
+          if (exerciseData.exercise.type !== 'Cardio') {
+          const sets = exerciseData.sets.map((set) =>{
+          
             realm.create('Set', {
               _id: Realm.BSON.ObjectId(),
               weight: set.weight,
               reps: set.reps,
-            })
-          );
-  
+            });
+          }
+          )
+
           exercise.sets = sets;
   
           return exercise;
-        }),
+        }
+        else {
+          const cardioTracking = realm.create('CardioTracking', {
+            _id: Realm.BSON.ObjectId(),
+            distance: exerciseData.distance,
+            time: exerciseData.time,
+            speed: exerciseData.speed,
+            elevation: exerciseData.elevation,
+          });
+          console.log(cardioTracking._id);
+          exercise.cardioTracking = [cardioTracking];
+          return exercise;
+        }
+      }),
       });
   
      
