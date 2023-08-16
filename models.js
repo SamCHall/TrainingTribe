@@ -2,13 +2,6 @@ import { Realm, createRealmContext } from "@realm/react";
 
 // Defining a schema for a Profile object
 export class User extends Realm.Object {
-    constructor({ id = new Realm.BSON.ObjectId(), name = 'John Doe', email = 'johndoe@outlook.com' }) {  
-      this.username = name;
-      this.email = email
-      this._id = id;
-    }
-
- 
   static schema = {
       name: 'User',
       properties: {
@@ -16,7 +9,7 @@ export class User extends Realm.Object {
         username: 'string',
         email: 'string',
         workouts: 'Workout[]',
-        tribes: 'Tribe[]',
+        tribe: 'Tribe?',
       },
       primaryKey: '_id',
     };
@@ -84,7 +77,7 @@ export class Tribe extends Realm.Object {
       _id: 'objectId',
       name: 'string',
       description: 'string',
-      members: 'User[]',
+      members: 'string[]',
       level: {type: 'int', default: 1},
       owner_id: 'string',
       // currentWar: {

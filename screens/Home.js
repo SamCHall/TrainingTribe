@@ -6,12 +6,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Feed from './Feed'
 import Workouts from './Workouts/Workouts'
-import MyTribe from './MyTribe'
+import MyTribe from './Tribes/MyTribe'
 import Account from './Account'
 import UsernameChooser from './UsernameChooser'
 import { useNavigation } from '@react-navigation/native'
 import { COLORS } from '../constants'
 import globalStyles from '../constants/GlobalStyle'
+import TribeNavigator from './Tribes/TribeNavigator'
 
 const Tab = createBottomTabNavigator()
 
@@ -50,7 +51,7 @@ const Home = () => {
             return <Text style={[globalStyles.text, {fontSize:12}]}>Feed</Text>;
           } else if (route.name === 'Workouts') {
             return <Text style={[globalStyles.text, {fontSize:12}]}>Workouts</Text>;
-          } else if (route.name === 'MyTribe') {
+          } else if (route.name === 'TribeNavigator') {
             return <Text style={[globalStyles.text, {fontSize:12}]}>MyTribe</Text>;
           } else if (route.name === 'Account') {
             return <Text style={[globalStyles.text, {fontSize:12}]}>Account</Text>;
@@ -63,7 +64,7 @@ const Home = () => {
             iconName = focused ? 'home' : 'home-outline';
           } else if (route.name === 'Workouts') {
             iconName = focused ? 'barbell' : 'barbell-outline';
-          } else if (route.name === 'MyTribe') {
+          } else if (route.name === 'TribeNavigator') {
             iconName = focused ? 'people' : 'people-outline';
           } else if (route.name === 'Account') {
             iconName = focused ? 'person' : 'person-outline';
@@ -79,7 +80,7 @@ const Home = () => {
     >
       <Tab.Screen name="Feed" component={Feed} />
       <Tab.Screen name="Workouts" component={Workouts} />
-      <Tab.Screen name="MyTribe" component={MyTribe} />
+      <Tab.Screen name="TribeNavigator" component={TribeNavigator} />
       <Tab.Screen name="Account" component={Account} />
     </Tab.Navigator>
   )

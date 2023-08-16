@@ -38,6 +38,7 @@ function App() {
       mutableSubs.add(realm.objects('User'))
       mutableSubs.add(realm.objects('Set'))
       mutableSubs.add(realm.objects('CardioTracking'))
+      mutableSubs.add(realm.objects('Tribe'))
     
     })
   }, [])

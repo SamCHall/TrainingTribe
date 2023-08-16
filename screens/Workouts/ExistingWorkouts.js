@@ -13,7 +13,6 @@ const ExistingWorkouts = ({ navigation }) => {
   
   const realm = useRealm()
   const user = useUser()
-  
 
   const getWorkouts = () => {
     const workouts = realm.objects('Workout').filtered('owner_id == $0', user.id).sorted('date', true)
