@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, ActivityIndicator } from 'react-native'
 import React from 'react'
 import globalStyles from '../../constants/GlobalStyle'
 import { TextInput } from 'react-native-gesture-handler'
@@ -13,33 +13,48 @@ const CreateTribe = ({navigation}) => {
 
 const [tribeName, setTribeName] = useState('')
 const [tribeDescription, setTribeDescription] = useState('')
+const [isLoading, setIsLoading] = useState(false)
 
 const realm = useRealm()
 const user = useUser()
 
-const handleCreateTribe = () => {
-    console.log(tribeName)
-    console.log(tribeDescription)
+const handleCreateTribe = async () => {
+
+    setIsLoading(true)
+
+    const tribeId = Realm.BSON.ObjectId();
     realm.write(() => {
         realm.create('Tribe', {
-            _id: Realm.BSON.ObjectId(),
+            _id: tribeId,
             name: tribeName,
             description: tribeDescription,
             members: [user.id],
             owner_id: user.id,
         })
-    }
+        }
     )
-    navigation.replace('MyTribe')
+        const customDataCollection = user.mongoClient("mongodb-atlas").db("todo").collection("User");
+    const filter = {_id: user.id};
+    const update = {
+      $set: {
+        tribe: tribeId,
+      }
+    }
+      await customDataCollection.updateOne(filter, update);
+      await user.refreshCustomData();
+      await realm.syncSession.uploadAllLocalChanges();
+      setIsLoading(false)
+      navigation.replace('MyTribe')
 }
 
 
   return (
+    
     <View style={globalStyles.centeredContainer}>
       <TextInput style={globalStyles.input} placeholder='Tribe Name' placeholderTextColor={COLORS.gray} onChangeText={setTribeName}/>
       <TextInput style={globalStyles.input} placeholder='Tribe Description' placeholderTextColor={COLORS.gray} onChangeText={setTribeDescription} />
       <OvalButton text='Create Tribe' onPress={() => handleCreateTribe()}/>
-
+      <ActivityIndicator animating={isLoading} size='large' color={COLORS.secondary}/>
 
     </View>
   )

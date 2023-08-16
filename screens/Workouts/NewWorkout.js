@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { View, Text, Modal, TouchableOpacity, FlatList, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, Modal, TouchableOpacity, FlatList, KeyboardAvoidingView, Platform, ActivityIndicator } from 'react-native';
 import { COLORS, SIZES } from '../../constants';
 import globalStyles from '../../constants/GlobalStyle';
 import Collapsible from 'react-native-collapsible';
@@ -9,12 +9,15 @@ import { CustomStatusBar, ExerciseCard, NewWorkoutHeader, TextButton } from '../
 import { exerciseList } from '../../constants/exerciseList';
 import 'react-native-get-random-values';
 import { Alert } from 'react-native';
+import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
 
 const NewWorkout = ({ navigation }) => {
   const realm = useRealm();
   const user = useUser();
   const sortedExerciseList = exerciseList.sort((a, b) => a.name.localeCompare(b.name));
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadingCollapsed, setLoadingCollapsed] = useState(false);
   const [selectedExerciseList, setSelectedExerciseList] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
@@ -39,14 +42,12 @@ const NewWorkout = ({ navigation }) => {
 
   const workoutId = Realm.BSON.ObjectId();
   const saveWorkoutData  = async ({workoutName, workoutType}) => {
-    realm.write(() => {
-      realm.create('Workout', {
-        _id: workoutId,
-        owner_id: user.id,
-        name: workoutName,
-        date: new Date(),
-        type: workoutType,
-        exercises: workoutData.map((exerciseData) => {
+    const workoutExercises = [];
+    setIsLoading(true);
+    setLoadingCollapsed(false);
+    try{
+      realm.write(() => {
+      workoutData.forEach((exerciseData) => {
           const exercise = realm.create('Exercise', {
             _id: Realm.BSON.ObjectId(),
             name: exerciseData.exercise.name,
@@ -56,7 +57,7 @@ const NewWorkout = ({ navigation }) => {
           if (exerciseData.exercise.type !== 'Cardio') {
           const sets = exerciseData.sets.map((set) =>{
           
-            realm.create('Set', {
+            return realm.create('Set', {
               _id: Realm.BSON.ObjectId(),
               weight: set.weight,
               reps: set.reps,
@@ -65,8 +66,6 @@ const NewWorkout = ({ navigation }) => {
           )
 
           exercise.sets = sets;
-  
-          return exercise;
         }
         else {
           const cardioTracking = realm.create('CardioTracking', {
@@ -78,15 +77,19 @@ const NewWorkout = ({ navigation }) => {
           });
           console.log(cardioTracking._id);
           exercise.cardioTracking = [cardioTracking];
-          return exercise;
         }
+        workoutExercises.push(exercise);
       }),
+      realm.create('Workout', {
+        _id: workoutId,
+        owner_id: user.id,
+        name: workoutName,
+        date: new Date(),
+        type: workoutType,
+        exercises: workoutExercises,
+      });
       });
   
-     
-      
-  
-    });
     const customDataCollection = user.mongoClient("mongodb-atlas").db("todo").collection("User");
     const filter = {_id: user.id};
     const update = {
@@ -97,7 +100,15 @@ const NewWorkout = ({ navigation }) => {
       await customDataCollection.updateOne(filter, update);
       await user.refreshCustomData();
       await realm.syncSession.uploadAllLocalChanges();
+      setIsLoading(false);
+      setLoadingCollapsed(true);
       navigation.replace('ExistingWorkouts')
+    }
+    catch(err) {
+      console.error(err);
+      setLoadingCollapsed(true);
+      setIsLoading(false);
+    }
   };
   
   
@@ -164,7 +175,7 @@ const NewWorkout = ({ navigation }) => {
     <View style={globalStyles.container}>
       <CustomStatusBar />
       {/* Render the header with the finish workout button */}
-      <NewWorkoutHeader onFinishWorkout={handleFinishWorkout} />
+      <NewWorkoutHeader onFinishWorkout={handleFinishWorkout} isLoading={isLoading}/>
 
       <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -188,6 +199,10 @@ const NewWorkout = ({ navigation }) => {
       <View>
         <TextButton text="Add Exercise" onPress={() => setModalVisible(true)} />
       </View>
+      <Collapsible collapsed={loadingCollapsed}>
+        <ActivityIndicator animating={isLoading} size="large" color={COLORS.secondary} />
+      </Collapsible>
+      
 
       {/* Modal */}
       <Modal animationType="slide" transparent={true} visible={modalVisible}>

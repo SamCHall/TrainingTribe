@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, ActivityIndicator } from 'react-native'
 import React from 'react'
 import { TextButton } from './button'
 import { useApp, useUser } from '@realm/react'
@@ -16,7 +16,7 @@ import 'react-native-get-random-values'
 import { KeyboardAvoidingView } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
-const NewWorkoutHeader = ({onFinishWorkout, WorkoutData}) => {
+const NewWorkoutHeader = ({onFinishWorkout}) => {
     const realm = useRealm()
     const app = useApp()
     const user = useUser()
