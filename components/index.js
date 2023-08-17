@@ -6,5 +6,6 @@ import NewWorkoutHeader from "./NewWorkoutHeader";
 import CustomStatusBar from "./CustomStatusBar";
 import ExerciseCardReadOnly from "./ExerciseCardReadOnly";
 import CardioInput from "./CardioInput";
+import MyTribeLeaderboard from "./MyTribeLeaderboard";
 
-export { OvalButton, HomeHeader, TextButton, WorkoutCard, ExerciseCard, NewWorkoutHeader, CustomStatusBar, ExerciseCardReadOnly, CardioInput };
+export { OvalButton, HomeHeader, TextButton, WorkoutCard, ExerciseCard, NewWorkoutHeader, CustomStatusBar, ExerciseCardReadOnly, CardioInput, MyTribeLeaderboard };

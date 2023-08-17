@@ -13,6 +13,9 @@ export class User extends Realm.Object {
       },
       primaryKey: '_id',
     };
+    static getWorkoutCount(user) {
+      return user.workouts.length;
+    }
   }
 
 export class Workout extends Realm.Object {

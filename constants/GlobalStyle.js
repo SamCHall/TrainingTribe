@@ -118,6 +118,24 @@ const globalStyles = StyleSheet.create({
         color: COLORS.white,
         fontFamily: FONTS.regular,
     },
+    leaderboardEntry: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: 10,
+        margin: 10,
+        marginTop:-1,
+        marginBottom:-1,
+        borderBottomWidth: 1,
+        borderTopWidth: 1,
+        borderColor: COLORS.secondary,
+        backgroundColor: COLORS.primary,
+        
+    },
+    clickableText: {
+        color: COLORS.secondary,
+        fontFamily: FONTS.medium,
+    },
 
 });
 
