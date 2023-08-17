@@ -9,7 +9,7 @@ import { CustomStatusBar, ExerciseCard, NewWorkoutHeader, TextButton } from '../
 import { exerciseList } from '../../constants/exerciseList';
 import 'react-native-get-random-values';
 import { Alert } from 'react-native';
-import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
+import { OvalButton } from '../../components';
 
 const NewWorkout = ({ navigation }) => {
   const realm = useRealm();
@@ -197,7 +197,7 @@ const NewWorkout = ({ navigation }) => {
 
       {/* Button to add a new exercise */}
       <View>
-        <TextButton text="Add Exercise" onPress={() => setModalVisible(true)} />
+        <OvalButton text="Add Exercise" onPress={() => setModalVisible(true)} />
       </View>
       <Collapsible collapsed={loadingCollapsed}>
         <ActivityIndicator animating={isLoading} size="large" color={COLORS.secondary} />
