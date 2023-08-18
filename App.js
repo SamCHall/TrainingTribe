@@ -101,23 +101,4 @@ return (
 )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  button: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 200,
-    height: 50,
-    backgroundColor: 'black',
-    color: 'white',
-    borderRadius: 10,
-    }
-});
-
 export default AppWrapper;

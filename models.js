@@ -139,7 +139,71 @@ export class Tribe extends Realm.Object {
     });
     return volume;
   }
+
+  static getTotalTribeMaxWeight(tribe, exerciseId) {
+    let maxWeight = 0;
+    tribe.members.forEach((member) => {
+      member.workouts.forEach((workout) => {
+        workout.exercises.forEach((exercise) => {
+          if (exercise._id === exerciseId && exercise.type !== 'Cardio') {
+            exercise.sets.forEach((set) => {
+              if (set.weight > maxWeight) {
+                maxWeight = set.weight;
+              }
+            });
+          }
+        });
+      });
+    });
+    return maxWeight;
+  }
   
+  static getTribeTotalDistance(members) {
+    let distance = 0;
+    members.forEach((member) => {
+      member.workouts.forEach((workout) => {
+        workout.exercises.forEach((exercise) => {
+          exercise.cardioTracking.forEach((cardioTracking) => {
+            distance += cardioTracking.distance;
+          });
+        });
+      });
+    });
+    return distance;
+  }
+
+  static getTribeAverageSpeed(members) {
+    let speed = 0;
+    let workouts = 0;
+    members.forEach((member) => {
+      member.workouts.forEach((workout) => {
+        workout.exercises.forEach((exercise) => {
+          exercise.cardioTracking.forEach((cardioTracking) => {
+            speed += cardioTracking.speed;
+            workouts += 1;
+          });
+        });
+      });
+    });
+    return speed / workouts;
+  }
+
+  static getTribeAverageElevation(members) {
+    let elevation = 0;
+    let workouts = 0;
+    members.forEach((member) => {
+      member.workouts.forEach((workout) => {
+        workout.exercises.forEach((exercise) => {
+          exercise.cardioTracking.forEach((cardioTracking) => {
+            elevation += cardioTracking.elevation;
+            workouts += 1;
+          });
+        });
+      });
+    });
+    return elevation / workouts;
+  }
+
   static getTribeTotalWorkouts(members) {
     let workouts = 0;
     members.forEach((member) => {

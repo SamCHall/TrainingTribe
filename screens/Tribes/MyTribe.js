@@ -75,8 +75,9 @@ const MyTribe = ({navigation}) => {
           />
           </View>
           <View style={{alignItems:'center'}}>
-            <Text style={globalStyles.text}>Total Tribe Volume: {getTribeVolume()}kg</Text>
+            <Text style={globalStyles.text}>Total volume lifted: {getTribeVolume()}kg</Text>
             <Text style={globalStyles.text}>Total workouts completed: {Tribe.getTribeTotalWorkouts(members = getTribeMembers())}</Text>
+            <Text style={globalStyles.text}>Total distance travelled: {Tribe.getTribeTotalDistance(members=getTribeMembers())}km</Text>
           </View>
         <OvalButton text='Leave Tribe' onPress={() => navigation.navigate('LeaveTribe')}/>
       </View>

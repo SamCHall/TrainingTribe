@@ -44,8 +44,8 @@ const Home = () => {
           }
     
           // Otherwise, provide the label text based on the route name
-          if (route.name === 'Feed') {
-            return <Text style={[globalStyles.text, {fontSize:12}]}>Feed</Text>;
+          if (route.name === 'Compete') {
+            return <Text style={[globalStyles.text, {fontSize:12}]}>Compete</Text>;
           } else if (route.name === 'Workouts') {
             return <Text style={[globalStyles.text, {fontSize:12}]}>Workouts</Text>;
           } else if (route.name === 'TribeNavigator') {
@@ -57,8 +57,8 @@ const Home = () => {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
           
-          if (route.name === 'Feed') {
-            iconName = focused ? 'home' : 'home-outline';
+          if (route.name === 'Compete') {
+            iconName = focused ? 'trophy' : 'trophy-outline';
           } else if (route.name === 'Workouts') {
             iconName = focused ? 'barbell' : 'barbell-outline';
           } else if (route.name === 'TribeNavigator') {
@@ -72,10 +72,10 @@ const Home = () => {
         tabBarInactiveTintColor: COLORS.tertiary,
 
       })}
-      initialRouteName={'Feed'}
+      initialRouteName={'Compete'}
       sceneContainerStyle={{ backgroundColor: COLORS.primary }}
     >
-      <Tab.Screen name="Feed" component={Feed} />
+      <Tab.Screen name="Compete" component={Feed} />
       <Tab.Screen name="Workouts" component={Workouts} />
       <Tab.Screen name="TribeNavigator" component={TribeNavigator} />
       <Tab.Screen name="Account" component={Account} />
