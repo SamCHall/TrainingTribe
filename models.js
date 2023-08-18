@@ -16,6 +16,34 @@ export class User extends Realm.Object {
     static getWorkoutCount(user) {
       return user.workouts.length;
     }
+    static getWorkoutVolume(user) {
+      let volume = 0;
+      user.workouts.forEach((workout) => {
+        if (workout.type !== 'Cardio') {
+        workout.exercises.forEach((exercise) => {
+          exercise.sets.forEach((set) => {
+            volume += set.weight * set.reps;
+          });
+        });
+      }
+      });
+      return volume;
+    }
+    static getMaxWeightForExercise(user, exerciseId) {  
+      let maxWeight = 0;
+      user.workouts.forEach((workout) => {
+        workout.exercises.forEach((exercise) => {
+          if (exercise._id === exerciseId && exercise.type !== 'Cardio') {
+            exercise.sets.forEach((set) => {
+              if (set.weight > maxWeight) {
+                maxWeight = set.weight;
+              }
+            });
+          }
+        });
+      });
+      return maxWeight;
+    }
   }
 
 export class Workout extends Realm.Object {
@@ -93,6 +121,26 @@ export class Tribe extends Realm.Object {
     },
     primaryKey: '_id',
   };
+  static getTribeTotalVolume(tribe) {
+    let volume = 0;
+    tribe.members.forEach((member) => {
+      member.workouts.forEach((workout) => {
+        workout.exercises.forEach((exercise) => {
+          exercise.sets.forEach((set) => {
+            volume += set.weight * set.reps;
+          });
+        });
+      });
+    });
+    return volume;
+  }
+  static getTribeTotalWorkouts(tribe) {
+    let workouts = 0;
+    tribe.members.forEach((member) => {
+      workouts += member.workouts.length;
+    });
+    return workouts;
+  }
 }
 
   // Create a configuration object

@@ -8,6 +8,7 @@ import { FlatList } from 'react-native-gesture-handler'
 import Collapsible from 'react-native-collapsible'
 import { useState } from 'react'
 import { MyTribeLeaderboard } from '../../components'
+import { User } from '../../models'
 
 const MyTribe = ({navigation}) => {
   const app = useApp()
@@ -37,10 +38,18 @@ const MyTribe = ({navigation}) => {
           const validMembers = memberObjects.filter(member => member !== null); // Filtering out nulls
         
           console.log(validMembers);
+
           return validMembers;
+
+        
         };
       
-      
+        const sortMembersByTotalVolume = () => {
+          const members = getTribeMembers();
+          const sortedMembers = members.sort((a, b) => User.getWorkoutVolume(b) - User.getWorkoutVolume(a));
+          return sortedMembers;
+        };
+
       return(
         <View style={[globalStyles.container, {width:'100%'}]}>
           <View style={[globalStyles.container,{alignItems:'center'}]}>
@@ -55,9 +64,13 @@ const MyTribe = ({navigation}) => {
             
           </View>
         <View style={[globalStyles.container, {justifyContent:'flex-start'}]}>
+        <View style={[globalStyles.leaderboardEntry, {borderTopWidth:0, borderBottomWidth:3}]}>
+          <Text style={[globalStyles.h3, {marginLeft:20}]}>Username</Text>
+          <Text style={globalStyles.h3}>Total Volume</Text>
+        </View>
           <FlatList
-          data={getTribeMembers()}
-          renderItem={({ item }) => <MyTribeLeaderboard user={item} />}
+          data={sortMembersByTotalVolume()}
+          renderItem={({ item, index }) => <MyTribeLeaderboard user={item} index={index} />}
           keyExtractor={item => item._id}
         />
         </View>

@@ -9,6 +9,10 @@ export const COLORS = {
   white: "#DAFFFB",
   gray: "#74858C",
   darkgray: "#4D626C",
+
+  gold: "#FFD700",
+  silver: "#C0C0C0",
+  bronze: "#CD7F32",
 };
 
 export const SIZES = {

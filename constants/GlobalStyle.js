@@ -125,7 +125,7 @@ const globalStyles = StyleSheet.create({
         padding: 10,
         margin: 10,
         marginTop:-1,
-        marginBottom:-1,
+        marginBottom:-2,
         borderBottomWidth: 1,
         borderTopWidth: 1,
         borderColor: COLORS.secondary,
