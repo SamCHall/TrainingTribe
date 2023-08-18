@@ -1,4 +1,5 @@
 import { Realm, createRealmContext } from "@realm/react";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 // Defining a schema for a Profile object
 export class User extends Realm.Object {
@@ -13,9 +14,11 @@ export class User extends Realm.Object {
       },
       primaryKey: '_id',
     };
+
     static getWorkoutCount(user) {
       return user.workouts.length;
     }
+
     static getWorkoutVolume(user) {
       let volume = 0;
       user.workouts.forEach((workout) => {
@@ -44,6 +47,7 @@ export class User extends Realm.Object {
       });
       return maxWeight;
     }
+    
   }
 
 export class Workout extends Realm.Object {
@@ -121,6 +125,7 @@ export class Tribe extends Realm.Object {
     },
     primaryKey: '_id',
   };
+
   static getTribeTotalVolume(tribe) {
     let volume = 0;
     tribe.members.forEach((member) => {
@@ -134,9 +139,10 @@ export class Tribe extends Realm.Object {
     });
     return volume;
   }
-  static getTribeTotalWorkouts(tribe) {
+  
+  static getTribeTotalWorkouts(members) {
     let workouts = 0;
-    tribe.members.forEach((member) => {
+    members.forEach((member) => {
       workouts += member.workouts.length;
     });
     return workouts;

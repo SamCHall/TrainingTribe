@@ -33,7 +33,6 @@ function UsernameChooser() {
           await customUserDataCollection.updateOne(filter, updateDoc, options);
           // Refresh custom user data once it's been updated on the server
           const customUserData = await user.refreshCustomData();
-          console.log(customUserData.username);
             // Navigate to the main app screen
             navigation.navigate('Home');
         }

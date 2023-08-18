@@ -2,10 +2,11 @@ import React, { useEffect } from 'react';
 
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { StyleSheet} from 'react-native';
+import { ActivityIndicator, StyleSheet, View} from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useFonts } from 'expo-font';
 
+import globalStyles from './constants/GlobalStyle';
 import { RealmProvider } from "./models";
 import { useRealm } from "./models";
 import Home from './screens/Home';
@@ -13,6 +14,9 @@ import Login from './screens/Login';
 import UsernameChooser from './screens/UsernameChooser';
 import { AppProvider, UserProvider } from '@realm/react';
 import 'react-native-get-random-values'
+import { COLORS } from './constants';
+import { CustomStatusBar } from './components';
+
 
 
 
@@ -43,9 +47,6 @@ function App() {
     })
   }, [])
 
-    console.log(realm.subscriptions)
-
-
 
   const [loaded] = useFonts({
     'Roboto-Regular': require('./assets/fonts/Roboto-Regular.ttf'),
@@ -54,10 +55,14 @@ function App() {
     'Roboto-Light': require('./assets/fonts/Roboto-Light.ttf'),
     'Roboto-Medium': require('./assets/fonts/Roboto-Medium.ttf'),
     'Roboto-Thin': require('./assets/fonts/Roboto-Thin.ttf'),
+    'Ionicons': require('./node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf')
   });
   
   if (!loaded) {
-    return null;
+    return <View style={globalStyles.centeredContainer}>
+      <CustomStatusBar />
+      <ActivityIndicator size='large' animating={true} color={COLORS.tertiary}/>
+    </View>;
   }
 
   return (

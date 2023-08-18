@@ -20,6 +20,7 @@ const MyTribeLeaderboard = ({user, index}) => {
         <Text style={[globalStyles.text]}>🥉</Text>
       )
     }}
+    
   return (
     <View style={globalStyles.leaderboardEntry}>
       <View>

@@ -8,13 +8,13 @@ import { FlatList } from 'react-native-gesture-handler'
 import Collapsible from 'react-native-collapsible'
 import { useState } from 'react'
 import { MyTribeLeaderboard } from '../../components'
-import { User } from '../../models'
+import { User, Tribe } from '../../models'
+
 
 const MyTribe = ({navigation}) => {
   const app = useApp()
   const realm = useRealm()
   const user = useUser()
-  
   
   const [collapsed, setCollapsed] = useState(true);
 
@@ -33,15 +33,10 @@ const MyTribe = ({navigation}) => {
       const leader = realm.objects('User').filtered('_id == $0', tribe.owner_id)[0]
       
         const getTribeMembers = () => {
-          const memberObjects = tribe.members.map(memberId => realm.objectForPrimaryKey('User', memberId));
-          console.log(memberObjects);
+          const memberObjects = tribe.members.map(memberId => realm.objectForPrimaryKey('User', memberId)); // Getting all members from their IDs
           const validMembers = memberObjects.filter(member => member !== null); // Filtering out nulls
-        
-          console.log(validMembers);
 
           return validMembers;
-
-        
         };
       
         const sortMembersByTotalVolume = () => {
@@ -50,9 +45,15 @@ const MyTribe = ({navigation}) => {
           return sortedMembers;
         };
 
+        const getTribeVolume = () => {
+          const members = getTribeMembers();
+          const totalVolume = members.reduce((total, member) => total + User.getWorkoutVolume(member), 0);
+          return totalVolume;
+        };
+
       return(
         <View style={[globalStyles.container, {width:'100%'}]}>
-          <View style={[globalStyles.container,{alignItems:'center'}]}>
+          <View style={{alignItems:'center'}}>
             <Text style={globalStyles.subTitle}>{tribe.name}</Text>
             <Text style={globalStyles.h3}>Leader: {leader.username}</Text> 
             <Text style={globalStyles.text}>Members: {tribe.members.length}</Text>
@@ -60,30 +61,30 @@ const MyTribe = ({navigation}) => {
             <Collapsible collapsed={collapsed}>
               <Text style={globalStyles.text}>{tribe.description}</Text>
             </Collapsible>
-            
-            
           </View>
-        <View style={[globalStyles.container, {justifyContent:'flex-start'}]}>
-        <View style={[globalStyles.leaderboardEntry, {borderTopWidth:0, borderBottomWidth:3}]}>
-          <Text style={[globalStyles.h3, {marginLeft:20}]}>Username</Text>
-          <Text style={globalStyles.h3}>Total Volume</Text>
-        </View>
-          <FlatList
-          data={sortMembersByTotalVolume()}
-          renderItem={({ item, index }) => <MyTribeLeaderboard user={item} index={index} />}
-          keyExtractor={item => item._id}
-        />
-        </View>
-         
+        <View style={{flex:1}}>
+          <View style={[globalStyles.leaderboardEntry, {borderTopWidth:0, borderBottomWidth:3}]}>
+            <Text style={[globalStyles.h3, {marginLeft:20}]}>Username</Text>
+            <Text style={globalStyles.h3}>Total Volume</Text>
+          </View>
+            <FlatList
+            data={sortMembersByTotalVolume()}
+            style={{justifySelf:'flex-start'}}
+            renderItem={({ item, index }) => <MyTribeLeaderboard user={item} index={index} />}
+            keyExtractor={item => item._id}
+          />
+          </View>
+          <View style={{alignItems:'center'}}>
+            <Text style={globalStyles.text}>Total Tribe Volume: {getTribeVolume()}kg</Text>
+            <Text style={globalStyles.text}>Total workouts completed: {Tribe.getTribeTotalWorkouts(members = getTribeMembers())}</Text>
+          </View>
         <OvalButton text='Leave Tribe' onPress={() => navigation.navigate('LeaveTribe')}/>
       </View>
       )
     }
     }
 
-
   return (
-
     <View style={globalStyles.centeredContainer}>
       <CustomStatusBar />
       {renderTribe()}

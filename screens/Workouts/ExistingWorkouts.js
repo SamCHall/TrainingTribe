@@ -22,6 +22,7 @@ const ExistingWorkouts = ({ navigation }) => {
   const handleNewWorkoutPress = () => {
     navigation.navigate('NewWorkout')
   }
+  
   return (
     <View style={globalStyles.container}>
       <CustomStatusBar />
@@ -33,10 +34,8 @@ const ExistingWorkouts = ({ navigation }) => {
       <View style={globalStyles.bottomButtonContainer}>
          <OvalButton text='New Workout' onPress={handleNewWorkoutPress}/>
       </View>
-     
-
     </View>
   )
-
 }
+
 export default ExistingWorkouts

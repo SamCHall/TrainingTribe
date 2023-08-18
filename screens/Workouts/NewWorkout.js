@@ -75,7 +75,6 @@ const NewWorkout = ({ navigation }) => {
             speed: exerciseData.speed,
             elevation: exerciseData.elevation,
           });
-          console.log(cardioTracking._id);
           exercise.cardioTracking = [cardioTracking];
         }
         workoutExercises.push(exercise);

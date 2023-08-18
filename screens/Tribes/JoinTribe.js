@@ -19,36 +19,34 @@ const JoinTribe = ({navigation}) => {
     const JoinTribe = async ({tribeId}) => {
         setIsLoading(true)
         try{
-            console.log('Attempting to join tribe with ID:', tribeId);
-        const tribe = realm.objects('Tribe').filtered('_id == $0', tribeId)[0];
-        console.log('Retrieved tribe:', tribe);
-        if (tribe) {
-            realm.write(() => {
-                tribe.members.push(user.id);
-            });
-            const customDataCollection = user.mongoClient("mongodb-atlas").db("todo").collection("User");
-            const filter = {_id: user.id};
-            const update = {
-            $set: {
-                tribe: tribeId,
+            const tribe = realm.objects('Tribe').filtered('_id == $0', tribeId)[0];
+            if (tribe) {
+                realm.write(() => {
+                    tribe.members.push(user.id);
+                });
+                const customDataCollection = user.mongoClient("mongodb-atlas").db("todo").collection("User");
+                const filter = {_id: user.id};
+                const update = {
+                $set: {
+                    tribe: tribeId,
+                }
+                }
+                await customDataCollection.updateOne(filter, update);
+                await user.refreshCustomData();
+                await realm.syncSession.uploadAllLocalChanges();
+            } else {
+                
             }
-            }
-            await customDataCollection.updateOne(filter, update);
-            await user.refreshCustomData();
-            await realm.syncSession.uploadAllLocalChanges();
-        } else {
-            console.log('Tribe not found.');
+            setIsLoading(false)
+            navigation.replace('MyTribe')
         }
-          setIsLoading(false)
-          navigation.replace('MyTribe')
+
+        catch(e){
+            console.error(e)
+            setIsLoading(false)
+        }
     }
 
-    catch(e){
-        console.log(e)
-        setIsLoading(false)
-    }
-    }
-    console.log(tribes)
   return (
     <View style={globalStyles.container}>
       <Text style={globalStyles.subTitle}>Join A Tribe:</Text>
