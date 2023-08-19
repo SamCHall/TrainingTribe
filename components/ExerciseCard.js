@@ -6,8 +6,9 @@ import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { TextButton } from './button';
 import WeightRepInput from './WeightRepInput';
 import CardioInput from './CardioInput';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const ExerciseCard = ({ exercise, onAdjustedExercise, onFocus }) => {
+const ExerciseCard = ({ exercise, onAdjustedExercise, onFocus, handleDeleteExercise, index }) => {
   const [setNumber, setSetNumber] = useState(1);
   const [weightReps, setWeightReps] = useState([{ weight: '', reps: ''}]);
   const [distance, setDistance] = useState(0);
@@ -15,14 +16,23 @@ const ExerciseCard = ({ exercise, onAdjustedExercise, onFocus }) => {
   const [speed, setSpeed] = useState(0);
   const [elevation, setElevation] = useState(0);
 
+
+  const handleLocalDeleteExercise = () => {
+    // Deleting an exercise
+    setWeightReps([{ weight: '', reps: '' }]); // Reset the sets for the deleted exercise
+    setDistance(0); // Reset cardio input values
+    setTime(0);
+    setSpeed(0);
+    setElevation(0);
+    // Call the parent component's handleDeleteExercise function
+    handleDeleteExercise(exercise);
+  };
+
   const handleAddSet = () => {
     setSetNumber((prevNumber) => prevNumber + 1);
     setWeightReps((prevWeightReps) => [...prevWeightReps, { weight: '', reps: '' }]);
   };
 
-  onchangeWeightReps = () => {
-    handleAdjustedExercise();
-  };
 
   const handleWeightChange = (setIndex, weight) => {
     setWeightReps((prevWeightReps) => {
@@ -114,6 +124,7 @@ const ExerciseCard = ({ exercise, onAdjustedExercise, onFocus }) => {
       }}
     >
       <Text style={[globalStyles.h3, {marginTop:10}]}>{exercise.name}</Text>
+      <Ionicons name="trash" size={20} color={'red'} onPress={()=>handleLocalDeleteExercise()} style={{position:'absolute', right: 10, top: 10}}/>
 
       {exercise.type !== 'Cardio' && (
       <>

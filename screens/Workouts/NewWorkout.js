@@ -22,15 +22,28 @@ const NewWorkout = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const [workoutData, setWorkoutData] = useState([]);
+  const [exercisesToDelete, setExercisesToDelete] = useState([]);
 
   const handleCollapse = (category) => {
     setCollapsed((prevCollapsed) => (prevCollapsed === category ? null : category));
   };
 
   const handleSelectExercise = (exercise) => {
-    setSelectedExerciseList((prevList) => [...prevList, exercise]);
+    if (exercisesToDelete.includes(exercise)) { // If the exercise is in the exercisesToDelete list, remove it from the list
+      setExercisesToDelete(prevList =>
+        prevList.filter(item => item !== exercise)
+      );
+    } 
+    else if (selectedExerciseList.includes(exercise)) {
+      Alert.alert('Exercise already added', 'Please select a different exercise');
+      return;
+    }
+    else {
+      setSelectedExerciseList(prevList => [...prevList, exercise]);
+    }
     setModalVisible(false);
   };
+  
 
   const handleAdjustedExercise = (index, adjustedExerciseData) => {
     setWorkoutData((prevData) => {
@@ -40,8 +53,14 @@ const NewWorkout = ({ navigation }) => {
     });
   };
 
-  const workoutId = Realm.BSON.ObjectId();
+  const handleDeleteExercise = (exercise) => {
+    setWorkoutData(prevData => prevData.filter(item => item.exercise !== exercise)); // Remove the exercise from the workoutData list
+    setExercisesToDelete(prevList => [...prevList, exercise]); // Add the exercise to the exercisesToDelete list
+  };
+  
+  
   const saveWorkoutData  = async ({workoutName, workoutType}) => {
+    const workoutId = Realm.BSON.ObjectId();
     const workoutExercises = [];
     setIsLoading(true);
     setLoadingCollapsed(false);
@@ -165,9 +184,18 @@ const NewWorkout = ({ navigation }) => {
     }
   };
 
-  const renderExerciseCard = ({ item, index }) => (
-    <ExerciseCard onFocus={() => scrollToInput(index)} exercise={item} onAdjustedExercise={(adjustedExerciseData) => handleAdjustedExercise(index, adjustedExerciseData)}/>
-  );
+  const renderExerciseCard = ({ item, index }) => {
+    console.log(item);
+    console.log(exercisesToDelete);
+    if (exercisesToDelete.includes(item)) {
+      return null;
+    }
+    else {
+    return(
+    <ExerciseCard onFocus={() => scrollToInput(index)} index={index} exercise={item} handleDeleteExercise={()=> handleDeleteExercise(item)} onAdjustedExercise={(adjustedExerciseData) => handleAdjustedExercise(index, adjustedExerciseData)}/>
+    )}
+  }
+  ;
   
 
   return (
