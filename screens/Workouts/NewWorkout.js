@@ -54,8 +54,19 @@ const NewWorkout = ({ navigation }) => {
   };
 
   const handleDeleteExercise = (exercise) => {
-    setWorkoutData(prevData => prevData.filter(item => item.exercise !== exercise)); // Remove the exercise from the workoutData list
-    setExercisesToDelete(prevList => [...prevList, exercise]); // Add the exercise to the exercisesToDelete list
+    Alert.alert('Delete exercise', 'Are you sure you want to delete this exercise?', [
+      {
+        text: 'Yes',
+        onPress: () => {
+          setWorkoutData((prevData) => prevData.filter((item) => item.exercise !== exercise));
+          setExercisesToDelete((prevList) => [...prevList, exercise]);
+        }
+      },
+      {
+        text: 'No',
+        onPress: () => console.log('No pressed')
+      }
+    ]);
   };
   
   
@@ -185,10 +196,8 @@ const NewWorkout = ({ navigation }) => {
   };
 
   const renderExerciseCard = ({ item, index }) => {
-    console.log(item);
-    console.log(exercisesToDelete);
     if (exercisesToDelete.includes(item)) {
-      return null;
+      return null; // Don't render the exercise card if it is in the exercisesToDelete list
     }
     else {
     return(
