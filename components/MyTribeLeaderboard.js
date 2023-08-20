@@ -32,7 +32,7 @@ const MyTribeLeaderboard = ({user, index}) => {
         </TouchableOpacity>
       </View>
       <View>
-        <Text style={globalStyles.text}>{User.getWorkoutVolume(user)}kg</Text>
+        <Text style={globalStyles.text}>{User.getTotalWorkoutVolume(user)}kg</Text>
       </View>
     </View>
   )

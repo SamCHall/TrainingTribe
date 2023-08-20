@@ -9,7 +9,7 @@ const ExerciseCardReadOnly = ({exercise}) => {
     return exercise.sets.map((set, index) => (
       <View key={index} style={{flexDirection:'row', width:'100%', justifyContent:'space-around', alignItems:'center', paddingVertical: 20}}>
         <Text style={globalStyles.text}>{index + 1}</Text>
-        <Text style={globalStyles.text}>Weight: {set.weight}kg</Text>
+        <Text style={globalStyles.text}>Weight: {set.weight} kg</Text>
         <Text style={globalStyles.text}>Reps: {set.reps}</Text>
       </View>
     ));
@@ -21,19 +21,19 @@ const ExerciseCardReadOnly = ({exercise}) => {
         <View style={{flexDirection:'column', paddingVertical: 20}}>
           <View style={{flexDirection:'row', paddingVertical: 10}}>
             <Ionicons name="walk-outline" size={20} color={COLORS.tertiary} />
-            <Text style={[globalStyles.text, {paddingLeft:5}]}>Distance: {set.distance}km</Text>
+            <Text style={[globalStyles.text, {paddingLeft:5}]}>Distance: {set.distance} km</Text>
           </View>
           
           <View style={{flexDirection:'row'}}>
             <Ionicons name="timer-outline" size={20} color={COLORS.tertiary} />
-            <Text style={[globalStyles.text, {paddingLeft:5}]}>Time: {set.time}min</Text>
+            <Text style={[globalStyles.text, {paddingLeft:5}]}>Time: {set.time} min(s)</Text>
           </View>
           
         </View>
         <View style={{flexDirection:'column',paddingVertical: 20}}>
           <View style={{flexDirection:'row', paddingVertical: 10}}>
             <Ionicons name="speedometer-outline" size={20} color={COLORS.tertiary} />
-            <Text style={[globalStyles.text, {paddingLeft:5}]}>Speed: {set.speed}km/h</Text>
+            <Text style={[globalStyles.text, {paddingLeft:5}]}>Speed: {set.speed} km/h</Text>
           </View>
           <View style={{flexDirection:'row'}}>
             <Ionicons name="cellular-outline" size={20} color={COLORS.tertiary}/>

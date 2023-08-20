@@ -41,13 +41,13 @@ const MyTribe = ({navigation}) => {
       
         const sortMembersByTotalVolume = () => {
           const members = getTribeMembers();
-          const sortedMembers = members.sort((a, b) => User.getWorkoutVolume(b) - User.getWorkoutVolume(a));
+          const sortedMembers = members.sort((a, b) => User.getTotalWorkoutVolume(b) - User.getTotalWorkoutVolume(a));
           return sortedMembers;
         };
 
         const getTribeVolume = () => {
           const members = getTribeMembers();
-          const totalVolume = members.reduce((total, member) => total + User.getWorkoutVolume(member), 0);
+          const totalVolume = members.reduce((total, member) => total + User.getTotalWorkoutVolume(member), 0);
           return totalVolume;
         };
 

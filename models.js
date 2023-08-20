@@ -19,19 +19,37 @@ export class User extends Realm.Object {
       return user.workouts.length;
     }
 
-    static getWorkoutVolume(user) {
+    static getTotalWorkoutVolume(user) {
       let volume = 0;
       user.workouts.forEach((workout) => {
-        if (workout.type !== 'Cardio') {
         workout.exercises.forEach((exercise) => {
           exercise.sets.forEach((set) => {
             volume += set.weight * set.reps;
           });
         });
+
       }
-      });
+      );
+
       return volume;
     }
+
+    static getMaxWeight(user) {
+      let maxWeight = 0;
+      user.workouts.forEach((workout) => {
+        workout.exercises.forEach((exercise) => {
+          if (exercise.type !== 'Cardio') {
+          exercise.sets.forEach((set) => {
+            if (set.weight > maxWeight) {
+              maxWeight = set.weight;
+            }
+          });
+        }
+        });
+      });
+      return maxWeight;
+    }
+
     static getMaxWeightForExercise(user, exerciseId) {  
       let maxWeight = 0;
       user.workouts.forEach((workout) => {
@@ -48,6 +66,67 @@ export class User extends Realm.Object {
       return maxWeight;
     }
     
+    static getCardioExercisesCompleted(user) {
+      let cardioExercises = 0;
+      user.workouts.forEach((workout) => {
+        workout.exercises.forEach((exercise) => {
+          if (exercise.type === 'Cardio') {
+            cardioExercises += 1;
+          }
+        });
+      }
+      );
+      return cardioExercises;
+    }
+
+    static getTotalCardioDistance(user) {
+      let distance = 0;
+      user.workouts.forEach((workout) => {
+        workout.exercises.forEach((exercise) => {
+          exercise.cardioTracking.forEach((cardioTracking) => {
+            distance += cardioTracking.distance;
+          });
+        });
+      }
+      );
+      return distance;
+    }
+  
+    static getFavouriteExercise(user) {
+      let exercises = {};
+      user.workouts.forEach((workout) => {
+        workout.exercises.forEach((exercise) => {
+          if (exercises[exercise.name]) {
+            exercises[exercise.name] += 1;
+          } else {
+            exercises[exercise.name] = 1;
+          }
+        });
+      }
+      );
+      let max = 0;
+      let maxExercise = '';
+      Object.keys(exercises).forEach((exercise) => {
+        if (exercises[exercise] > max) {
+          max = exercises[exercise];
+          maxExercise = exercise;
+        }
+      });
+      return maxExercise;
+    }
+
+    static getTotalReps(user) {
+      let reps = 0;
+      user.workouts.forEach((workout) => {
+        workout.exercises.forEach((exercise) => {
+          exercise.sets.forEach((set) => {
+            reps += set.reps;
+          });
+        });
+      }
+      );
+      return reps;
+    }
   }
 
 export class Workout extends Realm.Object {
