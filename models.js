@@ -193,6 +193,7 @@ export class Tribe extends Realm.Object {
       members: 'string[]',
       level: {type: 'int', default: 1},
       owner_id: 'string',
+      war: 'War?',
     },
     primaryKey: '_id',
   };

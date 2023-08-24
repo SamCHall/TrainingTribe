@@ -36,10 +36,11 @@ const handleCreateTribe = async () => {
         members: [user.id],
         owner_id: user.id,
       });
-      realm.create('War', {
+      const war = realm.create('War', {
         _id: warId,
         tribes: [tribe, opposingTribe],
       });
+      tribe.war = war;
     });
 
     const customDataCollection = user.mongoClient("mongodb-atlas").db("todo").collection("User");
@@ -54,6 +55,7 @@ const handleCreateTribe = async () => {
 
     await user.refreshCustomData();
     await realm.syncSession.uploadAllLocalChanges();
+    await realm.syncSession.downloadAllServerChanges();
 
     setIsLoading(false);
     navigation.replace('Home');

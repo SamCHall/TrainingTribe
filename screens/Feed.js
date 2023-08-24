@@ -15,6 +15,8 @@ const Feed = () => {
   const user = app.currentUser
 
   const tribe = realm.objects('Tribe').filtered('_id == $0', app.currentUser.customData.tribe)[0]
+  const opposingTribe = tribe.war.tribes[1]
+
   if(!user.customData.tribe){
     return(
       <View>
@@ -31,34 +33,40 @@ const Feed = () => {
     return validMembers;
   }
 
-  const getWar = () => {
-    const war = realm.objects('War').filtered('_id == $0', tribe.war)[0]
-    return war
+  const getOpposingTribeMembers = () => {
+    const memberObjects = opposingTribe.members.map(memberId => realm.objectForPrimaryKey('User', memberId)); // Getting all members from their IDs
+    const validMembers = memberObjects.filter(member => member !== null); // Filtering out nulls
+    return validMembers;
   }
 
   
 
   return (
-    <View style={globalStyles.container}>
+    <View style={[globalStyles.container, {gap:15}]}>
       <CustomStatusBar />
-      <View style={{alignItems:'center'}}>
+      
+      <View style={{alignItems:'center', paddingTop:15}}>
         <Text style={globalStyles.subTitle}>{tribe.name}</Text>
       </View>
+      
       <FlatList
         data={getTribeMembers()}
         renderItem={({ item, index }) => <MyTribeLeaderboard user={item} index={index} />}
         keyExtractor={item => item._id}
       />
+      
 
-      <ProgressBar teamPercentage={50}/>
+        <ProgressBar teamPercentage={50}/>
 
-
-      {/* Placeholder leaderboard */}
-      <FlatList
-        data={getTribeMembers()}
-        renderItem={({ item, index }) => <MyTribeLeaderboard user={item} index={index} />}
-        keyExtractor={item => item._id}
-      />
+    
+        <View style={{alignItems:'center'}}>
+          <Text style={globalStyles.subTitle}>{opposingTribe.name}</Text>
+        </View>
+        <FlatList
+          data={getOpposingTribeMembers()}
+          renderItem={({ item, index }) => <MyTribeLeaderboard user={item} index={index} />}
+          keyExtractor={item => item._id}
+        />
 
 
 

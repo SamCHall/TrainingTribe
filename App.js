@@ -63,6 +63,7 @@ function App() {
   });
   
   if (!loaded) {
+    
     return <View style={globalStyles.centeredContainer}>
       <CustomStatusBar />
       <ActivityIndicator size='large' animating={true} color={COLORS.tertiary}/>
