@@ -25,6 +25,9 @@ const Home = () => {
   if (!user.customData.username) {
     navigation.navigate('UsernameChooser')
   }
+  else if (!user.customData.tribe) {
+    navigation.navigate('TribeChooser')
+  }
 
   return (
     <Tab.Navigator

@@ -194,16 +194,15 @@ export class Tribe extends Realm.Object {
       members: 'string[]',
       level: {type: 'int', default: 1},
       owner_id: 'string',
-      // currentWar: {
-      //   _id: 'objectId',
-      //   opponent: 'Tribe[]',
-      //   startDate: {type: 'date', default: new Date()},
-      //   endDate: {type: 'date', default: new Date()},
-
-      // }
+      currentWar: {
+        type: 'linkingObjects',
+        objectType: 'War',
+        property: 'tribes',
+      }
     },
     primaryKey: '_id',
   };
+
 
   static getTribeTotalVolume(tribe) {
     let volume = 0;
@@ -292,9 +291,24 @@ export class Tribe extends Realm.Object {
   }
 }
 
+export class War extends Realm.Object {
+  static schema = {
+    name: 'War',
+    properties: {
+      _id: 'objectId',
+      tribes: 'Tribe[]',
+      startDate: {type: 'date', default: new Date()},
+      endDate: {type: 'date', default: new Date()},
+      active: {type: 'bool', default: true},
+      winner: 'Tribe?',
+    },
+    primaryKey: '_id',
+  };
+}
+
   // Create a configuration object
 export const {useRealm, useQuery, RealmProvider, useObject} = createRealmContext({
-    schema: [User.schema, Workout.schema, Exercise.schema, Set.schema, Tribe.schema, CardioTracking.schema],
+    schema: [User.schema, Workout.schema, Exercise.schema, Set.schema, Tribe.schema, CardioTracking.schema, War.schema],
     schemaVersion: 1,
   });
   

@@ -34,7 +34,7 @@ function UsernameChooser() {
           // Refresh custom user data once it's been updated on the server
           const customUserData = await user.refreshCustomData();
             // Navigate to the main app screen
-            navigation.navigate('Home');
+            navigation.replace('TribeChooser');
         }
 
   return (

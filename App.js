@@ -16,6 +16,9 @@ import { AppProvider, UserProvider } from '@realm/react';
 import 'react-native-get-random-values'
 import { COLORS } from './constants';
 import { CustomStatusBar } from './components';
+import TribeChooser from './screens/TribeChooser';
+import CreateTribe from './screens/Tribes/CreateTribe';
+import JoinTribe from './screens/Tribes/JoinTribe';
 
 
 
@@ -75,6 +78,9 @@ function App() {
       >
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="UsernameChooser" component={UsernameChooser} />
+          <Stack.Screen name="TribeChooser" component={TribeChooser} />
+          <Stack.Screen name="CreateTribe" component={CreateTribe}  />
+          <Stack.Screen name="JoinTribe" component={JoinTribe}  />
           <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
     </NavigationContainer>

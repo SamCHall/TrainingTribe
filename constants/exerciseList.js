@@ -4,8 +4,64 @@ export const exerciseList = [
       type: 'Chest',
     },
     {
-      name: 'Squat',
+      name: 'Barbell Squat',
       type: 'Legs',
+    },
+    {
+        name: 'Barbell Row',
+        type: 'Back',
+    },
+    {
+        name: 'Barbell Curl',
+        type: 'Arms',
+    },
+    {
+        name: 'Shrug',
+        type: 'Shoulders',
+    },
+    {
+        name: 'Crunches',
+        type: 'Core',
+    },
+    {
+        name: 'Leg Raise',
+        type: 'Core',
+    },
+    {
+        name: 'Goblin Squat',
+        type: 'Legs',
+    },
+    {
+        name: 'Calf Raise',
+        type: 'Legs',
+    },
+    {
+        name: 'Hammer Curl',
+        type: 'Arms',
+    },
+    {
+        name:'Preacher Curl',
+        type: 'Arms',
+    },
+    {
+        name: 'Skullcrusher',
+        type: 'Arms',
+    },
+    {
+        name: 'Bulgarian Split Squat',
+        type: 'Legs',
+    },
+    {
+        name: 'Knee Raise',
+        type: 'Core',
+    },
+    {
+        name:'Pec Fly',
+        type: 'Chest',
+    },
+    {
+        name: 'Rear Delt Fly',
+        type: 'Shoulders',
     },
     {
       name: 'Deadlift',
@@ -75,6 +131,11 @@ export const exerciseList = [
         name: 'Leg Curl',
         type: 'Legs',
     },
+    {
+        name: 'Front Raise',
+        type: 'Shoulders',
+    },
+    
     {
         name: 'Dumbbell Lateral Raise',
         type: 'Shoulders',
@@ -167,4 +228,26 @@ export const exerciseList = [
         name: 'Kettlebell Swing',
         type: 'Other',
     },
+    {
+        name: 'Dumbbell Bench Press',
+        type: 'Chest',
+    },
+    {
+        name: 'Dumbbell Incline Bench Press',
+        type: 'Chest',
+    },
+    {
+        name: 'Dumbbell Decline Bench Press',
+        type: 'Chest',
+    },
+    {
+        name: 'Incline Chest Press',
+        type: 'Chest',
+    },
+    {
+        name: 'Decline Chest Press',
+        type: 'Chest',
+    },
+    
+
 ];

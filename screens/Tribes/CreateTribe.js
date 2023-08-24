@@ -44,7 +44,7 @@ const handleCreateTribe = async () => {
       await user.refreshCustomData();
       await realm.syncSession.uploadAllLocalChanges();
       setIsLoading(false)
-      navigation.replace('MyTribe')
+      navigation.replace('Home')
 }
 
 

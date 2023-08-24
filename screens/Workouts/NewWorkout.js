@@ -211,10 +211,10 @@ const NewWorkout = ({ navigation }) => {
     <View style={globalStyles.container}>
       <CustomStatusBar />
       {/* Render the header with the finish workout button */}
-      <NewWorkoutHeader onFinishWorkout={handleFinishWorkout} isLoading={isLoading}/>
+      {/* <NewWorkoutHeader onFinishWorkout={handleFinishWorkout} isLoading={isLoading}/> */}
 
       <KeyboardAvoidingView
-      style={{ flex: 1 }}
+      
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
       >
@@ -226,15 +226,20 @@ const NewWorkout = ({ navigation }) => {
         ListEmptyComponent={() => <Text style={globalStyles.emptyListComponent}>No exercises added</Text>}
         keyboardShouldPersistTaps="always"
         contentContainerStyle={{ paddingBottom: 100 }}
+        ListHeaderComponent={() => <NewWorkoutHeader onFinishWorkout={handleFinishWorkout} isLoading={isLoading}/>}
+        ListHeaderComponentStyle={{position:'relative', top:0, left:0, right:0}}
         />
+        
       </KeyboardAvoidingView>
       {/* Render the exercise cards */}
       
 
       {/* Button to add a new exercise */}
-      <View>
+      <View style={globalStyles.bottomButtonContainer}>
         <OvalButton text="Add Exercise" onPress={() => setModalVisible(true)} />
       </View>
+        
+      
       <Collapsible collapsed={loadingCollapsed}>
         <ActivityIndicator animating={isLoading} size="large" color={COLORS.secondary} />
       </Collapsible>

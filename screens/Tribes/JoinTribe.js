@@ -38,7 +38,7 @@ const JoinTribe = ({navigation}) => {
                 
             }
             setIsLoading(false)
-            navigation.replace('MyTribe')
+            navigation.replace('Home')
         }
 
         catch(e){

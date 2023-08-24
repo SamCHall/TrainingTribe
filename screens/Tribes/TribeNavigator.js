@@ -15,8 +15,8 @@ const TribeNavigator = () => {
     }
     >
         <Stack.Screen name='MyTribe' component={MyTribe} />
-        <Stack.Screen name='CreateTribe' component={CreateTribe} />
-        <Stack.Screen name='JoinTribe' component={JoinTribe} />
+        {/* <Stack.Screen name='CreateTribe' component={CreateTribe} />
+        <Stack.Screen name='JoinTribe' component={JoinTribe} /> */}
     </Stack.Navigator>
   )
 }
