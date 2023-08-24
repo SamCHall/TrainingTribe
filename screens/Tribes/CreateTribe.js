@@ -19,33 +19,52 @@ const realm = useRealm()
 const user = useUser()
 
 const handleCreateTribe = async () => {
+  setIsLoading(true);
 
-    setIsLoading(true)
+  try {
+    const opposingTribe = realm.objects('Tribe').filtered('name == $0', "Mia's Warriors (AI)")[0];
+    console.log("Opposing Tribe:", opposingTribe);
 
-    const tribeId = Realm.BSON.ObjectId();
+    const warId = new Realm.BSON.ObjectId();
+    const tribeId = new Realm.BSON.ObjectId();
+    
     realm.write(() => {
-        realm.create('Tribe', {
-            _id: tribeId,
-            name: tribeName,
-            description: tribeDescription,
-            members: [user.id],
-            owner_id: user.id,
-        })
-        }
-    )
-        const customDataCollection = user.mongoClient("mongodb-atlas").db("todo").collection("User");
-    const filter = {_id: user.id};
+      const tribe = realm.create('Tribe', {
+        _id: tribeId,
+        name: tribeName,
+        description: tribeDescription,
+        members: [user.id],
+        owner_id: user.id,
+      });
+      realm.create('War', {
+        _id: warId,
+        tribes: [tribe, opposingTribe],
+      });
+    });
+
+    const customDataCollection = user.mongoClient("mongodb-atlas").db("todo").collection("User");
+    const filter = { _id: user.id };
     const update = {
       $set: {
         tribe: tribeId,
-      }
-    }
-      await customDataCollection.updateOne(filter, update);
-      await user.refreshCustomData();
-      await realm.syncSession.uploadAllLocalChanges();
-      setIsLoading(false)
-      navigation.replace('Home')
-}
+      },
+    };
+
+    await customDataCollection.updateOne(filter, update);
+
+    await user.refreshCustomData();
+    await realm.syncSession.uploadAllLocalChanges();
+
+    setIsLoading(false);
+    navigation.replace('Home');
+  } catch (error) {
+    console.error("Error creating tribe:", error);
+    setIsLoading(false);
+    // Handle error appropriately
+  }
+};
+
+
 
 
   return (

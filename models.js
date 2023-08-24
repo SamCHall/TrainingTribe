@@ -1,5 +1,4 @@
 import { Realm, createRealmContext } from "@realm/react";
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 // Defining a schema for a Profile object
 export class User extends Realm.Object {
@@ -194,15 +193,9 @@ export class Tribe extends Realm.Object {
       members: 'string[]',
       level: {type: 'int', default: 1},
       owner_id: 'string',
-      currentWar: {
-        type: 'linkingObjects',
-        objectType: 'War',
-        property: 'tribes',
-      }
     },
     primaryKey: '_id',
   };
-
 
   static getTribeTotalVolume(tribe) {
     let volume = 0;
@@ -291,14 +284,16 @@ export class Tribe extends Realm.Object {
   }
 }
 
+const firstDay = new Date();
+const nextWeek = new Date(firstDay.getTime() + 7 * 24 * 60 * 60 * 1000);
 export class War extends Realm.Object {
   static schema = {
     name: 'War',
     properties: {
       _id: 'objectId',
       tribes: 'Tribe[]',
-      startDate: {type: 'date', default: new Date()},
-      endDate: {type: 'date', default: new Date()},
+      startDate: {type: 'date', default: firstDay},
+      endDate: {type: 'date', default: nextWeek},
       active: {type: 'bool', default: true},
       winner: 'Tribe?',
     },
