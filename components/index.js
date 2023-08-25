@@ -8,5 +8,6 @@ import ExerciseCardReadOnly from "./ExerciseCardReadOnly";
 import CardioInput from "./CardioInput";
 import MyTribeLeaderboard from "./MyTribeLeaderboard";
 import TotalVolume from "./Leaderboards/TotalVolume";
+import TotalDistance from "./Leaderboards/TotalDistance";
 
-export { OvalButton, HomeHeader, TextButton, WorkoutCard, ExerciseCard, NewWorkoutHeader, CustomStatusBar, ExerciseCardReadOnly, CardioInput, MyTribeLeaderboard, TotalVolume };
+export { OvalButton, HomeHeader, TextButton, WorkoutCard, ExerciseCard, NewWorkoutHeader, CustomStatusBar, ExerciseCardReadOnly, CardioInput, MyTribeLeaderboard, TotalVolume, TotalDistance };

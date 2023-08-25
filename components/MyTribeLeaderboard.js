@@ -4,7 +4,7 @@ import globalStyles from '../constants/GlobalStyle'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { User } from '../models'
 
-const MyTribeLeaderboard = ({user, index}) => {
+const MyTribeLeaderboard = ({user, index, metric}) => {
 
   const renderMedal = (index) => {
     if(index === 0){
@@ -20,6 +20,22 @@ const MyTribeLeaderboard = ({user, index}) => {
         <Text style={[globalStyles.text]}>🥉</Text>
       )
     }}
+
+    const renderMetric = (metric) => {
+      if(metric === 'volume'){
+        return(
+          <Text style={globalStyles.text}>{User.getTotalWorkoutVolume(user)}kg</Text>
+        )
+      } else if(metric === 'distance'){
+        return(
+          <Text style={globalStyles.text}>{User.getTotalCardioDistance(user)}km</Text>
+        )
+      } else if(metric === 'workouts'){
+        return(
+          <Text style={globalStyles.text}>{User.getTotalWorkouts(user)}</Text>
+        )
+      }
+    }
     
   return (
     <View style={globalStyles.leaderboardEntry}>
@@ -32,7 +48,7 @@ const MyTribeLeaderboard = ({user, index}) => {
         </TouchableOpacity>
       </View>
       <View>
-        <Text style={globalStyles.text}>{User.getTotalWorkoutVolume(user)}kg</Text>
+        {renderMetric(metric)}
       </View>
     </View>
   )
