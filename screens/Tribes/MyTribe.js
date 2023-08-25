@@ -1,13 +1,11 @@
 import { View, Text } from 'react-native'
 import React, { useEffect } from 'react'
 import globalStyles from '../../constants/GlobalStyle'
-import { CustomStatusBar, OvalButton, TextButton } from '../../components'
+import { CustomStatusBar, OvalButton, TextButton, TotalVolume } from '../../components'
 import { useApp, useUser } from '@realm/react'
 import { useObject, useQuery, useRealm } from '../../models'
-import { FlatList } from 'react-native-gesture-handler'
 import Collapsible from 'react-native-collapsible'
 import { useState } from 'react'
-import { MyTribeLeaderboard } from '../../components'
 import { User, Tribe } from '../../models'
 
 
@@ -38,12 +36,6 @@ const MyTribe = ({navigation}) => {
 
           return validMembers;
         };
-      
-        const sortMembersByTotalVolume = () => {
-          const members = getTribeMembers();
-          const sortedMembers = members.sort((a, b) => User.getTotalWorkoutVolume(b) - User.getTotalWorkoutVolume(a));
-          return sortedMembers;
-        };
 
         const getTribeVolume = () => {
           const members = getTribeMembers();
@@ -62,18 +54,7 @@ const MyTribe = ({navigation}) => {
               <Text style={globalStyles.text}>{tribe.description}</Text>
             </Collapsible>
           </View>
-        <View style={{flex:1}}>
-          <View style={[globalStyles.leaderboardEntry, {borderTopWidth:0, borderBottomWidth:3}]}>
-            <Text style={[globalStyles.h3, {marginLeft:20}]}>Username</Text>
-            <Text style={globalStyles.h3}>Total Volume</Text>
-          </View>
-            <FlatList
-            data={sortMembersByTotalVolume()}
-            style={{justifySelf:'flex-start'}}
-            renderItem={({ item, index }) => <MyTribeLeaderboard user={item} index={index} />}
-            keyExtractor={item => item._id}
-          />
-          </View>
+          <TotalVolume members={getTribeMembers()}/>
           <View style={{alignItems:'center'}}>
             <Text style={globalStyles.text}>Total volume lifted: {getTribeVolume()}kg</Text>
             <Text style={globalStyles.text}>Total workouts completed: {Tribe.getTribeTotalWorkouts(members = getTribeMembers())}</Text>

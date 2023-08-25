@@ -1,7 +1,7 @@
 import { View, Text, ActivityIndicator } from 'react-native'
 import React from 'react'
 import { useApp } from '@realm/react'
-import { CustomStatusBar, HomeHeader, MyTribeLeaderboard, OvalButton } from '../components'
+import { CustomStatusBar, HomeHeader, MyTribeLeaderboard, OvalButton, TotalVolume } from '../components'
 import globalStyles from '../constants/GlobalStyle'
 import { useRealm } from '../models'
 import { COLORS } from '../constants'
@@ -49,26 +49,14 @@ const Feed = () => {
         <Text style={globalStyles.subTitle}>{tribe.name}</Text>
       </View>
       
-      <FlatList
-        data={getTribeMembers()}
-        renderItem={({ item, index }) => <MyTribeLeaderboard user={item} index={index} />}
-        keyExtractor={item => item._id}
-      />
-      
+      <TotalVolume members={getTribeMembers()}/>
 
-        <ProgressBar teamPercentage={50}/>
-
+      <ProgressBar teamPercentage={50}/>
     
-        <View style={{alignItems:'center'}}>
-          <Text style={globalStyles.subTitle}>{opposingTribe.name}</Text>
-        </View>
-        <FlatList
-          data={getOpposingTribeMembers()}
-          renderItem={({ item, index }) => <MyTribeLeaderboard user={item} index={index} />}
-          keyExtractor={item => item._id}
-        />
-
-
+      <View style={{alignItems:'center'}}>
+        <Text style={globalStyles.subTitle}>{opposingTribe.name}</Text>
+      </View>
+      <TotalVolume members={getOpposingTribeMembers()}/>
 
     </View>
   )
