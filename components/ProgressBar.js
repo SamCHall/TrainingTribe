@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, Animated } from 'react-native'; // Assuming you're using React Native
+import { View, Animated, Text } from 'react-native'; // Assuming you're using React Native
 import { COLORS } from '../constants';
+import globalStyles from '../constants/GlobalStyle';
 
-const ProgressBar = ({teamPercentage}) => {
+const ProgressBar = ({teamPercentage, categoryCount}) => {
   const [progress] = useState(new Animated.Value(0)); // Initialize animated value
 
   useEffect(() => {
@@ -18,12 +19,17 @@ const ProgressBar = ({teamPercentage}) => {
     <View
       style={{
         alignItems: 'flex-start',
+        justifyContent: 'space-between',
+        flexDirection: 'row',
         position: 'relative',
         borderRadius: 10,
         margin: 10,
         backgroundColor: 'red', // Using 'red' to represent the background color (opposing tribe)
       }}
     >
+      <Text style={[globalStyles.text, {marginHorizontal:5}]}>
+        {categoryCount}
+      </Text>
       <Animated.View
         style={{
           width: progress.interpolate({
@@ -36,6 +42,9 @@ const ProgressBar = ({teamPercentage}) => {
             height: 15,
         }}
       />
+      <Text style={[globalStyles.text, {marginHorizontal:5}]}> 
+        {2 - categoryCount}
+      </Text>
     </View>
   );
 };

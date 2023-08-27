@@ -198,9 +198,9 @@ export class Tribe extends Realm.Object {
     primaryKey: '_id',
   };
 
-  static getTribeTotalVolume(tribe) {
+  static getTribeTotalVolume(members) {
     let volume = 0;
-    tribe.members.forEach((member) => {
+    members.forEach((member) => {
       member.workouts.forEach((workout) => {
         workout.exercises.forEach((exercise) => {
           exercise.sets.forEach((set) => {

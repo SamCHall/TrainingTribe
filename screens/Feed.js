@@ -3,14 +3,15 @@ import React from 'react'
 import { useApp } from '@realm/react'
 import { CustomStatusBar, HomeHeader, MyTribeLeaderboard, OvalButton, TotalVolume, TotalDistance } from '../components'
 import globalStyles from '../constants/GlobalStyle'
-import { useRealm } from '../models'
+import { Tribe, useRealm } from '../models'
 import { COLORS } from '../constants'
 import { FlatList } from 'react-native-gesture-handler'
 import ProgressBar from '../components/ProgressBar'
 import { SIZES } from '../constants/theme'
 import SelectDropdown from 'react-native-select-dropdown'
 import { useState } from 'react'
-import {Ionicons} from 'react-native-vector-icons/Ionicons'
+import { User } from '../models'
+
 
 
 const Feed = () => {
@@ -45,6 +46,36 @@ const Feed = () => {
     return validMembers;
   }
 
+  const renderDynamicTotal = ({members}) => {
+    if(leaderboard === 'Total Volume'){
+      return(
+        <Text style={[globalStyles.h3]}>Tribe Total Volume: {Tribe.getTribeTotalVolume(members)}kg</Text>
+      )
+    } else if(leaderboard === 'Total Distance'){
+      return(
+        <Text style={[globalStyles.h3]}>Tribe Total Distance: {Tribe.getTribeTotalDistance(members)}km</Text>
+      )
+    }
+  }
+
+  const renderWinningTribe = () => {
+    const percentage = getTeamPercentage()
+    if(percentage > 50){
+      return(
+        <Text style={[globalStyles.h3, {color:COLORS.secondary}]}>Winning!</Text>
+      )
+    } else if(percentage < 50){
+      return(
+        <Text style={[globalStyles.h3, {color:'red'}]}>Losing!</Text>
+      )
+    } else if(percentage === 50){
+      return(
+        <Text style={[globalStyles.h3, {color:COLORS.secondary}]}>Tied!</Text>
+      )
+    }
+  }
+
+
   const renderLeaderboard = ({members}) => {
     if(leaderboard === 'Total Volume'){
       return(
@@ -56,6 +87,34 @@ const Feed = () => {
       )
     }
   }
+
+  const getWinningCategoryCount = () => {
+    const count = 0
+    const tribeMembers = getTribeMembers()
+    const opposingTribeMembers = getOpposingTribeMembers()
+    const totalVolume = tribeMembers.reduce((total, member) => total + User.getTotalWorkoutVolume(member), 0)
+    const opposingTotalVolume = opposingTribeMembers.reduce((total, member) => total + User.getTotalWorkoutVolume(member), 0)
+    if(totalVolume > opposingTotalVolume){
+      count += 1
+    }
+
+    const totalDistance = tribeMembers.reduce((total, member) => total + User.getTotalCardioDistance(member), 0)
+    const opposingTotalDistance = opposingTribeMembers.reduce((total, member) => total + User.getTotalCardioDistance(member), 0)
+    if(totalDistance > opposingTotalDistance){
+      count += 1
+    }
+
+    return count
+  }
+
+
+  const getTeamPercentage = () => {
+    const count = getWinningCategoryCount()
+    const teamPercentage = count / 2 * 100
+    return teamPercentage
+    
+  }
+
   
   
 
@@ -65,11 +124,16 @@ const Feed = () => {
       
       <View style={{alignItems:'center', paddingTop:15}}>
         <Text style={[globalStyles.subTitle, {color: COLORS.secondary}]}>{tribe.name}</Text>
+        {renderDynamicTotal({members:getTribeMembers()})}
       </View>
       
       {renderLeaderboard({members:getTribeMembers()})}
 
-      <ProgressBar teamPercentage={50}/>
+      <View style={{alignItems:'center', justifyContent:'center'}}>
+        {renderWinningTribe()}
+      </View>
+      
+      <ProgressBar teamPercentage={getTeamPercentage()} categoryCount={getWinningCategoryCount()}/>
       <View style={{alignItems:'center', position:'relative'}}>
         <SelectDropdown
                       showsVerticalScrollIndicator={true}
@@ -96,6 +160,7 @@ const Feed = () => {
     
       <View style={{alignItems:'center'}}>
         <Text style={[globalStyles.subTitle,{color:'red'}]}>{opposingTribe.name}</Text>
+        {renderDynamicTotal({members:getOpposingTribeMembers()})}
       </View>
       {renderLeaderboard({members:getOpposingTribeMembers()})}
 
