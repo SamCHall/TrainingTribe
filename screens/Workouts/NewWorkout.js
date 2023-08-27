@@ -129,6 +129,7 @@ const NewWorkout = ({ navigation }) => {
       await customDataCollection.updateOne(filter, update);
       await user.refreshCustomData();
       await realm.syncSession.uploadAllLocalChanges();
+      
       setIsLoading(false);
       setLoadingCollapsed(true);
       navigation.replace('ExistingWorkouts')

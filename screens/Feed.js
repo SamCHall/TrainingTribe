@@ -1,11 +1,11 @@
 import { View, Text, ActivityIndicator } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useApp } from '@realm/react'
 import { CustomStatusBar, HomeHeader, MyTribeLeaderboard, OvalButton, TotalVolume, TotalDistance } from '../components'
 import globalStyles from '../constants/GlobalStyle'
 import { Tribe, useRealm } from '../models'
 import { COLORS } from '../constants'
-import { FlatList } from 'react-native-gesture-handler'
+import { FlatList, RefreshControl } from 'react-native-gesture-handler'
 import ProgressBar from '../components/ProgressBar'
 import { SIZES } from '../constants/theme'
 import SelectDropdown from 'react-native-select-dropdown'
@@ -23,6 +23,11 @@ const Feed = () => {
   const opposingTribe = tribe.war.tribes[1]
 
   const [leaderboard, setLeaderboard] = useState('Total Volume')
+
+  useEffect(() => {
+    realm.syncSession.downloadAllServerChanges()
+
+  }, [])
 
   if(!user.customData.tribe){
     return(
@@ -89,7 +94,7 @@ const Feed = () => {
   }
 
   const getWinningCategoryCount = () => {
-    const count = 0
+    let count = 0
     const tribeMembers = getTribeMembers()
     const opposingTribeMembers = getOpposingTribeMembers()
     const totalVolume = tribeMembers.reduce((total, member) => total + User.getTotalWorkoutVolume(member), 0)
@@ -121,7 +126,6 @@ const Feed = () => {
   return (
     <View style={[globalStyles.container, {gap:15}]}>
       <CustomStatusBar />
-      
       <View style={{alignItems:'center', paddingTop:15}}>
         <Text style={[globalStyles.subTitle, {color: COLORS.secondary}]}>{tribe.name}</Text>
         {renderDynamicTotal({members:getTribeMembers()})}

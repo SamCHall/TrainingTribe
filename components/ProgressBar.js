@@ -24,10 +24,11 @@ const ProgressBar = ({teamPercentage, categoryCount}) => {
         position: 'relative',
         borderRadius: 10,
         margin: 10,
+        height:20,
         backgroundColor: 'red', // Using 'red' to represent the background color (opposing tribe)
       }}
     >
-      <Text style={[globalStyles.text, {marginHorizontal:5}]}>
+      <Text style={[globalStyles.text, {marginHorizontal:5, zIndex:1, color:'black'}]}>
         {categoryCount}
       </Text>
       <Animated.View
@@ -36,13 +37,13 @@ const ProgressBar = ({teamPercentage, categoryCount}) => {
             inputRange: [0, 100],
             outputRange: ['0%', '100%'], // Mapping the animated value to width
           }),
-          position: 'relative',
+          position: 'absolute',
             borderRadius: 10,
           backgroundColor: COLORS.secondary, // Using COLORS.secondary as the fill color
-            height: 15,
+          height:20
         }}
       />
-      <Text style={[globalStyles.text, {marginHorizontal:5}]}> 
+      <Text style={[globalStyles.text, {marginHorizontal:5, zIndex:1, color:'black'}]}> 
         {2 - categoryCount}
       </Text>
     </View>
