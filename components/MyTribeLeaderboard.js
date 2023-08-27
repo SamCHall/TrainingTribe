@@ -32,7 +32,11 @@ const MyTribeLeaderboard = ({user, index, metric}) => {
         )
       } else if(metric === 'workouts'){
         return(
-          <Text style={globalStyles.text}>{User.getTotalWorkouts(user)}</Text>
+          <Text style={globalStyles.text}>{User.getWorkoutCount(user)}</Text>
+        )
+      } else if(metric === 'reps'){
+        return(
+          <Text style={globalStyles.text}>{User.getTotalReps(user)}</Text>
         )
       }
     }

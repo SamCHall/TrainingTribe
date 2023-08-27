@@ -230,6 +230,20 @@ export class Tribe extends Realm.Object {
     return maxWeight;
   }
   
+  static getTribeTotalReps(members) {
+    let reps = 0;
+    members.forEach((member) => {
+      member.workouts.forEach((workout) => {
+        workout.exercises.forEach((exercise) => {
+          exercise.sets.forEach((set) => {
+            reps += set.reps;
+          });
+        });
+      });
+    });
+    return reps;
+  }
+
   static getTribeTotalDistance(members) {
     let distance = 0;
     members.forEach((member) => {
@@ -246,34 +260,38 @@ export class Tribe extends Realm.Object {
 
   static getTribeAverageSpeed(members) {
     let speed = 0;
-    let workouts = 0;
+    let exercises = 0;
     members.forEach((member) => {
       member.workouts.forEach((workout) => {
-        workout.exercises.forEach((exercise) => {
-          exercise.cardioTracking.forEach((cardioTracking) => {
-            speed += cardioTracking.speed;
-            workouts += 1;
-          });
-        });
+        for (let i = 0; i < workout.exercises.length; i++) {
+          if (workout.exercises[i].type === 'Cardio') {
+            exercises += 1;
+            workout.exercises[i].cardioTracking.forEach((cardioTracking) => {
+              speed += cardioTracking.speed;
+            });
+          }
+        };;
       });
     });
-    return speed / workouts;
+    return speed / exercises;
   }
 
   static getTribeAverageElevation(members) {
     let elevation = 0;
-    let workouts = 0;
+    let exercises = 0;
     members.forEach((member) => {
       member.workouts.forEach((workout) => {
-        workout.exercises.forEach((exercise) => {
-          exercise.cardioTracking.forEach((cardioTracking) => {
-            elevation += cardioTracking.elevation;
-            workouts += 1;
-          });
-        });
+        for (let i = 0; i < workout.exercises.length; i++) {
+          if (workout.exercises[i].type === 'Cardio') {
+            exercises += 1;
+            workout.exercises[i].cardioTracking.forEach((cardioTracking) => {
+              elevation += cardioTracking.elevation;
+            });
+          }
+        };;
       });
     });
-    return elevation / workouts;
+    return elevation / exercises;
   }
 
   static getTribeTotalWorkouts(members) {

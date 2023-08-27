@@ -3,7 +3,7 @@ import { View, Animated, Text } from 'react-native'; // Assuming you're using Re
 import { COLORS } from '../constants';
 import globalStyles from '../constants/GlobalStyle';
 
-const ProgressBar = ({teamPercentage, categoryCount}) => {
+const ProgressBar = ({teamPercentage, categoryCount, totalCategories}) => {
   const [progress] = useState(new Animated.Value(0)); // Initialize animated value
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const ProgressBar = ({teamPercentage, categoryCount}) => {
         position: 'relative',
         borderRadius: 10,
         margin: 10,
-        height:20,
+        height: 20,
         backgroundColor: 'red', // Using 'red' to represent the background color (opposing tribe)
       }}
     >
@@ -40,11 +40,11 @@ const ProgressBar = ({teamPercentage, categoryCount}) => {
           position: 'absolute',
             borderRadius: 10,
           backgroundColor: COLORS.secondary, // Using COLORS.secondary as the fill color
-          height:20
+          height: '100%',
         }}
       />
       <Text style={[globalStyles.text, {marginHorizontal:5, zIndex:1, color:'black'}]}> 
-        {2 - categoryCount}
+        {totalCategories - categoryCount}
       </Text>
     </View>
   );

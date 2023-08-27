@@ -1,7 +1,7 @@
 import { View, Text, ActivityIndicator } from 'react-native'
 import React, { useEffect } from 'react'
 import { useApp } from '@realm/react'
-import { CustomStatusBar, HomeHeader, MyTribeLeaderboard, OvalButton, TotalVolume, TotalDistance } from '../components'
+import { CustomStatusBar, HomeHeader, MyTribeLeaderboard, OvalButton, TotalVolume, TotalDistance, TotalWorkouts, TotalReps } from '../components'
 import globalStyles from '../constants/GlobalStyle'
 import { Tribe, useRealm } from '../models'
 import { COLORS } from '../constants'
@@ -23,11 +23,8 @@ const Feed = () => {
   const opposingTribe = tribe.war.tribes[1]
 
   const [leaderboard, setLeaderboard] = useState('Total Volume')
+  const totalCategories = 4
 
-  useEffect(() => {
-    realm.syncSession.downloadAllServerChanges()
-
-  }, [])
 
   if(!user.customData.tribe){
     return(
@@ -61,6 +58,16 @@ const Feed = () => {
         <Text style={[globalStyles.h3]}>Tribe Total Distance: {Tribe.getTribeTotalDistance(members)}km</Text>
       )
     }
+    else if(leaderboard === 'Total Workouts'){
+      return(
+        <Text style={[globalStyles.h3]}>Tribe Total Workouts: {Tribe.getTribeTotalWorkouts(members)}</Text>
+      )
+    }
+    else if(leaderboard === 'Total Repetitions'){
+      return(
+        <Text style={[globalStyles.h3]}>Tribe Total Repetitions: {Tribe.getTribeTotalReps(members)}</Text>
+      )
+    }
   }
 
   const renderWinningTribe = () => {
@@ -75,7 +82,7 @@ const Feed = () => {
       )
     } else if(percentage === 50){
       return(
-        <Text style={[globalStyles.h3, {color:COLORS.secondary}]}>Tied!</Text>
+        <Text style={[globalStyles.h3]}>Tied!</Text>
       )
     }
   }
@@ -90,7 +97,15 @@ const Feed = () => {
       return(
         <TotalDistance members={members}/>
       )
-    }
+      } else if(leaderboard === 'Total Workouts'){
+        return(
+          <TotalWorkouts members={members}/>
+        )
+      } else if(leaderboard === 'Total Repetitions'){
+        return(
+          <TotalReps members={members}/>
+        )
+      }
   }
 
   const getWinningCategoryCount = () => {
@@ -109,18 +124,27 @@ const Feed = () => {
       count += 1
     }
 
+    const totalWorkouts = tribeMembers.reduce((total, member) => total + User.getWorkoutCount(member), 0)
+    const opposingTotalWorkouts = opposingTribeMembers.reduce((total, member) => total + User.getWorkoutCount(member), 0)
+    if(totalWorkouts > opposingTotalWorkouts){
+      count += 1
+    }
+
+    const totalReps = tribeMembers.reduce((total, member) => total + User.getTotalReps(member), 0)
+    const opposingTotalReps = opposingTribeMembers.reduce((total, member) => total + User.getTotalReps(member), 0)
+    if(totalReps > opposingTotalReps){
+      count += 1
+    }
+
     return count
   }
 
 
   const getTeamPercentage = () => {
     const count = getWinningCategoryCount()
-    const teamPercentage = count / 2 * 100
+    const teamPercentage = count / totalCategories * 100
     return teamPercentage
-    
   }
-
-  
   
 
   return (
@@ -137,7 +161,7 @@ const Feed = () => {
         {renderWinningTribe()}
       </View>
       
-      <ProgressBar teamPercentage={getTeamPercentage()} categoryCount={getWinningCategoryCount()}/>
+      <ProgressBar teamPercentage={getTeamPercentage()} categoryCount={getWinningCategoryCount()} totalCategories={totalCategories}/>
       <View style={{alignItems:'center', position:'relative'}}>
         <SelectDropdown
                       showsVerticalScrollIndicator={true}
@@ -148,7 +172,7 @@ const Feed = () => {
                       buttonStyle={{width: 150, height: 40, backgroundColor: COLORS.primary, borderColor: COLORS.secondary, borderWidth: 1, borderRadius: 10, alignItems: 'center', justifyContent: 'center'}}
                       buttonTextStyle={[globalStyles.text, {fontSize: SIZES.small}]}
                       defaultButtonText='Total Volume'
-                      data={['Total Volume', 'Total Distance']}
+                      data={['Total Volume', 'Total Distance', 'Total Workouts', 'Total Repetitions']}
                       onSelect={(selectedItem, index) => {
                           setLeaderboard(selectedItem)
                       }}
