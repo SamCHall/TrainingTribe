@@ -1,5 +1,5 @@
 import { useApp } from "@realm/react";
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity, Image } from "react-native";
 import Realm from "realm";
 import { OvalButton, CustomStatusBar } from "../components";
 import { TextInput } from "react-native-gesture-handler";
@@ -9,6 +9,8 @@ import globalStyles from "../constants/GlobalStyle";
 import { COLORS } from "../constants";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Collapsible from "react-native-collapsible";
+import { SvgUri } from "react-native-svg";
+import LogoSVG from "../components/Icons/LogoSVG";
 
 
 
@@ -84,8 +86,13 @@ const Login = ({ navigation }) => {
         
         <KeyboardAwareScrollView keyboardShouldPersistTaps={'always'} showsVerticalScrollIndicator={false} contentContainerStyle={globalStyles.centeredContainer}>
             <CustomStatusBar/>
-                <Text style={[globalStyles.title]}>TrainingTribe</Text>
-                <Text style={[globalStyles.text, {marginBottom: 10}]}>Image WIP</Text>
+            
+            <View width={400} height={400} margin={-100}>
+                <LogoSVG fill={COLORS.secondary} height={'100%'} width={'100%'}/>
+            </View>
+            
+            <Text style={[globalStyles.title, {color:COLORS.tertiary}]}>TrainingTribe</Text>
+                
             <Collapsible collapsed={loginCollapsed} align="bottom">
             <View>
                 <TextInput style={[globalStyles.input, {alignSelf: "center"}]}  mode="outlined" placeholder="Email" placeholderTextColor={COLORS.gray} autoComplete="email" inputMode="email" onChangeText={(text) => setEmail(text)}/>

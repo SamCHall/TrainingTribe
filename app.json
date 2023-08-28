@@ -4,7 +4,7 @@
     "slug": "TrainingTribe",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/TrainingTribe-icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "backgroundColor": "#001F2D"
@@ -19,8 +19,8 @@
     "android": {
       "windowSoftInputMode": "adjustResize",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/TrainingTribe-adaptiveIcon.png",
+        "backgroundColor": "#001F2D"
       },
       "package": "com.samchall.TrainingTribe"
     },

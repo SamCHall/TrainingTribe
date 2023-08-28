@@ -1,19 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { View, Animated, Text } from 'react-native'; // Assuming you're using React Native
+import { View, Animated, Text } from 'react-native';
 import { COLORS } from '../constants';
 import globalStyles from '../constants/GlobalStyle';
 
-const ProgressBar = ({teamPercentage, categoryCount, totalCategories}) => {
+const ProgressBar = ({ teamPercentage, categoryCount, totalCategories }) => {
   const [progress] = useState(new Animated.Value(0)); // Initialize animated value
+  const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
     // Animate the width of the progress bar on component mount
     Animated.timing(progress, {
-      toValue: teamPercentage, // fill depending on the teamPercentage prop
-      duration: 0, // Animation duration in milliseconds
+      toValue: teamPercentage,
+      duration: 0,
       useNativeDriver: false,
     }).start();
-  }, []);
+
+    // Update the initial animation value after a short delay
+    const timer = setTimeout(() => {
+      Animated.timing(progress, {
+        toValue: teamPercentage,
+        duration: 0,
+        useNativeDriver: false,
+      }).start();
+      setInitialized(true);
+    }, .01);
+
+    return () => clearTimeout(timer);
+  }, [teamPercentage]);
 
   return (
     <View
@@ -25,25 +38,27 @@ const ProgressBar = ({teamPercentage, categoryCount, totalCategories}) => {
         borderRadius: 10,
         margin: 10,
         height: 20,
-        backgroundColor: 'red', // Using 'red' to represent the background color (opposing tribe)
+        backgroundColor: 'red',
       }}
     >
-      <Text style={[globalStyles.text, {marginHorizontal:5, zIndex:1, color:'black'}]}>
+      <Text style={[globalStyles.text, { marginHorizontal: 5, zIndex: 1, color: 'black' }]}>
         {categoryCount}
       </Text>
-      <Animated.View
-        style={{
-          width: progress.interpolate({
-            inputRange: [0, 100],
-            outputRange: ['0%', '100%'], // Mapping the animated value to width
-          }),
-          position: 'absolute',
+      {initialized && (
+        <Animated.View
+          style={{
+            width: progress.interpolate({
+              inputRange: [0, 100],
+              outputRange: ['0%', '100%'],
+            }),
+            position: 'absolute',
             borderRadius: 10,
-          backgroundColor: COLORS.secondary, // Using COLORS.secondary as the fill color
-          height: '100%',
-        }}
-      />
-      <Text style={[globalStyles.text, {marginHorizontal:5, zIndex:1, color:'black'}]}> 
+            backgroundColor: COLORS.secondary,
+            height: '100%',
+          }}
+        />
+      )}
+      <Text style={[globalStyles.text, { marginHorizontal: 5, zIndex: 1, color: 'black' }]}>
         {totalCategories - categoryCount}
       </Text>
     </View>
