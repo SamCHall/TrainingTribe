@@ -19,8 +19,8 @@ import { CustomStatusBar } from './components';
 import TribeChooser from './screens/TribeChooser';
 import CreateTribe from './screens/Tribes/CreateTribe';
 import JoinTribe from './screens/Tribes/JoinTribe';
-
-
+import Profile from './screens/Profile';
+import WorkoutDetails from './screens/Workouts/WorkoutDetails';
 
 
 
@@ -74,7 +74,9 @@ function App() {
     <NavigationContainer theme={theme}>
       <Stack.Navigator
         screenOptions={{
-          headerShown: false
+          headerShown: false,
+          // disable animation
+          animationEnabled: false,
         }}
         initialRouteName='Home'
       >
@@ -83,6 +85,8 @@ function App() {
           <Stack.Screen name="TribeChooser" component={TribeChooser} />
           <Stack.Screen name="CreateTribe" component={CreateTribe}  />
           <Stack.Screen name="JoinTribe" component={JoinTribe}  />
+          <Stack.Screen name="Profile"  component={Profile} />
+          <Stack.Screen name="WorkoutDetails" component={WorkoutDetails} />
           <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
     </NavigationContainer>

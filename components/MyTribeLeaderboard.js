@@ -3,8 +3,10 @@ import React from 'react'
 import globalStyles from '../constants/GlobalStyle'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { User } from '../models'
+import { useNavigation } from '@react-navigation/native'
 
 const MyTribeLeaderboard = ({user, index, metric}) => {
+  const navigation = useNavigation()
 
   const renderMedal = (index) => {
     if(index === 0){
@@ -47,7 +49,7 @@ const MyTribeLeaderboard = ({user, index, metric}) => {
         <Text style={globalStyles.h3}>{index+1}.</Text>
       </View>
       <View style={{flex:1, marginLeft:15}}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Profile', user)}>
           <Text style={globalStyles.clickableText}>{user.username} {renderMedal(index)}</Text>
         </TouchableOpacity>
       </View>
