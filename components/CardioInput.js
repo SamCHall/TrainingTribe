@@ -46,7 +46,7 @@ const CardioInput = ({onFocus, onDistanceChange, onSpeedChange, onTimeChange, on
             <Ionicons name="timer-outline" size={20} color={COLORS.tertiary} style={{position:'relative', left:20}}/>
             <TextInput style={globalStyles.smallInput} onFocus={onFocus} onChangeText={handleTimeChange} placeholder="Time" placeholderTextColor={COLORS.gray} inputmode="Numeric" keyboardType="decimal-pad"/><Text style={[globalStyles.text, {position:'relative', right:25}]}>min</Text>
             <Ionicons name="cellular-outline" size={20} color={COLORS.tertiary} style={{position:'relative', left:20}}/>
-            <TextInput style={globalStyles.smallInput} onFocus={onFocus} onChangeText={handleElevationChange} placeholder="Elevation" inputmode="Numeric" keyboardType="decimal-pad" placeholderTextColor={COLORS.gray}/><Text style={[globalStyles.text, {position:'relative', right:25}]}>%</Text>
+            <TextInput style={globalStyles.smallInput} onFocus={onFocus} onChangeText={handleElevationChange} placeholder="Incline" inputmode="Numeric" keyboardType="decimal-pad" placeholderTextColor={COLORS.gray}/><Text style={[globalStyles.text, {position:'relative', right:25}]}>%</Text>
         </View>
         </View>
       )

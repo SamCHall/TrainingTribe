@@ -9,8 +9,17 @@ const ExerciseCardReadOnly = ({exercise}) => {
     return exercise.sets.map((set, index) => (
       <View key={index} style={{flexDirection:'row', width:'100%', justifyContent:'space-around', alignItems:'center', paddingVertical: 20}}>
         <Text style={globalStyles.text}>{index + 1}</Text>
-        <Text style={globalStyles.text}>Weight: {set.weight} kg</Text>
-        <Text style={globalStyles.text}>Reps: {set.reps}</Text>
+        
+        <View style={{flexDirection:'row'}}>
+          <Ionicons name="barbell-outline" size={20} color={COLORS.tertiary} />
+          <Text style={[globalStyles.text, {paddingLeft:5}]}>Weight: {set.weight} kg</Text>
+        </View>
+
+        <View style={{flexDirection:'row'}}>
+          <Ionicons name="repeat-outline" size={20} color={COLORS.tertiary} />
+          <Text style={[globalStyles.text, {paddingLeft:5}]}>Reps: {set.reps}</Text>
+        </View>
+        
       </View>
     ));
   };
@@ -37,7 +46,7 @@ const ExerciseCardReadOnly = ({exercise}) => {
           </View>
           <View style={{flexDirection:'row'}}>
             <Ionicons name="cellular-outline" size={20} color={COLORS.tertiary}/>
-            <Text style={[globalStyles.text, {paddingLeft: 5}]}>Elevation: {set.elevation}%</Text>
+            <Text style={[globalStyles.text, {paddingLeft: 5}]}>Incline: {set.elevation}%</Text>
           </View>
           
           
