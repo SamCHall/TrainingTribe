@@ -5,10 +5,16 @@ import { CustomStatusBar, TextButton, WorkoutCard } from '../components'
 import { User } from '../models'
 import { COLORS } from '../constants/theme'
 import { FlatList } from 'react-native-gesture-handler'
+import { useRealm } from '../models'
 
 const Profile = ({route, navigation}) => {
 
+  const realm = useRealm()
   const user = route.params
+  const getWorkouts = () => {
+    const workouts = realm.objects('Workout').filtered('owner_id == $0', user._id).sorted('date', true)
+    return workouts
+  }
   return (
     <View style={globalStyles.container}>
       <CustomStatusBar />
@@ -48,7 +54,7 @@ const Profile = ({route, navigation}) => {
         <Text style={[globalStyles.h3, {marginTop:10,paddingBottom:5, paddingLeft:10, alignSelf:'center'}]}>Workouts:</Text>
       </View>
       <FlatList
-        data={user.workouts}
+        data={getWorkouts()}
         keyExtractor={(item) => item._id}
         renderItem={({item}) => (
             <WorkoutCard workout={item}/>
