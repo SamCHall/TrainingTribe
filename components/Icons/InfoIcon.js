@@ -18,7 +18,7 @@ const InfoIcon = ({topic}) => {
                     <View style={{alignContent:'center', justifyContent:'space-evenly', height:'100%'}}>
                         <Text style={[globalStyles.subTitle, {textAlign:'center'}]}>Win Condition</Text>
                         <Text style={[globalStyles.text, {textAlign:'center'}]}>
-                            Teams compete against multiple categories such as Total Volume of weight lifted and Total Distance ran. 
+                            Teams compete in multiple categories such as Total Volume of weight lifted and Total Distance ran. 
                         </Text>
                         <Text style={[globalStyles.text, {textAlign:'center'}]}>
                             The team winning the most categories at the end of the experiment wins!

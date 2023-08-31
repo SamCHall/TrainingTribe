@@ -12,6 +12,7 @@ import SelectDropdown from 'react-native-select-dropdown'
 import { useState } from 'react'
 import { User } from '../models'
 import InfoIcon from '../components/Icons/InfoIcon'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 
 
@@ -175,13 +176,18 @@ const Feed = () => {
                       buttonTextStyle={[globalStyles.text, {fontSize: SIZES.small}]}
                       defaultButtonText='Total Volume'
                       data={['Total Volume', 'Total Distance', 'Total Workouts', 'Total Repetitions']}
-                      onSelect={(selectedItem, index) => {
+                      onSelect={(selectedItem) => {
                           setLeaderboard(selectedItem)
                       }}
-                      buttonTextAfterSelection={(selectedItem, index) => {
+                      renderDropdownIcon={() => {
+                        return(
+                          <Ionicons name="chevron-down" size={20} color={COLORS.secondary}/>
+                        )
+                      }}
+                      buttonTextAfterSelection={(selectedItem) => {
                           return selectedItem
                       }}
-                      rowTextForSelection={(item, index) => {
+                      rowTextForSelection={(item) => {
                           return item
                       }}
                   />
