@@ -37,7 +37,6 @@ const ProgressBar = ({ teamPercentage, categoryCount, totalCategories }) => {
         position: 'relative',
         borderRadius: 10,
         margin: 10,
-        height: 20,
         backgroundColor: 'red',
       }}
     >

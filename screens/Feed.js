@@ -11,6 +11,7 @@ import { SIZES } from '../constants/theme'
 import SelectDropdown from 'react-native-select-dropdown'
 import { useState } from 'react'
 import { User } from '../models'
+import InfoIcon from '../components/Icons/InfoIcon'
 
 
 
@@ -157,8 +158,9 @@ const Feed = () => {
       
       {renderLeaderboard({members:getTribeMembers()})}
 
-      <View style={{alignItems:'center', justifyContent:'center'}}>
+      <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row'}}>
         {renderWinningTribe()}
+        <InfoIcon topic={'winCondition'}/>
       </View>
       
       <ProgressBar teamPercentage={getTeamPercentage()} categoryCount={getWinningCategoryCount()} totalCategories={totalCategories}/>
