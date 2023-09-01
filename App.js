@@ -47,8 +47,10 @@ function App() {
       mutableSubs.add(realm.objects('CardioTracking'))
       mutableSubs.add(realm.objects('Tribe'))
       mutableSubs.add(realm.objects('War'))
-    
     })
+
+    realm.syncSession.downloadAllServerChanges()
+    realm.syncSession.uploadAllLocalChanges()
   }, [])
 
 

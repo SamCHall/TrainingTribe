@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, Alert } from 'react-native'
 import React, { useEffect } from 'react'
 import globalStyles from '../../constants/GlobalStyle'
 import { CustomStatusBar, OvalButton, TextButton, TotalVolume } from '../../components'
@@ -42,6 +42,60 @@ const MyTribe = ({navigation}) => {
           const totalVolume = members.reduce((total, member) => total + User.getTotalWorkoutVolume(member), 0);
           return totalVolume;
         };
+        
+
+        const deleteTribe = async () => {
+          await realm.write(() => {
+            realm.delete(tribe);
+          })
+          navigation.navigate('TribeChooser')
+        }
+
+        const leaveTribe = async () => {
+          await realm.write(() => {
+            tribe.members.splice(tribe.members.indexOf(user._id), 1);
+          })
+          
+          const customDataCollection = user.mongoClient("mongodb-atlas").db("todo").collection("User");
+          const filter = {_id: user.id};
+          const update = {
+            $set: {
+              "tribe": null
+            }
+          }
+           await customDataCollection.updateOne(filter, update);
+
+          navigation.navigate('TribeChooser')
+        }
+
+        const handleLeaveTribe = () => {
+          members = getTribeMembers();
+          if(members.length === 1){
+            Alert.alert('Leave Tribe', 'Are you sure you want to leave your tribe? This will delete the tribe and you will lose all your tribe data.',
+            [
+              {
+                text: 'Yes',
+                onPress: () => deleteTribe()
+              },
+              {
+                text: 'No',
+                onPress: () => console.log('No pressed')
+              }
+            ])
+          } else {
+            Alert.alert('Leave Tribe', 'Are you sure you want to leave your tribe? You will lose all your tribe data.',
+            [
+              {
+                text: 'Yes',
+                onPress: () => leaveTribe()
+              },
+              {
+                text: 'No',
+                onPress: () => console.log('No pressed')
+              }
+            ])
+        }
+      }
 
       return(
         <View style={[globalStyles.container, {width:'100%'}]}>
@@ -60,7 +114,7 @@ const MyTribe = ({navigation}) => {
             <Text style={globalStyles.text}>Total workouts completed: {Tribe.getTribeTotalWorkouts(members = getTribeMembers())}</Text>
             <Text style={globalStyles.text}>Total distance travelled: {Tribe.getTribeTotalDistance(members=getTribeMembers())}km</Text>
           </View>
-        <OvalButton text='Leave Tribe' onPress={() => navigation.navigate('LeaveTribe')}/>
+        <OvalButton text='Leave Tribe' onPress={() => handleLeaveTribe()}/>
       </View>
       )
     }
