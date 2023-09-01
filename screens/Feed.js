@@ -168,16 +168,16 @@ const Feed = () => {
       <ProgressBar teamPercentage={getTeamPercentage()} categoryCount={getWinningCategoryCount()} totalCategories={totalCategories}/>
       <View style={{alignItems:'center', position:'relative'}}>
         <SelectDropdown
+                      defaultValue={'Total Volume'}
                       onFocus={() => setDropdownOpen(true)}
                       onBlur={() => setDropdownOpen(false)}
                       showsVerticalScrollIndicator={true}
-                      dropdownStyle={{width: 150, height: 175, backgroundColor: COLORS.primary, borderColor: COLORS.secondary, borderWidth: 1, borderRadius: 10, position:'absolute', marginTop: -40, zIndex: 1}}
+                      dropdownStyle={{width: 150, height: 120, backgroundColor: COLORS.primary, borderColor: COLORS.secondary, borderWidth: 1, borderRadius: 10, position:'absolute', marginTop: -40, zIndex: 1}}
                       rowTextStyle={[globalStyles.text, {fontSize: SIZES.small}]}
                       rowStyle={{backgroundColor: COLORS.primary, height:40, borderBottomColor: COLORS.secondary, borderBottomWidth: 1, alignItems: 'center', justifyContent: 'center'}}
                       dropdownOverlayColor='transparent'
                       buttonStyle={{width: 150, height: 40, backgroundColor: COLORS.primary, borderColor: COLORS.secondary, borderWidth: 1, borderRadius: 10, alignItems: 'center', justifyContent: 'center'}}
                       buttonTextStyle={[globalStyles.text, {fontSize: SIZES.small}]}
-                      defaultButtonText='Total Volume'
                       data={['Total Volume', 'Total Distance', 'Total Workouts', 'Total Repetitions']}
                       onSelect={(selectedItem) => {
                           setLeaderboard(selectedItem)
@@ -198,6 +198,8 @@ const Feed = () => {
                       rowTextForSelection={(item) => {
                           return item
                       }}
+                      selectedRowStyle={{display:'none'}}
+                      disableAutoScroll={true}
                   />
       </View>
       

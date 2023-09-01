@@ -105,6 +105,9 @@ const NewWorkoutHeader = ({onFinishWorkout}) => {
                     rowTextForSelection={(item, index) => {
                         return item
                     }}
+                    selectedRowStyle={{display:'none'}}
+                    disableAutoScroll={true}
+                    
                 />
                 </View>
                 <View style={{flexDirection: 'row', justifyContent:'space-between', marginTop: 20}}>
