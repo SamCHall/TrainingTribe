@@ -82,15 +82,19 @@ const Login = ({ navigation }) => {
       contentContainerStyle={globalStyles.centeredContainer}
     >
       <CustomStatusBar />
-
-      <View width={400} height={400} margin={-100}>
+    
+    <View style={{position:'relative'}}>
+      <View height={400} margin={-100}>
         <LogoSVG fill={COLORS.secondary} height={"100%"} width={"100%"} />
       </View>
 
       <Text style={[globalStyles.title, { color: COLORS.tertiary }]}>
         TrainingTribe
       </Text>
+    </View>
+    <View style={{minHeight: 300, height:'50%', alignItems:'center'}}>
 
+    
       <Collapsible collapsed={loginCollapsed} align="bottom">
         <View>
           <TextInput
@@ -167,6 +171,7 @@ const Login = ({ navigation }) => {
           <OvalButton text="Register" onPress={registerUser} />
         </View>
       </Collapsible>
+      </View>
     </KeyboardAwareScrollView>
   );
 };
