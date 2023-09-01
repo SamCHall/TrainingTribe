@@ -25,6 +25,7 @@ const Feed = () => {
   const opposingTribe = tribe.war.tribes[1]
 
   const [leaderboard, setLeaderboard] = useState('Total Volume')
+  const [dropdownOpen, setDropdownOpen] = useState(false)
   const totalCategories = 4
 
 
@@ -167,8 +168,10 @@ const Feed = () => {
       <ProgressBar teamPercentage={getTeamPercentage()} categoryCount={getWinningCategoryCount()} totalCategories={totalCategories}/>
       <View style={{alignItems:'center', position:'relative'}}>
         <SelectDropdown
+                      onFocus={() => setDropdownOpen(true)}
+                      onBlur={() => setDropdownOpen(false)}
                       showsVerticalScrollIndicator={true}
-                      dropdownStyle={{width: 150, height: 175, backgroundColor: COLORS.primary, borderColor: COLORS.secondary, borderWidth: 1, borderRadius: 10, position:'absolute', marginTop: -79, zIndex: 1}}
+                      dropdownStyle={{width: 150, height: 175, backgroundColor: COLORS.primary, borderColor: COLORS.secondary, borderWidth: 1, borderRadius: 10, position:'absolute', marginTop: -40, zIndex: 1}}
                       rowTextStyle={[globalStyles.text, {fontSize: SIZES.small}]}
                       rowStyle={{backgroundColor: COLORS.primary, height:40, borderBottomColor: COLORS.secondary, borderBottomWidth: 1, alignItems: 'center', justifyContent: 'center'}}
                       dropdownOverlayColor='transparent'
@@ -180,6 +183,11 @@ const Feed = () => {
                           setLeaderboard(selectedItem)
                       }}
                       renderDropdownIcon={() => {
+                          if (dropdownOpen){
+                            return(
+                                <Ionicons name="chevron-up" size={20} color={COLORS.secondary}/>
+                            )
+                        }
                         return(
                           <Ionicons name="chevron-down" size={20} color={COLORS.secondary}/>
                         )
