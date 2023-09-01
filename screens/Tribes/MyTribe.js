@@ -60,10 +60,11 @@ const MyTribe = ({navigation}) => {
           const filter = {_id: user.id};
           const update = {
             $set: {
-              "tribe": null
+              "tribe": undefined
             }
           }
            await customDataCollection.updateOne(filter, update);
+           await user.refreshCustomData();
 
           navigation.navigate('TribeChooser')
         }

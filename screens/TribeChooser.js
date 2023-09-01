@@ -10,7 +10,9 @@ const TribeChooser = () => {
     const user = useUser()
     const navigation = useNavigation()
     
-    if(!user.customData.tribe){
+    
+    console.log(user.customData.tribe)
+    if(!user.customData.tribe || user.customData.tribe === null){
         return(
 
           <View style={globalStyles.centeredContainer}>
