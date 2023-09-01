@@ -1,17 +1,19 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { useUser, useApp } from "@realm/react";
 import { CustomStatusBar, OvalButton } from "../components";
 import { useNavigation } from "@react-navigation/native";
 import globalStyles from "../constants/GlobalStyle";
+import { useRealm } from "../models";
 
 const TribeChooser = () => {
+  const realm = useRealm();
   const user = useUser();
   const navigation = useNavigation();
   const app = useApp();
+  const tribe = realm.objects("Tribe").filtered("_id == $0", user.customData.tribe)[0];
 
-  console.log(user.customData.tribe);
-  if (!user.customData.tribe || user.customData.tribe === null) {
+  if (!tribe) {
     return (
       <View style={globalStyles.container}>
         <View style={globalStyles.centeredContainer}>

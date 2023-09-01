@@ -10,6 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 import { COLORS } from "../constants";
 import globalStyles from "../constants/GlobalStyle";
 import TribeNavigator from "./Tribes/TribeNavigator";
+import { useRealm } from "../models";
 
 const Tab = createBottomTabNavigator();
 
@@ -18,14 +19,15 @@ const Home = () => {
     user.refreshCustomData();
   }, []);
 
-  const app = useApp();
+  const realm = useRealm();
   const user = useUser();
   const navigation = useNavigation();
+  const tribe = realm.objects("Tribe").filtered("_id == $0", user.customData.tribe)[0];
 
   if (!user.customData.username) {
-    navigation.navigate("UsernameChooser");
-  } else if (!user.customData.tribe) {
-    navigation.navigate("TribeChooser");
+    navigation.replace("UsernameChooser");
+  } else if (!tribe) {
+    navigation.replace("TribeChooser");
   }
 
   return (

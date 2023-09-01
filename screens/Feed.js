@@ -20,18 +20,13 @@ import { User } from "../models";
 import InfoIcon from "../components/Icons/InfoIcon";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-const Feed = () => {
+const Feed = ({navigation}) => {
   const app = useApp();
   const realm = useRealm();
   const user = app.currentUser;
   const tribe = realm
     .objects("Tribe")
     .filtered("_id == $0", app.currentUser.customData.tribe)[0];
-
-  useEffect(() => {
-    user.refreshCustomData();
-    realm.syncSession.downloadAllServerChanges();
-  }, [user]);
 
   if (!tribe) {
     return (
