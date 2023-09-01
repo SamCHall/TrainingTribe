@@ -1,8 +1,8 @@
 import React from "react";
 import { SvgXml } from "react-native-svg";
 
-export default function LogoSVG({fill, width, height}) {
-    const logo =`<?xml version="1.0" standalone="no"?>
+export default function LogoSVG({ fill, width, height }) {
+  const logo = `<?xml version="1.0" standalone="no"?>
     <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
      "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
     <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
@@ -107,10 +107,8 @@ export default function LogoSVG({fill, width, height}) {
     295 163 425 -1 113 -42 262 -73 260 -3 -1 -36 -18 -74 -39z"/>
     </g>
     </svg>
-    `
+    `;
 
-    const LogoSVG = () => <SvgXml xml={logo} width={width} height={height} />;
-    return (   
-        <LogoSVG/>
-    )
-}        
+  const LogoSVG = () => <SvgXml xml={logo} width={width} height={height} />;
+  return <LogoSVG />;
+}

@@ -1,32 +1,31 @@
-import { View, Text } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { useApp, useUser } from '@realm/react'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import Feed from './Feed'
-import Workouts from './Workouts/Workouts'
-import Account from './Account'
-import { useNavigation } from '@react-navigation/native'
-import { COLORS } from '../constants'
-import globalStyles from '../constants/GlobalStyle'
-import TribeNavigator from './Tribes/TribeNavigator'
+import { View, Text } from "react-native";
+import React, { useEffect, useState } from "react";
+import { useApp, useUser } from "@realm/react";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Feed from "./Feed";
+import Workouts from "./Workouts/Workouts";
+import Account from "./Account";
+import { useNavigation } from "@react-navigation/native";
+import { COLORS } from "../constants";
+import globalStyles from "../constants/GlobalStyle";
+import TribeNavigator from "./Tribes/TribeNavigator";
 
-const Tab = createBottomTabNavigator()
+const Tab = createBottomTabNavigator();
 
 const Home = () => {
   useEffect(() => {
-    user.refreshCustomData()
-  }, [])
-  
-  const app = useApp()
-  const user = useUser()
-  const navigation = useNavigation()
+    user.refreshCustomData();
+  }, []);
+
+  const app = useApp();
+  const user = useUser();
+  const navigation = useNavigation();
 
   if (!user.customData.username) {
-    navigation.navigate('UsernameChooser')
-  }
-  else if (!user.customData.tribe) {
-    navigation.navigate('TribeChooser')
+    navigation.navigate("UsernameChooser");
+  } else if (!user.customData.tribe) {
+    navigation.navigate("TribeChooser");
   }
 
   return (
@@ -45,37 +44,46 @@ const Home = () => {
           if (!focused) {
             return null;
           }
-    
+
           // Otherwise, provide the label text based on the route name
-          if (route.name === 'Compete') {
-            return <Text style={[globalStyles.text, {fontSize:12}]}>Compete</Text>;
-          } else if (route.name === 'Workouts') {
-            return <Text style={[globalStyles.text, {fontSize:12}]}>Workouts</Text>;
-          } else if (route.name === 'TribeNavigator') {
-            return <Text style={[globalStyles.text, {fontSize:12}]}>MyTribe</Text>;
-          } else if (route.name === 'Account') {
-            return <Text style={[globalStyles.text, {fontSize:12}]}>Account</Text>;
+          if (route.name === "Compete") {
+            return (
+              <Text style={[globalStyles.text, { fontSize: 12 }]}>Compete</Text>
+            );
+          } else if (route.name === "Workouts") {
+            return (
+              <Text style={[globalStyles.text, { fontSize: 12 }]}>
+                Workouts
+              </Text>
+            );
+          } else if (route.name === "TribeNavigator") {
+            return (
+              <Text style={[globalStyles.text, { fontSize: 12 }]}>MyTribe</Text>
+            );
+          } else if (route.name === "Account") {
+            return (
+              <Text style={[globalStyles.text, { fontSize: 12 }]}>Account</Text>
+            );
           }
         },
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-          
-          if (route.name === 'Compete') {
-            iconName = focused ? 'trophy' : 'trophy-outline';
-          } else if (route.name === 'Workouts') {
-            iconName = focused ? 'barbell' : 'barbell-outline';
-          } else if (route.name === 'TribeNavigator') {
-            iconName = focused ? 'people' : 'people-outline';
-          } else if (route.name === 'Account') {
-            iconName = focused ? 'person' : 'person-outline';
+
+          if (route.name === "Compete") {
+            iconName = focused ? "trophy" : "trophy-outline";
+          } else if (route.name === "Workouts") {
+            iconName = focused ? "barbell" : "barbell-outline";
+          } else if (route.name === "TribeNavigator") {
+            iconName = focused ? "people" : "people-outline";
+          } else if (route.name === "Account") {
+            iconName = focused ? "person" : "person-outline";
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: COLORS.secondary,
         tabBarInactiveTintColor: COLORS.tertiary,
-
       })}
-      initialRouteName={'Compete'}
+      initialRouteName={"Compete"}
       sceneContainerStyle={{ backgroundColor: COLORS.primary }}
     >
       <Tab.Screen name="Compete" component={Feed} />
@@ -83,7 +91,7 @@ const Home = () => {
       <Tab.Screen name="TribeNavigator" component={TribeNavigator} />
       <Tab.Screen name="Account" component={Account} />
     </Tab.Navigator>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

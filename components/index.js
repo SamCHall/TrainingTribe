@@ -12,4 +12,19 @@ import TotalDistance from "./Leaderboards/TotalDistance";
 import TotalWorkouts from "./Leaderboards/TotalWorkouts";
 import TotalReps from "./Leaderboards/TotalReps";
 
-export { OvalButton, HomeHeader, TextButton, WorkoutCard, ExerciseCard, NewWorkoutHeader, CustomStatusBar, ExerciseCardReadOnly, CardioInput, MyTribeLeaderboard, TotalVolume, TotalDistance, TotalWorkouts, TotalReps };
+export {
+  OvalButton,
+  HomeHeader,
+  TextButton,
+  WorkoutCard,
+  ExerciseCard,
+  NewWorkoutHeader,
+  CustomStatusBar,
+  ExerciseCardReadOnly,
+  CardioInput,
+  MyTribeLeaderboard,
+  TotalVolume,
+  TotalDistance,
+  TotalWorkouts,
+  TotalReps,
+};

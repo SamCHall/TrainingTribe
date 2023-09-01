@@ -1,4 +1,4 @@
-import { View, Text, Alert } from 'react-native'
+import { View, Text, Alert, ActivityIndicator } from 'react-native'
 import React, { useEffect } from 'react'
 import globalStyles from '../../constants/GlobalStyle'
 import { CustomStatusBar, OvalButton, TextButton, TotalVolume } from '../../components'
@@ -7,6 +7,7 @@ import { useObject, useQuery, useRealm } from '../../models'
 import Collapsible from 'react-native-collapsible'
 import { useState } from 'react'
 import { User, Tribe } from '../../models'
+import { COLORS } from '../../constants'
 
 
 const MyTribe = ({navigation}) => {
@@ -15,6 +16,7 @@ const MyTribe = ({navigation}) => {
   const user = useUser()
   
   const [collapsed, setCollapsed] = useState(true);
+  const [isLoading, setIsLoading] = useState(false)
 
   const renderTribe = () => {
     
@@ -45,13 +47,16 @@ const MyTribe = ({navigation}) => {
         
 
         const deleteTribe = async () => {
+          setIsLoading(true)
           await realm.write(() => {
             realm.delete(tribe);
           })
+          setIsLoading(false)
           navigation.navigate('TribeChooser')
         }
 
         const leaveTribe = async () => {
+          setIsLoading(true)
           await realm.write(() => {
             tribe.members.splice(tribe.members.indexOf(user._id), 1);
           })
@@ -63,9 +68,10 @@ const MyTribe = ({navigation}) => {
               "tribe": undefined
             }
           }
-           await customDataCollection.updateOne(filter, update);
-           await user.refreshCustomData();
-
+          await customDataCollection.updateOne(filter, update);
+          await user.refreshCustomData();
+          await realm.syncSession.uploadAllLocalChanges();
+          setIsLoading(false)
           navigation.navigate('TribeChooser')
         }
 
@@ -115,6 +121,7 @@ const MyTribe = ({navigation}) => {
             <Text style={globalStyles.text}>Total workouts completed: {Tribe.getTribeTotalWorkouts(members = getTribeMembers())}</Text>
             <Text style={globalStyles.text}>Total distance travelled: {Tribe.getTribeTotalDistance(members=getTribeMembers())}km</Text>
           </View>
+          <ActivityIndicator animating={isLoading} size='large' color={COLORS.secondary}/>
         <OvalButton text='Leave Tribe' onPress={() => handleLeaveTribe()}/>
       </View>
       )

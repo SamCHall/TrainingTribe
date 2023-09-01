@@ -1,25 +1,30 @@
-import { View, Text } from 'react-native';
-import React, { useState } from 'react';
-import { COLORS, SIZES, SHADOWS } from '../constants';
-import globalStyles from '../constants/GlobalStyle';
-import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
-import { TextButton } from './button';
-import WeightRepInput from './WeightRepInput';
-import CardioInput from './CardioInput';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { View, Text } from "react-native";
+import React, { useState } from "react";
+import { COLORS, SIZES, SHADOWS } from "../constants";
+import globalStyles from "../constants/GlobalStyle";
+import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
+import { TextButton } from "./button";
+import WeightRepInput from "./WeightRepInput";
+import CardioInput from "./CardioInput";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
-const ExerciseCard = ({ exercise, onAdjustedExercise, onFocus, handleDeleteExercise, index }) => {
+const ExerciseCard = ({
+  exercise,
+  onAdjustedExercise,
+  onFocus,
+  handleDeleteExercise,
+  index,
+}) => {
   const [setNumber, setSetNumber] = useState(1);
-  const [weightReps, setWeightReps] = useState([{ weight: '', reps: ''}]);
+  const [weightReps, setWeightReps] = useState([{ weight: "", reps: "" }]);
   const [distance, setDistance] = useState(0);
   const [time, setTime] = useState(0);
   const [speed, setSpeed] = useState(0);
   const [elevation, setElevation] = useState(0);
 
-
   const handleLocalDeleteExercise = () => {
     // Deleting an exercise
-    setWeightReps([{ weight: '', reps: '' }]); // Reset the sets for the deleted exercise
+    setWeightReps([{ weight: "", reps: "" }]); // Reset the sets for the deleted exercise
     setDistance(0); // Reset cardio input values
     setTime(0);
     setSpeed(0);
@@ -30,9 +35,11 @@ const ExerciseCard = ({ exercise, onAdjustedExercise, onFocus, handleDeleteExerc
 
   const handleAddSet = () => {
     setSetNumber((prevNumber) => prevNumber + 1);
-    setWeightReps((prevWeightReps) => [...prevWeightReps, { weight: '', reps: '' }]);
+    setWeightReps((prevWeightReps) => [
+      ...prevWeightReps,
+      { weight: "", reps: "" },
+    ]);
   };
-
 
   const handleWeightChange = (setIndex, weight) => {
     setWeightReps((prevWeightReps) => {
@@ -101,8 +108,8 @@ const ExerciseCard = ({ exercise, onAdjustedExercise, onFocus, handleDeleteExerc
   };
 
   const handleAdjustedExercise = () => {
-    const exerciseData = {exercise: exercise, sets: weightReps};
-    if (exercise.type === 'Cardio') {
+    const exerciseData = { exercise: exercise, sets: weightReps };
+    if (exercise.type === "Cardio") {
       exerciseData.distance = distance;
       exerciseData.time = time;
       exerciseData.speed = speed;
@@ -118,27 +125,27 @@ const ExerciseCard = ({ exercise, onAdjustedExercise, onFocus, handleDeleteExerc
         borderRadius: SIZES.font,
         marginBottom: SIZES.extraLarge,
         margin: SIZES.medium,
-        justifyContent: 'center',
-        alignItems: 'center',
+        justifyContent: "center",
+        alignItems: "center",
         ...SHADOWS.medium,
       }}
     >
-      <Text style={[globalStyles.h3, {marginTop:10}]}>{exercise.name}</Text>
-      <Ionicons name="trash" size={20} color={'red'} onPress={()=>handleLocalDeleteExercise()} style={{position:'absolute', right: 10, top: 10}}/>
+      <Text style={[globalStyles.h3, { marginTop: 10 }]}>{exercise.name}</Text>
+      <Ionicons
+        name="trash"
+        size={20}
+        color={"red"}
+        onPress={() => handleLocalDeleteExercise()}
+        style={{ position: "absolute", right: 10, top: 10 }}
+      />
 
-      {exercise.type !== 'Cardio' && (
-      <>
-        {renderWeightRepInputs()}
-        <TextButton text="Add Set" onPress={handleAddSet} />
-      </>
-    )}
-    {exercise.type === 'Cardio' && (
-      <>
-        {renderCardioInputs()}
-      </>
-        )
-          }
-
+      {exercise.type !== "Cardio" && (
+        <>
+          {renderWeightRepInputs()}
+          <TextButton text="Add Set" onPress={handleAddSet} />
+        </>
+      )}
+      {exercise.type === "Cardio" && <>{renderCardioInputs()}</>}
     </View>
   );
 };
