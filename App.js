@@ -4,7 +4,7 @@ import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { ActivityIndicator, StyleSheet, View} from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { useFonts } from 'expo-font';
+import { useFonts, Roboto_100Thin, Roboto_300Light, Roboto_400Regular, Roboto_500Medium, Roboto_700Bold, Roboto_900Black } from '@expo-google-fonts/roboto';
 
 import globalStyles from './constants/GlobalStyle';
 import { RealmProvider } from "./models";
@@ -55,13 +55,12 @@ function App() {
 
 
   const [loaded] = useFonts({
-    'Roboto-Regular': require('./assets/fonts/Roboto-Regular.ttf'),
-    'Roboto-Bold': require('./assets/fonts/Roboto-Bold.ttf'),
-    'Roboto-Black': require('./assets/fonts/Roboto-Black.ttf'),
-    'Roboto-Light': require('./assets/fonts/Roboto-Light.ttf'),
-    'Roboto-Medium': require('./assets/fonts/Roboto-Medium.ttf'),
-    'Roboto-Thin': require('./assets/fonts/Roboto-Thin.ttf'),
-    'Ionicons': require('./node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf')
+    Roboto_100Thin,
+    Roboto_300Light,
+    Roboto_400Regular,
+    Roboto_500Medium,
+    Roboto_700Bold,
+    // Roboto_900Black
   });
   
   if (!loaded) {

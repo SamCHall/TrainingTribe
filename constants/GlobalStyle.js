@@ -1,5 +1,62 @@
 import { StyleSheet } from "react-native";
-import { COLORS, FONTS, SHADOWS, SIZES } from "./theme";
+import { COLORS, SHADOWS, SIZES } from "./theme";
+import { Platform } from "react-native";
+
+//Fonts:
+//Roboto_100Thin,
+//Roboto_300Light,
+//Roboto_400Regular,
+//Roboto_500Medium,
+//Roboto_700Bold,
+//Roboto_900Black
+
+const fontFamily = (weight) => {
+  if (Platform.OS === "android") {
+    switch (weight) {
+      case "thin":
+        return "Roboto_100Thin";
+      case "light":
+        return "Roboto_300Light";
+      case "regular":
+        return "Roboto_400Regular";
+      case "medium":
+        return "Roboto_500Medium";
+      case "bold":
+        return "Roboto_700Bold";
+      case "black":
+        return "Roboto_900Black";
+      default:
+        return "Roboto_400Regular";
+  }
+  }
+  if (Platform.OS === "ios") {
+    return null;
+  }
+};
+
+const fontWeights = (weight) => {
+  if (Platform.OS === "android") {
+    return null;
+  }
+  if (Platform.OS === "ios") {
+    switch (weight) {
+      case "thin":
+        return "100";
+      case "light":
+        return "300";
+      case "regular":
+        return "400";
+      case "medium":
+        return "500";
+      case "bold":
+        return "700";
+      case "black":
+        return "900";
+      default:
+        return "400";
+    }
+  }
+};
 
 const globalStyles = StyleSheet.create({
   container: {
@@ -28,26 +85,31 @@ const globalStyles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: COLORS.white,
     color: COLORS.white,
-    fontFamily: FONTS.regular,
+    fontFamily: fontFamily('regular'),
+    fontWeight: fontWeights('regular'),
   },
   text: {
     color: COLORS.white,
-    fontFamily: FONTS.regular,
+    fontFamily: fontFamily('regular'),
+    fontWeight: fontWeights('regular'),
   },
   title: {
     color: COLORS.white,
-    fontFamily: FONTS.bold,
+    fontFamily: fontFamily('bold'),
+    fontWeight: fontWeights('bold'),
     fontSize: 30,
   },
   subTitle: {
     color: COLORS.white,
-    fontFamily: FONTS.bold,
+    fontFamily: fontFamily('bold'),
+    fontWeight: fontWeights('bold'),
     fontSize: 20,
     alignSelf: "center",
   },
   h3: {
     color: COLORS.white,
-    fontFamily: FONTS.bold,
+    fontFamily: fontFamily('bold'),
+    fontWeight: fontWeights('bold'),
     fontSize: 15,
   },
   outerModalContainer: {
@@ -80,7 +142,8 @@ const globalStyles = StyleSheet.create({
   },
   exerciseItemText: {
     color: COLORS.white,
-    fontFamily: FONTS.regular,
+    fontFamily: fontFamily('regular'),
+    fontWeight: fontWeights('regular'),
   },
   exerciseItem: {
     padding: 10,
@@ -100,7 +163,8 @@ const globalStyles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: COLORS.white,
     color: COLORS.white,
-    fontFamily: FONTS.regular,
+    fontFamily: fontFamily('regular'),
+    fontWeight: fontWeights('regular'),
   },
   bottomButtonContainer: {
     position: "absolute",
@@ -115,7 +179,8 @@ const globalStyles = StyleSheet.create({
     marginBottom: 300,
     alignSelf: "center",
     color: COLORS.white,
-    fontFamily: FONTS.regular,
+    fontFamily: fontFamily('regular'),
+    fontWeight: fontWeights('regular'),
   },
   leaderboardEntry: {
     flexDirection: "row",
@@ -132,7 +197,8 @@ const globalStyles = StyleSheet.create({
   },
   clickableText: {
     color: COLORS.secondary,
-    fontFamily: FONTS.medium,
+    fontFamily: fontFamily('medium'),
+    fontWeight: fontWeights('medium'),
   },
 });
 

@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { FONTS, SHADOWS, COLORS } from "../constants";
 import React from "react";
+import globalStyles from "../constants/GlobalStyle";
 
 export const OvalButton = ({ text, onPress, ...props }) => {
   return (
@@ -22,10 +23,7 @@ export const OvalButton = ({ text, onPress, ...props }) => {
       title={text}
     >
       <Text
-        style={{
-          color: COLORS.black,
-          fontFamily: FONTS.bold,
-        }}
+        style={[globalStyles.text, { color: 'black'}]}
       >
         {text}
       </Text>
@@ -48,10 +46,7 @@ export const TextButton = ({ text, onPress, ...props }) => {
       title={text}
     >
       <Text
-        style={{
-          color: COLORS.secondary,
-          fontFamily: FONTS.bold,
-        }}
+        style={[globalStyles.text, { color: COLORS.secondary }]}
       >
         {text}
       </Text>

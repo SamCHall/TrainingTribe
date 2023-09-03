@@ -25,15 +25,6 @@ export const SIZES = {
   statusBarHeight: statusBarHeight,
 };
 
-export const FONTS = {
-  black: "Roboto-Black",
-  bold: "Roboto-Bold",
-  medium: "Roboto-Medium",
-  regular: "Roboto-Regular",
-  light: "Roboto-Light",
-  thin: "Roboto-Thin",
-};
-
 export const SHADOWS = {
   light: {
     shadowColor: COLORS.tertiary,
