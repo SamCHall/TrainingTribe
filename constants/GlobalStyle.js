@@ -58,6 +58,7 @@ const fontWeights = (weight) => {
   }
 };
 
+
 const globalStyles = StyleSheet.create({
   container: {
     flex: 1,
