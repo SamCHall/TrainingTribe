@@ -38,8 +38,7 @@
     "realm": "^11.10.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0",
-    "react-native-reanimated": "~2.3.1"
+    "@babel/core": "^7.20.0"
   },
   "private": true
 }
