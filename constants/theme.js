@@ -1,12 +1,6 @@
 import Constants from "expo-constants";
 const { statusBarHeight } = Constants;
 
-
-// ios is 0 as the status bar is translucent by default
-const statusBarHeightFunction = () => {
-  Platform.OS === "android" ? statusBarHeight : 0
-}
-
 export const COLORS = {
   primary: "#001C30",
   secondary: "#64CCC5",
@@ -28,7 +22,7 @@ export const SIZES = {
   medium: 16,
   large: 18,
   extraLarge: 24,
-  statusBarHeight: statusBarHeightFunction(),
+  statusBarHeight: statusBarHeight,
 };
 
 export const SHADOWS = {
