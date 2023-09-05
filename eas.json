@@ -12,7 +12,7 @@
       "distribution": "internal"
     },
     "production": {
-      "distribution": "production",
+      "distribution": "internal",
       "channel": "production"
     }
   },
