@@ -2,7 +2,7 @@
   "expo": {
     "name": "TrainingTribe",
     "slug": "TrainingTribe",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/TrainingTribe-icon.png",
     "userInterfaceStyle": "dark",
@@ -14,15 +14,17 @@
     ],
     "ios": {
       "supportsTablet": true,
+      "jsEngine": "hermes",
       "bundleIdentifier": "com.samchall.TrainingTribe"
     },
     "android": {
       "package": "com.samchall.TrainingTribe",
+      "jsEngine": "hermes",
       "adaptiveIcon": {
         "foregroundImage": "./assets/TrainingTribe-adaptiveIcon.png",
         "backgroundColor": "#001F2D"
       },
-      "windowSoftInputMode": "adjustResize"
+      "softwareKeyboardLayoutMode": "resize"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -42,4 +44,3 @@
     }
   }
 }
-
