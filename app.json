@@ -17,12 +17,12 @@
       "bundleIdentifier": "com.samchall.TrainingTribe"
     },
     "android": {
-      "windowSoftInputMode": "adjustResize",
+      "package": "com.samchall.TrainingTribe",
       "adaptiveIcon": {
         "foregroundImage": "./assets/TrainingTribe-adaptiveIcon.png",
         "backgroundColor": "#001F2D"
       },
-      "package": "com.samchall.TrainingTribe"
+      "windowSoftInputMode": "adjustResize"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -36,7 +36,10 @@
       "policy": "sdkVersion"
     },
     "updates": {
-      "url": "https://u.expo.dev/40538bb8-6482-4745-b65f-75c6f824b5b2"
+      "url": "https://u.expo.dev/40538bb8-6482-4745-b65f-75c6f824b5b2",
+      "checkAutomatically": "ON_LOAD",
+      "fallbackToCacheTimeout": 0
     }
   }
 }
+
