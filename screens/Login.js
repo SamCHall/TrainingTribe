@@ -117,7 +117,7 @@ const Login = ({ navigation }) => {
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
             <OvalButton text="Log In" onPress={logInUser} />
-            <OvalButton text="Log In as Guest" onPress={logInGuestUser} />
+            {/* <OvalButton text="Log In as Guest" onPress={logInGuestUser} /> */}
           </View>
         </View>
         <Text
