@@ -11,6 +11,8 @@ import { COLORS } from "../constants";
 import globalStyles from "../constants/GlobalStyle";
 import TribeNavigator from "./Tribes/TribeNavigator";
 import { useRealm } from "../models";
+import { Platform } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Tab = createBottomTabNavigator();
 
@@ -31,6 +33,7 @@ const Home = () => {
   }
 
   return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.primary }}>
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
@@ -93,6 +96,7 @@ const Home = () => {
       <Tab.Screen name="TribeNavigator" component={TribeNavigator} />
       <Tab.Screen name="Account" component={Account} />
     </Tab.Navigator>
+    </SafeAreaView>
   );
 };
 

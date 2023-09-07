@@ -121,7 +121,7 @@ const MyTribe = ({ navigation }) => {
 
       return (
         <View style={[globalStyles.container, { width: "100%" }]}>
-          <View style={{ alignItems: "center" }}>
+          <View style={{ alignItems: "center", marginVertical:15 }}>
             <Text style={globalStyles.subTitle}>{tribe.name}</Text>
             <Text style={globalStyles.h3}>Leader: {leader.username}</Text>
             <Text style={globalStyles.text}>

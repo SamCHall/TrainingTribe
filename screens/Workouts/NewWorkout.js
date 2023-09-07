@@ -272,7 +272,7 @@ const NewWorkout = ({ navigation }) => {
               No exercises added
             </Text>
           )}
-          keyboardShouldPersistTaps="always"
+          keyboardShouldPersistTaps="handled"
           contentContainerStyle={{ paddingBottom: 100 }}
           ListHeaderComponent={() => (
             <NewWorkoutHeader

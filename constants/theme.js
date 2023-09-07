@@ -22,7 +22,7 @@ export const SIZES = {
   medium: 16,
   large: 18,
   extraLarge: 24,
-  statusBarHeight: statusBarHeight,
+  statusBarHeight: 0,
 };
 
 export const SHADOWS = {

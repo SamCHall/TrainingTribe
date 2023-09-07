@@ -21,6 +21,7 @@ import CreateTribe from './screens/Tribes/CreateTribe';
 import JoinTribe from './screens/Tribes/JoinTribe';
 import Profile from './screens/Profile';
 import WorkoutDetails from './screens/Workouts/WorkoutDetails';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 
@@ -73,6 +74,7 @@ function App() {
 
   return (
     <NavigationContainer theme={theme}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.primary }}>
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
@@ -90,6 +92,7 @@ function App() {
           <Stack.Screen name="WorkoutDetails" component={WorkoutDetails} />
           <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
+      </SafeAreaView>
     </NavigationContainer>
   );
 }

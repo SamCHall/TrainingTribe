@@ -79,6 +79,8 @@ const Login = ({ navigation }) => {
     <KeyboardAwareScrollView
       keyboardShouldPersistTaps={"always"}
       showsVerticalScrollIndicator={false}
+      scrollEnabled={false}
+      style={{ backgroundColor: COLORS.primary }}
       contentContainerStyle={globalStyles.centeredContainer}
     >
       <CustomStatusBar />
@@ -114,7 +116,7 @@ const Login = ({ navigation }) => {
             secureTextEntry={true}
           />
           <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
+            style={{ flexDirection: "row", justifyContent: "space-around" }}
           >
             <OvalButton text="Log In" onPress={logInUser} />
             {/* <OvalButton text="Log In as Guest" onPress={logInGuestUser} /> */}

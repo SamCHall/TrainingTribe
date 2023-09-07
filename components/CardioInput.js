@@ -55,6 +55,7 @@ const CardioInput = ({
           placeholderTextColor={COLORS.gray}
           inputmode="Numeric"
           keyboardType="decimal-pad"
+          returnKeyType="done"
         />
         <Text style={[globalStyles.text, { position: "relative", right: 25 }]}>
           km
@@ -73,6 +74,7 @@ const CardioInput = ({
           inputmode="Numeric"
           keyboardType="decimal-pad"
           placeholderTextColor={COLORS.gray}
+          returnKeyType="done"
         />
         <Text style={[globalStyles.text, { position: "relative", right: 25 }]}>
           km/h
@@ -100,6 +102,7 @@ const CardioInput = ({
           placeholderTextColor={COLORS.gray}
           inputmode="Numeric"
           keyboardType="decimal-pad"
+          returnKeyType="done"
         />
         <Text style={[globalStyles.text, { position: "relative", right: 25 }]}>
           min
@@ -118,6 +121,7 @@ const CardioInput = ({
           inputmode="Numeric"
           keyboardType="decimal-pad"
           placeholderTextColor={COLORS.gray}
+          returnKeyType = "done"
         />
         <Text style={[globalStyles.text, { position: "relative", right: 25 }]}>
           %

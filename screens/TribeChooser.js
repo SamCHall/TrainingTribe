@@ -12,6 +12,7 @@ const TribeChooser = () => {
   const navigation = useNavigation();
   const app = useApp();
   const tribe = realm.objects("Tribe").filtered("_id == $0", user.customData.tribe)[0];
+  console.log(tribe);
 
   if (!tribe) {
     return (

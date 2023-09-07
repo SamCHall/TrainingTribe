@@ -39,6 +39,7 @@ const WeightRepInput = ({ number, onWeightChange, onRepChange, onFocus }) => {
         placeholderTextColor={COLORS.gray}
         inputmode="Numeric"
         keyboardType="decimal-pad"
+        returnKeyType="done"
       />
       <Text style={[globalStyles.text, { position: "relative", right: 25 }]}>
         kg
@@ -58,6 +59,7 @@ const WeightRepInput = ({ number, onWeightChange, onRepChange, onFocus }) => {
         inputmode="Numeric"
         keyboardType="decimal-pad"
         placeholderTextColor={COLORS.gray}
+        returnKeyType="done"
       />
     </View>
   );
