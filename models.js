@@ -30,7 +30,7 @@ export class User extends Realm.Object {
       }
       );
 
-      return volume.toFixed(2);
+      return +volume.toFixed(2);
     }
 
     static getMaxWeight(user) {
@@ -88,7 +88,7 @@ export class User extends Realm.Object {
         });
       }
       );
-      return distance.toFixed(2);
+      return +distance.toFixed(2);
     }
   
     static getFavouriteExercise(user) {
@@ -209,7 +209,7 @@ export class Tribe extends Realm.Object {
         });
       });
     });
-    return volume.toFixed(2);
+    return +volume.toFixed(2);
   }
 
   static getTotalTribeMaxWeight(tribe, exerciseId) {
