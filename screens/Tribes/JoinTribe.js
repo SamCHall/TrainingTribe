@@ -50,7 +50,7 @@ const JoinTribe = ({ navigation }) => {
   };
 
   return (
-    <View style={globalStyles.container}>
+    <View style={[globalStyles.container, {marginVertical: 15}]}>
       <Text style={globalStyles.subTitle}>Join A Tribe:</Text>
       <FlatList
         data={tribes}
