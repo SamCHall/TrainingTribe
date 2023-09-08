@@ -7,6 +7,10 @@ import { useNavigation } from "@react-navigation/native";
 
 const WorkoutCard = ({ workout }) => {
   const navigation = useNavigation();
+  const workoutName = workout.name;
+  const workoutType = workout.type;
+  const workoutDate = workout.date.toDateString();
+  const workoutExercises = workout.exercises;
 
   const totalVolume = (exercise) => {
     let volume = 0;
@@ -106,10 +110,10 @@ const WorkoutCard = ({ workout }) => {
           text="View Workout"
           onPress={() =>
             navigation.navigate("WorkoutDetails", {
-              name: workout.name,
-              type: workout.type,
-              date: workout.date.toDateString(),
-              exercises: workout.exercises,
+              name: workoutName,
+              type: workoutType,
+              date: workoutDate,
+              exercises: workoutExercises,
             })
           }
         />

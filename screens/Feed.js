@@ -21,6 +21,7 @@ import { User } from "../models";
 import InfoIcon from "../components/Icons/InfoIcon";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
+
 const Feed = ({navigation}) => {
   const app = useApp();
   const realm = useRealm();
@@ -98,7 +99,7 @@ const Feed = ({navigation}) => {
             Tribe Total Workouts: {Tribe.getTribeTotalWorkouts(members)}
           </Text>
         );
-      } else if (leaderboard === "Total Repetitions") {
+      } else if (leaderboard === "Total Reps") {
         return (
           <Text style={[globalStyles.h3]}>
             Tribe Total Reps: {Tribe.getTribeTotalReps(members)}
@@ -135,7 +136,7 @@ const Feed = ({navigation}) => {
         return <TotalDistance members={members} />;
       } else if (leaderboard === "Total Workouts") {
         return <TotalWorkouts members={members} />;
-      } else if (leaderboard === "Total Repetitions") {
+      } else if (leaderboard === "Total Reps") {
         return <TotalReps members={members} />;
       } else if (leaderboard === "Total Time"){
         return <TotalTime members={members} />

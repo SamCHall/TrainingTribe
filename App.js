@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -22,6 +22,7 @@ import JoinTribe from './screens/Tribes/JoinTribe';
 import Profile from './screens/Profile';
 import WorkoutDetails from './screens/Workouts/WorkoutDetails';
 import { SafeAreaView } from 'react-native-safe-area-context';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -38,6 +39,9 @@ const theme = {
 function App() {
 
   const realm = useRealm()
+  // const PERSISTENCE_KEY = 'NAVIGATION_STATE'
+  // const [initialState, setInitialState] = useState();
+  const [isReady, setIsReady] = useState(true); //Change back to false when using persistence
 
   useEffect(() => {
     realm.subscriptions.update((mutableSubs, realm) => {
@@ -50,8 +54,23 @@ function App() {
       mutableSubs.add(realm.objects('War'))
     })
 
+
     realm.syncSession.downloadAllServerChanges()
     realm.syncSession.uploadAllLocalChanges()
+
+  //   const restoreState = async () => {
+  //     try {
+  //       const savedStateString = await AsyncStorage.getItem(PERSISTENCE_KEY);
+  //       const state = JSON.parse(savedStateString);
+  //       setInitialState(state);
+  //     } finally {
+  //       setIsReady(true);
+  //     }
+  //   };
+
+  //   if (!isReady) {
+  //     restoreState();
+  //   }
   }, [])
 
 
@@ -64,7 +83,7 @@ function App() {
     // Roboto_900Black
   });
   
-  if (!loaded) {
+  if (!loaded || !isReady) {
     
     return <View style={globalStyles.centeredContainer}>
       <CustomStatusBar />
@@ -73,7 +92,13 @@ function App() {
   }
 
   return (
-    <NavigationContainer theme={theme}>
+    <NavigationContainer 
+    theme={theme}
+    // initialState={initialState}
+    // onStateChange={(state) =>
+    //   AsyncStorage.setItem(PERSISTENCE_KEY, JSON.stringify(state))
+    // }
+    >
       <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.primary }}>
       <Stack.Navigator
         screenOptions={{

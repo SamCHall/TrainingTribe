@@ -36,7 +36,7 @@ export const exerciseList = [
     type: "Legs",
   },
   {
-    name: "Calf Raise",
+    name: "Calf Raise (Standing)",
     type: "Legs",
   },
   {
@@ -112,7 +112,7 @@ export const exerciseList = [
     type: "Chest",
   },
   {
-    name: "Leg Press",
+    name: "Leg Press (45-degree)",
     type: "Legs",
   },
   {
@@ -132,7 +132,7 @@ export const exerciseList = [
     type: "Legs",
   },
   {
-    name: "Leg Curl",
+    name: "Seated Leg Curl",
     type: "Legs",
   },
   {
@@ -245,11 +245,11 @@ export const exerciseList = [
     type: "Chest",
   },
   {
-    name: "Incline Chest Press",
+    name: "Incline Bench Press",
     type: "Chest",
   },
   {
-    name: "Decline Chest Press",
+    name: "Decline Bench Press",
     type: "Chest",
   },
   {
@@ -303,5 +303,141 @@ export const exerciseList = [
   {
     name: "Russian Twist",
     type: "Core",
+  },
+  {
+    name: "Chinups",
+    type: "Back",
+  },
+  {
+    name: "Cable Face Pull",
+    type: "Shoulders",
+  },
+  {
+    name: "Arnold Press",
+    type: "Shoulders",
+  },
+  {
+    name: "Seated Lateral Raise",
+    type: "Shoulders",
+  },
+  {
+    name: "Dumbbell Row (One Arm)",
+    type: "Back",
+  },
+  {
+    name: "Penlay Row",
+    type: "Back",
+  },
+  {
+    name: "Sumo Deadlift",
+    type: "Back",
+  },
+  {
+    name: "Romanian Deadlift",
+    type: "Back",
+  },
+  {
+    name:"Smith Machine Bench Press",
+    type:"Chest"
+  },
+  {
+    name:"Smith Machine Incline Bench Press",
+    type:"Chest"
+  },
+  {
+    name:"Smith Machine Decline Bench Press",
+    type:"Chest"
+  },
+  {
+    name:"Smith Machine Squat",
+    type:"Legs"
+  },
+  {
+    name:"Smith Machine Deadlift",
+    type:"Back"
+  },
+  {
+    name:"Smith Machine Shoulder Press",
+    type:"Shoulders"
+  },
+  {
+    name:"Smith Machine Shrug",
+    type:"Shoulders"
+  },
+  {
+    name:"Smith Machine Upright Row",
+    type:"Shoulders"
+  },
+  {
+    name:"Smith Machine Calf Raise",
+    type:"Legs"
+  },
+  {
+    name: "Spider Curl",
+    type: "Arms",
+  },
+  {
+    name: "Reverse Dumbbell Curl",
+    type: "Arms",
+  },
+  {
+    name: "Cable Crunch",
+    type: "Core",
+  },
+  {
+    name: "Pistol Squat",
+    type: "Legs",
+  },
+  {
+    name: "Goblet Squat",
+    type: "Legs",
+  },
+  {
+    name: "Hack Squat",
+    type: "Legs",
+  },
+  {
+    name: "Pendulum Squat",
+    type: "Legs",
+  },
+  {
+    name: "Leg Press Machine",
+    type: "Legs",
+  },
+  {
+    name: "Prone Leg Curl",
+    type: "Legs",
+  },
+  {
+    name: "Kickback",
+    type: "Legs",
+  },
+  {
+    name: "Hip Thrust",
+    type: "Legs",
+  },
+  {
+    name: "Hip Adduction",
+    type: "Legs"
+  },
+  {
+    name: "Hip Abduction",
+    type: "Legs"
+  },
+  {
+    name: "Calf Raise (Seated)",
+    type: "Legs"
+  },
+  {
+    name: "Calf Press",
+    type: "Legs"
+  },
+  {
+    name: "Clean & Jerk",
+    type: "Other"
+  },
+  {
+    name: "Cable Pull Through",
+    type: "Legs"
   }
 ];

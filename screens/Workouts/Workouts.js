@@ -11,6 +11,7 @@ const Workouts = () => {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
+        freezeOnBlur: true,
       }}
     >
       <Stack.Screen name="ExistingWorkouts" component={ExistingWorkouts} />
