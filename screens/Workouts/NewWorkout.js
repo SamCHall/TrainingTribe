@@ -255,8 +255,6 @@ const NewWorkout = ({ navigation }) => {
   return (
     <View style={globalStyles.container}>
       <CustomStatusBar />
-      {/* Render the header with the finish workout button */}
-      {/* <NewWorkoutHeader onFinishWorkout={handleFinishWorkout} isLoading={isLoading}/> */}
 
       <KeyboardAvoidingView
         keyboardVerticalOffset={60}
@@ -268,9 +266,17 @@ const NewWorkout = ({ navigation }) => {
           renderItem={renderExerciseCard}
           keyExtractor={(item, index) => `${item.name}-${index}`}
           ListEmptyComponent={() => (
-            <Text style={globalStyles.emptyListComponent}>
-              No exercises added
-            </Text>
+            <View style={[globalStyles.emptyListComponent, {gap:20}]}>
+            <Text style={[globalStyles.text, { textAlign: "center" }]}>
+                Add exercises to your workout by pressing the "Add Exercise" button.
+              </Text>
+              <Text style={[globalStyles.text, { textAlign: "center", fontWeight:700, color:COLORS.secondary }]}>
+                You can add as many exercises as you want.
+              </Text>
+              <Text style={[globalStyles.text, { textAlign: "center" }]}>
+                Once you are done adding exercises, press the "Finish" button in the top right.
+              </Text>
+            </View>
           )}
           keyboardShouldPersistTaps="handled"
           contentContainerStyle={{ paddingBottom: 100 }}

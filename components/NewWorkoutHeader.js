@@ -14,6 +14,7 @@ import { TextInput } from "react-native-gesture-handler";
 import SelectDropdown from "react-native-select-dropdown";
 import "react-native-get-random-values";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import InfoIcon from "./Icons/InfoIcon";
 
 const NewWorkoutHeader = ({ onFinishWorkout }) => {
   const realm = useRealm();
@@ -27,6 +28,11 @@ const NewWorkoutHeader = ({ onFinishWorkout }) => {
   const [workoutName, setWorkoutName] = useState("");
   const [workoutType, setWorkoutType] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [infoModalVisible, setInfoModalVisible] = useState(false);
+
+  useEffect(() => {
+    setInfoModalVisible(true);
+  }, []);
 
   const dropdownData = [
     "Push",
@@ -77,9 +83,11 @@ const NewWorkoutHeader = ({ onFinishWorkout }) => {
       <View
         style={{
           alignItems: "center",
+          flexDirection: "row",
         }}
       >
         <Text style={globalStyles.subTitle}>Workout log</Text>
+        <InfoIcon topic={'workout'} setInitialModalVisible={infoModalVisible}/>
       </View>
       <View
         style={{
