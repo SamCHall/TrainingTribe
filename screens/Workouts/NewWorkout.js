@@ -215,11 +215,11 @@ const NewWorkout = ({ navigation }) => {
   };
 
   const categoryList = [
-    { name: "Chest" },
-    { name: "Legs" },
-    { name: "Back" },
-    { name: "Arms" },
     { name: "Shoulders" },
+    { name: "Chest" },
+    { name: "Arms" },
+    { name: "Back" },
+    { name: "Legs" },
     { name: "Core" },
     { name: "Cardio" },
     { name: "Other" },

@@ -8,7 +8,11 @@ export const exerciseList = [
     type: "Legs",
   },
   {
-    name: "Barbell Row",
+    name: "Bent-over Row",
+    type: "Back",
+  },
+  {
+    name: "Landmine Row",
     type: "Back",
   },
   {
@@ -248,4 +252,56 @@ export const exerciseList = [
     name: "Decline Chest Press",
     type: "Chest",
   },
+  {
+    name: "Overhead Tricep Extension",
+    type: "Arms",
+  },
+  {
+    name: "Reverse Barbell Curl",
+    type: "Arms",
+  },
+  {
+    name: "Cable Wrist Curl",
+    type: "Arms",
+  },
+  {
+    name: "Dumbbell Wrist Curl",
+    type: "Arms",
+  },
+  {
+    name : "Tricep Kickback",
+    type : "Arms"
+  },
+  {
+    name: "Concentration Curl",
+    type: "Arms",
+  },
+  {
+    name: "Dumbbell Preacher Curl",
+    type: "Arms",
+  },
+  {
+    name: "Dumbbell Shrug",
+    type: "Shoulders",
+  },
+  {
+    name: "Seated Row Machine (Wide Grip)",
+    type: "Back",
+  },
+  {
+    name: "Seated Row Machine (Close Grip)",
+    type: "Back",
+  },
+  {
+    name: "Landmine Press",
+    type: "Shoulders",
+  },
+  {
+    name: "T-Bar Row Machine",
+    type: "Back",
+  },
+  {
+    name: "Russian Twist",
+    type: "Core",
+  }
 ];
