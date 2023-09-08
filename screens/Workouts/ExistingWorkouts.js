@@ -6,6 +6,7 @@ import { useQuery, useRealm } from "../../models";
 import { FlatList, RefreshControl } from "react-native-gesture-handler";
 import { useApp, useUser } from "@realm/react";
 import WorkoutCard from "../../components/WorkoutCard";
+import { COLORS } from "../../constants";
 
 const ExistingWorkouts = ({ navigation }) => {
   const realm = useRealm();
@@ -30,6 +31,13 @@ const ExistingWorkouts = ({ navigation }) => {
         data={getWorkouts()}
         renderItem={({ item }) => <WorkoutCard workout={item} />}
         keyExtractor={(item) => item._id}
+        contentContainerStyle={{ paddingBottom: 100 }}
+        ListEmptyComponent={() => (
+          <View style={[globalStyles.emptyListComponent, {gap:20}]}>
+            <Text style={[globalStyles.h3, {textAlign:'center', color:COLORS.secondary}]}>No Workouts</Text>
+            <Text style={globalStyles.text}>Create a new workout to get started!</Text>
+          </View>
+        )}
       />
       <View style={globalStyles.bottomButtonContainer}>
         <OvalButton text="New Workout" onPress={handleNewWorkoutPress} />

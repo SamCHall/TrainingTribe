@@ -11,6 +11,7 @@ import TotalVolume from "./Leaderboards/TotalVolume";
 import TotalDistance from "./Leaderboards/TotalDistance";
 import TotalWorkouts from "./Leaderboards/TotalWorkouts";
 import TotalReps from "./Leaderboards/TotalReps";
+import TotalTime from "./Leaderboards/TotalTime";
 
 export {
   OvalButton,
@@ -27,4 +28,5 @@ export {
   TotalDistance,
   TotalWorkouts,
   TotalReps,
+  TotalTime
 };

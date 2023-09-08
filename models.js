@@ -90,6 +90,21 @@ export class User extends Realm.Object {
       );
       return +distance.toFixed(2);
     }
+
+    static getTotalCardioTime(user) {
+      let time = 0;
+      user.workouts.forEach((workout) => {
+        workout.exercises.forEach((exercise) => {
+          if (exercise.type === 'Cardio') {
+            exercise.cardioTracking.forEach((cardioTracking) => {
+              time += cardioTracking.time;
+            });
+          }
+        });
+      }
+      );
+      return time;
+    }
   
     static getFavouriteExercise(user) {
       let exercises = {};
@@ -197,6 +212,22 @@ export class Tribe extends Realm.Object {
     },
     primaryKey: '_id',
   };
+
+  static getTribeTotalCardioTime(members) {
+    let time = 0;
+    members.forEach((member) => {
+      member.workouts.forEach((workout) => {
+        workout.exercises.forEach((exercise) => {
+          if (exercise.type === 'Cardio') {
+            exercise.cardioTracking.forEach((cardioTracking) => {
+              time += cardioTracking.time;
+            });
+          }
+        });
+      });
+    });
+    return time;
+  }
 
   static getTribeTotalVolume(members) {
     let volume = 0;

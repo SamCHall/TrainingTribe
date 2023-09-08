@@ -22,7 +22,7 @@ const TotalVolume = ({ members }) => {
         ]}
       >
         <Text style={[globalStyles.h3, { marginLeft: 20 }]}>Username</Text>
-        <Text style={globalStyles.h3}>Total Volume</Text>
+        <Text style={globalStyles.h3}>Total Volume Lifted</Text>
       </View>
       <FlatList
         data={sortMembersByTotalVolume()}

@@ -22,13 +22,13 @@ const MyTribeLeaderboard = ({ user, index, metric }) => {
     if (metric === "volume") {
       return (
         <Text style={globalStyles.text}>
-          {User.getTotalWorkoutVolume(user)}kg
+          {User.getTotalWorkoutVolume(user)} kg
         </Text>
       );
     } else if (metric === "distance") {
       return (
         <Text style={globalStyles.text}>
-          {User.getTotalCardioDistance(user)}km
+          {User.getTotalCardioDistance(user)} km
         </Text>
       );
     } else if (metric === "workouts") {
@@ -37,6 +37,10 @@ const MyTribeLeaderboard = ({ user, index, metric }) => {
       );
     } else if (metric === "reps") {
       return <Text style={globalStyles.text}>{User.getTotalReps(user)}</Text>;
+    } else if (metric === "time") {
+      return (
+        <Text style={globalStyles.text}>{User.getTotalCardioTime(user)} min(s)</Text>
+      );
     }
   };
 

@@ -8,6 +8,7 @@ import {
   TotalDistance,
   TotalWorkouts,
   TotalReps,
+  TotalTime
 } from "../components";
 import globalStyles from "../constants/GlobalStyle";
 import { Tribe, useRealm } from "../models";
@@ -23,7 +24,6 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 const Feed = ({navigation}) => {
   const app = useApp();
   const realm = useRealm();
-  const user = app.currentUser;
   const tribe = realm
     .objects("Tribe")
     .filtered("_id == $0", app.currentUser.customData.tribe)[0];
@@ -60,7 +60,7 @@ const Feed = ({navigation}) => {
   } else {
     const [leaderboard, setLeaderboard] = useState("Total Volume");
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const totalCategories = 4;
+    const totalCategories = 5;
     const opposingTribe = tribe.war.tribes[1];
 
     const getTribeMembers = () => {
@@ -83,13 +83,13 @@ const Feed = ({navigation}) => {
       if (leaderboard === "Total Volume") {
         return (
           <Text style={[globalStyles.h3]}>
-            Tribe Total Volume: {Tribe.getTribeTotalVolume(members)}kg
+            Tribe Total Volume: {Tribe.getTribeTotalVolume(members)} kg
           </Text>
         );
       } else if (leaderboard === "Total Distance") {
         return (
           <Text style={[globalStyles.h3]}>
-            Tribe Total Distance: {Tribe.getTribeTotalDistance(members)}km
+            Tribe Total Distance: {Tribe.getTribeTotalDistance(members)} km
           </Text>
         );
       } else if (leaderboard === "Total Workouts") {
@@ -101,9 +101,15 @@ const Feed = ({navigation}) => {
       } else if (leaderboard === "Total Repetitions") {
         return (
           <Text style={[globalStyles.h3]}>
-            Tribe Total Repetitions: {Tribe.getTribeTotalReps(members)}
+            Tribe Total Reps: {Tribe.getTribeTotalReps(members)}
           </Text>
         );
+      } else if (leaderboard === "Total Time"){
+        return (
+          <Text style={[globalStyles.h3]}>
+            Tribe Total Time: {Tribe.getTribeTotalCardioTime(members)} min(s)
+          </Text>
+        )
       }
     };
 
@@ -131,6 +137,8 @@ const Feed = ({navigation}) => {
         return <TotalWorkouts members={members} />;
       } else if (leaderboard === "Total Repetitions") {
         return <TotalReps members={members} />;
+      } else if (leaderboard === "Total Time"){
+        return <TotalTime members={members} />
       }
     };
 
@@ -183,6 +191,17 @@ const Feed = ({navigation}) => {
         0
       );
       if (totalReps > opposingTotalReps) {
+        count += 1;
+      }
+      const totalCardioTime = tribeMembers.reduce(
+        (total, member) => total + User.getTotalCardioTime(member),
+        0
+      );
+      const opposingTotalCardioTime = opposingTribeMembers.reduce(
+        (total, member) => total + User.getTotalCardioTime(member),
+        0
+      );
+      if (totalCardioTime > opposingTotalCardioTime) {
         count += 1;
       }
 
@@ -265,7 +284,8 @@ const Feed = ({navigation}) => {
               "Total Volume",
               "Total Distance",
               "Total Workouts",
-              "Total Repetitions",
+              "Total Reps",
+              "Total Time"
             ]}
             onSelect={(selectedItem) => {
               setLeaderboard(selectedItem);

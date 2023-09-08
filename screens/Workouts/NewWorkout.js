@@ -270,7 +270,7 @@ const NewWorkout = ({ navigation }) => {
             <Text style={[globalStyles.text, { textAlign: "center" }]}>
                 Add exercises to your workout by pressing the "Add Exercise" button.
               </Text>
-              <Text style={[globalStyles.text, { textAlign: "center", fontWeight:700, color:COLORS.secondary }]}>
+              <Text style={[globalStyles.h3, { textAlign: "center", color:COLORS.secondary }]}>
                 You can add as many exercises as you want.
               </Text>
               <Text style={[globalStyles.text, { textAlign: "center" }]}>

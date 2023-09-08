@@ -21,13 +21,13 @@ const TotalDistance = ({ members }) => {
         ]}
       >
         <Text style={[globalStyles.h3, { marginLeft: 20 }]}>Username</Text>
-        <Text style={globalStyles.h3}>Total Cardio Distance</Text>
+        <Text style={globalStyles.h3}>Total Cardio Time</Text>
       </View>
       <FlatList
         data={sortMembersByTotalDistance()}
         style={{ justifySelf: "flex-start" }}
         renderItem={({ item, index }) => (
-          <MyTribeLeaderboard user={item} index={index} metric="distance" />
+          <MyTribeLeaderboard user={item} index={index} metric="time" />
         )}
         keyExtractor={(item) => item._id}
       />

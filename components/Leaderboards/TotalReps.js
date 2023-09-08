@@ -21,7 +21,7 @@ const TotalReps = ({ members }) => {
         ]}
       >
         <Text style={[globalStyles.h3, { marginLeft: 20 }]}>Username</Text>
-        <Text style={globalStyles.h3}>Total Repetitions</Text>
+        <Text style={globalStyles.h3}>Total Reps</Text>
       </View>
       <FlatList
         data={sortMembersByTotalReps()}
