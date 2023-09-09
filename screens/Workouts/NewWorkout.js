@@ -24,6 +24,7 @@ import { exerciseList } from "../../constants/exerciseList";
 import "react-native-get-random-values";
 import { Alert } from "react-native";
 import { OvalButton } from "../../components";
+import * as SecureStore from "expo-secure-store";
 
 const NewWorkout = ({ navigation }) => {
   const realm = useRealm();
@@ -39,6 +40,53 @@ const NewWorkout = ({ navigation }) => {
   const [collapsed, setCollapsed] = useState(false);
   const [workoutData, setWorkoutData] = useState([]);
   const [exercisesToDelete, setExercisesToDelete] = useState([]);
+  const [workoutLoading, setWorkoutLoading] = useState(false);
+
+  useEffect(() => {
+    const loading = async () => {
+      setWorkoutLoading(true);
+      console.log('loading workout data');
+      const data = await loadWorkoutFromSecureStore(); // Await the loading of workout data
+      console.log('workoutData', data); // Log the loaded data
+      if (data.length > 0) {
+        setSelectedExerciseList(data.map((exerciseData) => exerciseData.exercise));
+      }
+      setWorkoutLoading(false);
+    };
+    loading();
+  }, []);
+
+  const saveWorkoutDataToSecureStore = async (workoutData) => {
+    try {
+      await SecureStore.setItemAsync("workoutData", JSON.stringify(workoutData));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const loadWorkoutFromSecureStore = async () => {
+    try {
+      const savedWorkoutData = await SecureStore.getItemAsync('workoutData');
+      if (savedWorkoutData) {
+        const parsedWorkoutData = await JSON.parse(savedWorkoutData);
+        setWorkoutData(parsedWorkoutData); // Set workoutData in the state
+        return parsedWorkoutData; // Return the parsed data
+      }
+      return []; // Return an empty array if no data is found
+    } catch (error) {
+      console.error('Error loading workout data:', error);
+      return []; // Return an empty array in case of an error
+    }
+  };
+
+  const clearWorkoutDataFromSecureStore = async () => {
+    try {
+      await SecureStore.deleteItemAsync("workoutData");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
 
   const handleCollapse = (category) => {
     setCollapsed((prevCollapsed) =>
@@ -64,12 +112,14 @@ const NewWorkout = ({ navigation }) => {
     setModalVisible(false);
   };
 
-  const handleAdjustedExercise = (index, adjustedExerciseData) => {
-    setWorkoutData((prevData) => {
+  const handleAdjustedExercise = async (index, adjustedExerciseData) => {
+    await setWorkoutData((prevData) => {
       const newData = [...prevData];
       newData[index] = adjustedExerciseData;
       return newData;
     });
+    console.log('workoutData', workoutData)
+    await saveWorkoutDataToSecureStore(workoutData);
   };
 
   const handleDeleteExercise = (exercise) => {
@@ -154,6 +204,8 @@ const NewWorkout = ({ navigation }) => {
       await user.refreshCustomData();
       await realm.syncSession.uploadAllLocalChanges();
 
+      await clearWorkoutDataFromSecureStore();
+
       setIsLoading(false);
       setLoadingCollapsed(true);
       navigation.replace("ExistingWorkouts");
@@ -173,6 +225,26 @@ const NewWorkout = ({ navigation }) => {
       return;
     }
     saveWorkoutData({ workoutName, workoutType });
+  };
+
+  const handleCancelWorkout = () => {
+    Alert.alert(
+      "Cancel workout",
+      "Are you sure you want to cancel this workout?",
+      [
+        {
+          text: "Yes",
+          onPress: () => {
+            clearWorkoutDataFromSecureStore();
+            navigation.replace("ExistingWorkouts");
+          },
+        },
+        {
+          text: "No",
+          onPress: () => console.log("No pressed"),
+        },
+      ]
+    );
   };
 
   const categoryHandler = (category) => {
@@ -244,6 +316,7 @@ const NewWorkout = ({ navigation }) => {
           onFocus={() => scrollToInput(index)}
           index={index}
           exercise={item}
+          initialExerciseData={workoutData[index]}
           handleDeleteExercise={() => handleDeleteExercise(item)}
           onAdjustedExercise={(adjustedExerciseData) =>
             handleAdjustedExercise(index, adjustedExerciseData)
@@ -252,6 +325,19 @@ const NewWorkout = ({ navigation }) => {
       );
     }
   };
+  
+  if(workoutLoading) return (
+    <View style={globalStyles.container}>
+      <CustomStatusBar />
+      <ActivityIndicator
+        animating={isLoading}
+        size="large"
+        color={COLORS.secondary}
+      />
+    </View>
+  )
+  
+
   return (
     <View style={globalStyles.container}>
       <CustomStatusBar />
@@ -283,6 +369,7 @@ const NewWorkout = ({ navigation }) => {
           ListHeaderComponent={() => (
             <NewWorkoutHeader
               onFinishWorkout={handleFinishWorkout}
+              onCancelWorkout={handleCancelWorkout}
               isLoading={isLoading}
             />
           )}

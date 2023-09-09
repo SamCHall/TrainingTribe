@@ -13,9 +13,20 @@ const ExerciseCard = ({
   onAdjustedExercise,
   onFocus,
   handleDeleteExercise,
-  index,
+  initialExerciseData,
+  index
 }) => {
-  const [setNumber, setSetNumber] = useState(1);
+
+  const initialSetNumber = () => {
+    if (initialExerciseData) {
+      if (initialExerciseData.sets) {
+        return initialExerciseData.sets.length;
+      }
+    }
+    return 1;
+  };
+
+  const [setNumber, setSetNumber] = useState(initialSetNumber());
   const [weightReps, setWeightReps] = useState([{ weight: "", reps: "" }]);
   const [distance, setDistance] = useState(0);
   const [time, setTime] = useState(0);
@@ -86,6 +97,8 @@ const ExerciseCard = ({
         <WeightRepInput
           key={i}
           number={i + 1}
+          initialWeight={initialExerciseData && initialExerciseData.sets[i]?.weight}
+          initialReps={initialExerciseData && initialExerciseData.sets[i]?.reps}
           onWeightChange={(weight) => handleWeightChange(i, weight)}
           onRepChange={(reps) => handleRepChange(i, reps)}
           onFocus={onFocus}

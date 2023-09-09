@@ -16,7 +16,7 @@ import "react-native-get-random-values";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import InfoIcon from "./Icons/InfoIcon";
 
-const NewWorkoutHeader = ({ onFinishWorkout }) => {
+const NewWorkoutHeader = ({ onFinishWorkout, onCancelWorkout }) => {
   const realm = useRealm();
   const app = useApp();
   const user = useUser();
@@ -66,19 +66,7 @@ const NewWorkoutHeader = ({ onFinishWorkout }) => {
       >
         <TextButton
           text="Cancel"
-          onPress={() =>
-            Alert.alert("Cancel", "Are you sure? Your workout will be lost", [
-              {
-                text: "Yes",
-                onPress: () => navigation.replace("ExistingWorkouts"),
-              },
-              {
-                text: "No",
-                onPress: () => console.log("No pressed"),
-              },
-            ])
-          }
-        />
+          onPress={() => onCancelWorkout()}/>
       </View>
       <View
         style={{
