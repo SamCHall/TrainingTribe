@@ -342,12 +342,14 @@ const NewWorkout = ({ navigation }) => {
       <KeyboardAvoidingView
         keyboardVerticalOffset={60}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{ flex: 1 }}
       >
         <FlatList
           ref={flatListRef}
           data={selectedExerciseList}
           renderItem={renderExerciseCard}
           keyExtractor={(item, index) => `${item.name}-${index}`}
+          keyboardDismissMode="none"
           ListEmptyComponent={() => (
             <View style={[globalStyles.emptyListComponent, {gap:20}]}>
             <Text style={[globalStyles.text, { textAlign: "center" }]}>
@@ -384,7 +386,7 @@ const NewWorkout = ({ navigation }) => {
       <View style={globalStyles.bottomButtonContainer}>
         <OvalButton text="Add Exercise" onPress={() => setModalVisible(true)} />
       </View>
-
+      
       <Collapsible collapsed={loadingCollapsed}>
         <ActivityIndicator
           animating={isLoading}
