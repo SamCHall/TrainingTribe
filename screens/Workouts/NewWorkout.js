@@ -45,9 +45,7 @@ const NewWorkout = ({ navigation }) => {
   useEffect(() => {
     const loading = async () => {
       setWorkoutLoading(true);
-      console.log('loading workout data');
       const data = await loadWorkoutFromSecureStore(); // Await the loading of workout data
-      console.log('workoutData', data); // Log the loaded data
       if (data.length > 0) {
         setSelectedExerciseList(data.map((exerciseData) => exerciseData.exercise));
       }
@@ -118,7 +116,6 @@ const NewWorkout = ({ navigation }) => {
       newData[index] = adjustedExerciseData;
       return newData;
     });
-    console.log('workoutData', workoutData)
     await saveWorkoutDataToSecureStore(workoutData);
   };
 
