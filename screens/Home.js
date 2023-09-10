@@ -24,11 +24,10 @@ const Home = () => {
   const realm = useRealm();
   const user = useUser();
   const navigation = useNavigation();
-  const tribe = realm.objects("Tribe").filtered("_id == $0", user.customData.tribe)[0];
 
   if (!user.customData.username) {
     navigation.replace("UsernameChooser");
-  } else if (!tribe) {
+  } else if (!user.customData.tribe) {
     navigation.replace("TribeChooser");
   }
 

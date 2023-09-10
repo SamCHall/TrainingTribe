@@ -14,7 +14,8 @@ const JoinTribe = ({ navigation }) => {
   const realm = useRealm();
 
   // get all tribes that aren't called Mia's Warriors (AI)
-  const tribes = realm.objects("Tribe").filtered("name != $0", "Mia's Warriors (AI)");
+  // const tribes = realm.objects("Tribe").filtered("name != $0", "Mia's Warriors (AI)");
+  const tribes = realm.objects("Tribe");
   const user = useUser();
   const [isLoading, setIsLoading] = useState(false);
 

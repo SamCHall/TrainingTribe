@@ -4,7 +4,11 @@ export const exerciseList = [
     type: "Chest",
   },
   {
-    name: "Barbell Squat",
+    name: "Barbell Back Squat",
+    type: "Legs",
+  },
+  {
+    name: "Barbell Front Squat",
     type: "Legs",
   },
   {
@@ -12,7 +16,7 @@ export const exerciseList = [
     type: "Back",
   },
   {
-    name: "Landmine Row",
+    name: "T-Bar Row",
     type: "Back",
   },
   {
@@ -48,7 +52,11 @@ export const exerciseList = [
     type: "Arms",
   },
   {
-    name: "Skullcrusher",
+    name: "Barbell Skullcrusher",
+    type: "Arms",
+  },
+  {
+    name: "Dumbbell Skullcrusher",
     type: "Arms",
   },
   {
@@ -61,6 +69,14 @@ export const exerciseList = [
   },
   {
     name: "Pec Fly",
+    type: "Chest",
+  },
+  {
+    name: "Pec Deck",
+    type: "Chest",
+  },
+  {
+    name: "Pectoral Fly Machine",
     type: "Chest",
   },
   {
@@ -88,6 +104,14 @@ export const exerciseList = [
     type: "Back",
   },
   {
+    name: "Dumbbell RDL",
+    type: "Back",
+  },
+  {
+    name: "Barbell RDL",
+    type: "Back",
+  },
+  {
     name: "Pushups",
     type: "Chest",
   },
@@ -100,6 +124,14 @@ export const exerciseList = [
     type: "Legs",
   },
   {
+    name: "Barbell Lunge",
+    type: "Legs",
+  },
+  {
+    name: "Dumbbell Lunge",
+    type: "Legs",
+  },
+  {
     name: "Tricep Extension",
     type: "Arms",
   },
@@ -108,7 +140,11 @@ export const exerciseList = [
     type: "Core",
   },
   {
-    name: "Cable Fly",
+    name: "Cable Fly (High to Low)",
+    type: "Chest",
+  },
+  {
+    name: "Cable Fly (Low to High)",
     type: "Chest",
   },
   {
@@ -120,11 +156,19 @@ export const exerciseList = [
     type: "Back",
   },
   {
+    name: "Single Arm Lat Pulldown",
+    type: "Back",
+  },
+  {
+    name: "Cable Row (Wide Grip)",
+    type: "Back",
+  },
+  {
     name: "Tricep Pushdown",
     type: "Arms",
   },
   {
-    name: "Cable Row",
+    name: "Cable Row (Close Grip)",
     type: "Back",
   },
   {
@@ -153,7 +197,31 @@ export const exerciseList = [
     type: "Chest",
   },
   {
-    name: "Cable Curl",
+    name: "Cable Curl (2 Arm)",
+    type: "Arms",
+  },
+  {
+    name: "Cable Curl (1 Arm)",
+    type: "Arms",
+  },
+  {
+    name: "Katana Extension",
+    type: "Arms",
+  },
+  {
+    name: "Cable Chest Press",
+    type: "Chest",
+  },
+  {
+    name: "Cable Shoulder Press",
+    type: "Shoulders",
+  },
+  {
+    name: "Cable Rope Pushdown",
+    type: "Arms",
+  },
+  {
+    name: "Cable Rope Curl",
     type: "Arms",
   },
   {
@@ -185,7 +253,11 @@ export const exerciseList = [
     type: "Chest",
   },
   {
-    name: "Cable Pullover",
+    name: "Bar Pullover",
+    type: "Chest",
+  },
+  {
+    name: "Rope Pullover",
     type: "Chest",
   },
   {
@@ -269,6 +341,10 @@ export const exerciseList = [
     type: "Arms",
   },
   {
+    name: "Barbell Wrist Curl",
+    type: "Arms",
+  },
+  {
     name : "Tricep Kickback",
     type : "Arms"
   },
@@ -294,6 +370,30 @@ export const exerciseList = [
   },
   {
     name: "Landmine Press",
+    type: "Shoulders",
+  },
+  {
+    name: "Chest Press Machine (Converging)",
+    type: "Chest",
+  },
+  {
+    name: "Close Grip Bench Press",
+    type: "Arms",
+  },
+  {
+    name: "Chest Press Machine",
+    type: "Chest",
+  },
+  {
+    name: "Chest Press Machine (Incline)",
+    type: "Chest",
+  },
+  {
+    name: "Chest Press Machine (Decline)",
+    type: "Chest",
+  },
+  {
+    name: "Shoulder Press Machine",
     type: "Shoulders",
   },
   {
@@ -439,5 +539,65 @@ export const exerciseList = [
   {
     name: "Cable Pull Through",
     type: "Legs"
-  }
+  },
+  {
+    name: "Military Press",
+    type: "Shoulders"
+  },
+  {
+    name: "Dumbbell Military Press",
+    type: "Shoulders"
+  },
+  {
+    name: "Dumbbell Shoulder Press",
+    type: "Shoulders"
+  },
+  {
+    name: "Lateral Raise Machine",
+    type: "Shoulders"
+  },
+  {
+    name: "Barbell Upright Row",
+    type: "Shoulders"
+  },
+  {
+    name: "Dumbbell Upright Row",
+    type: "Shoulders"
+  },
+  {
+    name: "Hyperextension",
+    type: "Back"
+  },
+  {
+    name: "Cable Upright Row",
+    type: "Shoulders"
+  },
+  {
+    name: "Cable Hammer Curl",
+    type: "Arms"
+  },
+  {
+    name: "Cable Reverse Curl",
+    type: "Arms"
+  },
+  {
+    name: "Cable Concentration Curl",
+    type: "Arms"
+  },
+  {
+    name: "Cable Tricep Kickback",
+    type: "Arms"
+  },
+  {
+    name: "Seated Dips",
+    type: "Arms"
+  },
+  {
+    name: "Cable One Arm Tricep Extension",
+    type: "Arms"
+  },
+  {
+    name: "Cable One Arm Curl",
+    type: "Arms"
+  },
 ];
