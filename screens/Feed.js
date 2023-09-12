@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import React, { useEffect } from "react";
-import { useApp } from "@realm/react";
+import { useApp, useUser } from "@realm/react";
 import {
   CustomStatusBar,
   OvalButton,
@@ -27,9 +27,10 @@ const Feed = ({navigation}) => {
   const realm = useRealm();
   const tribe = realm
     .objects("Tribe")
-    .filtered("_id == $0", app.currentUser.customData.tribe)[0];
+    .filtered("_id == $0", user.customData.tribe)[0];
+  const user = useUser();
 
-  if (!tribe) {
+  if (!user.customData.tribe) {
     return (
       <View>
         <OvalButton
