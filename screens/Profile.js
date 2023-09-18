@@ -24,7 +24,7 @@ const Profile = ({ route, navigation }) => {
         <TextButton text="Back" onPress={() => navigation.goBack()} />
       </View>
 
-      <View style={{ alignItems: "center", marginVertical: 15 }}>
+      <View style={{ alignItems: "center"}}>
         <Text style={[globalStyles.subTitle]}>{user.username}</Text>
         <Text style={[globalStyles.text, {}]}>{user.tribe.name}</Text>
       </View>
