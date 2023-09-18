@@ -18,6 +18,9 @@ import SelectDropdown from "react-native-select-dropdown";
 import { useState } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Alert } from "react-native";
+import Collapsible from "react-native-collapsible";
+import { TextButton } from "../../components";
+import { ScrollView } from "react-native-gesture-handler";
 
 const MyTribe = ({ navigation }) => {
   const realm = useRealm();
@@ -40,9 +43,13 @@ const MyTribe = ({ navigation }) => {
     const tribe = realm
       .objects("Tribe")
       .filtered("_id == $0", user.customData.tribe)[0];
+    const leader = realm
+      .objects("User")
+      .filtered("_id == $0", tribe.owner_id)[0];
     const [leaderboard, setLeaderboard] = useState("Total Volume");
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [collapsed, setCollapsed] = useState(true);
 
     const getTribeMembers = () => {
       const memberObjects = tribe.members.map((memberId) =>
@@ -171,12 +178,22 @@ const MyTribe = ({ navigation }) => {
     return (
       <View style={[globalStyles.container, { gap: 15 }]}>
         <CustomStatusBar />
-        <View style={{ alignItems: "center", paddingTop: 15 }}>
-          <Text style={[globalStyles.subTitle, { color: COLORS.secondary }]}>
-            {tribe.name}
-          </Text>
-          {renderDynamicTotal({ members: getTribeMembers() })}
-          <View style={{ marginTop: 5 }}>
+        <View style={{ alignItems: "center", marginVertical:15 }}>
+            <Text style={globalStyles.subTitle}>{tribe.name}</Text>
+            <Text style={globalStyles.text}>Leader: {leader.username}</Text>
+            <Text style={globalStyles.text}>Members: {getTribeMembers().length}</Text>
+            <View style={{margin:-10, alignItems:"center"}}>
+              <TextButton
+                text="View Description"
+                onPress={() => setCollapsed(!collapsed)}
+              />
+              <Collapsible collapsed={collapsed} style={{minHeight:50, maxHeight:100}}>
+                <ScrollView>
+                  <Text style={[globalStyles.text]}>{tribe.description}</Text>
+                </ScrollView>
+              </Collapsible>
+            </View>
+
             <SelectDropdown
               defaultValue={"Total Volume"}
               onFocus={() => setDropdownOpen(true)}
@@ -251,10 +268,13 @@ const MyTribe = ({ navigation }) => {
               selectedRowStyle={{ display: "none" }}
               disableAutoScroll={true}
             />
-          </View>
         </View>
 
         {renderLeaderboard({ members: getTribeMembers() })}
+        <View style={{alignItems:"center", marginBottom:70}}>
+          {renderDynamicTotal({ members: getTribeMembers() })}
+        </View>
+        
 
         <View style={globalStyles.bottomButtonContainer}>
           <ActivityIndicator
