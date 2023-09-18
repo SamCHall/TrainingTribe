@@ -10,6 +10,10 @@ const CardioInput = ({
   onSpeedChange,
   onTimeChange,
   onElevationChange,
+  initialDistance,
+  initialSpeed,
+  initialTime,
+  initialElevation,
 }) => {
   const handleDistanceChange = (distance) => {
     const distanceDouble = parseFloat(distance);
@@ -53,6 +57,7 @@ const CardioInput = ({
           onChangeText={handleDistanceChange}
           placeholder="Distance"
           placeholderTextColor={COLORS.gray}
+          value={initialDistance ? initialDistance.toString() : ""}
           inputmode="Numeric"
           keyboardType="decimal-pad"
           returnKeyType="done"
@@ -69,6 +74,7 @@ const CardioInput = ({
         <TextInput
           style={globalStyles.smallInput}
           onFocus={onFocus}
+          value={initialSpeed ? initialSpeed.toString() : ""}
           onChangeText={handleSpeedChange}
           placeholder="Avg. Speed"
           inputmode="Numeric"
@@ -98,6 +104,7 @@ const CardioInput = ({
           style={globalStyles.smallInput}
           onFocus={onFocus}
           onChangeText={handleTimeChange}
+          value={initialTime ? initialTime.toString() : ""}
           placeholder="Time"
           placeholderTextColor={COLORS.gray}
           inputmode="Numeric"
@@ -117,6 +124,7 @@ const CardioInput = ({
           style={globalStyles.smallInput}
           onFocus={onFocus}
           onChangeText={handleElevationChange}
+          value={initialElevation ? initialElevation.toString() : ""}
           placeholder="Incline"
           inputmode="Numeric"
           keyboardType="decimal-pad"

@@ -64,7 +64,7 @@ const NewWorkout = ({ navigation }) => {
 
   const loadWorkoutFromSecureStore = async () => {
     try {
-      const savedWorkoutData = await SecureStore.getItemAsync('workoutData');
+      const savedWorkoutData = await SecureStore.getItemAsync("workoutData");
       if (savedWorkoutData) {
         const parsedWorkoutData = await JSON.parse(savedWorkoutData);
         setWorkoutData(parsedWorkoutData); // Set workoutData in the state
@@ -72,7 +72,7 @@ const NewWorkout = ({ navigation }) => {
       }
       return []; // Return an empty array if no data is found
     } catch (error) {
-      console.error('Error loading workout data:', error);
+      console.error("Error loading workout data:", error);
       return []; // Return an empty array in case of an error
     }
   };
@@ -84,7 +84,6 @@ const NewWorkout = ({ navigation }) => {
       console.error(err);
     }
   };
-
 
   const handleCollapse = (category) => {
     setCollapsed((prevCollapsed) =>
@@ -120,24 +119,11 @@ const NewWorkout = ({ navigation }) => {
   };
 
   const handleDeleteExercise = (exercise) => {
-    Alert.alert(
-      "Delete exercise",
-      "Are you sure you want to delete this exercise?",
-      [
-        {
-          text: "Yes",
-          onPress: () => {
-            setWorkoutData((prevData) =>
-              prevData.filter((item) => item.exercise !== exercise)
-            );
-            setExercisesToDelete((prevList) => [...prevList, exercise]);
-          },
-        },
-        {
-          text: "No",
-          onPress: () => console.log("No pressed"),
-        },
-      ]
+    setWorkoutData((prevData) =>
+      prevData.filter((item) => item.exercise !== exercise)
+    );
+    setSelectedExerciseList((prevList) =>
+      prevList.filter((item) => item !== exercise)
     );
   };
 
@@ -322,18 +308,18 @@ const NewWorkout = ({ navigation }) => {
       );
     }
   };
-  
-  if(workoutLoading) return (
-    <View style={globalStyles.container}>
-      <CustomStatusBar />
-      <ActivityIndicator
-        animating={isLoading}
-        size="large"
-        color={COLORS.secondary}
-      />
-    </View>
-  )
-  
+
+  if (workoutLoading)
+    return (
+      <View style={globalStyles.centeredContainer}>
+        <CustomStatusBar />
+        <ActivityIndicator
+          animating={true}
+          size="large"
+          color={COLORS.secondary}
+        />
+      </View>
+    );
 
   return (
     <View style={globalStyles.container}>
@@ -351,15 +337,22 @@ const NewWorkout = ({ navigation }) => {
           keyExtractor={(item, index) => `${item.name}-${index}`}
           keyboardDismissMode="none"
           ListEmptyComponent={() => (
-            <View style={[globalStyles.emptyListComponent, {gap:20}]}>
-            <Text style={[globalStyles.text, { textAlign: "center" }]}>
-                Add exercises to your workout by pressing the "Add Exercise" button.
+            <View style={[globalStyles.emptyListComponent, { gap: 20 }]}>
+              <Text style={[globalStyles.text, { textAlign: "center" }]}>
+                Add exercises to your workout by pressing the "Add Exercise"
+                button.
               </Text>
-              <Text style={[globalStyles.h3, { textAlign: "center", color:COLORS.secondary }]}>
+              <Text
+                style={[
+                  globalStyles.h3,
+                  { textAlign: "center", color: COLORS.secondary },
+                ]}
+              >
                 You can add as many exercises as you want.
               </Text>
               <Text style={[globalStyles.text, { textAlign: "center" }]}>
-                Once you are done adding exercises, press the "Finish" button in the top right.
+                Once you are done adding exercises, press the "Finish" button in
+                the top right.
               </Text>
             </View>
           )}
@@ -386,7 +379,7 @@ const NewWorkout = ({ navigation }) => {
       <View style={globalStyles.bottomButtonContainer}>
         <OvalButton text="Add Exercise" onPress={() => setModalVisible(true)} />
       </View>
-      
+
       <Collapsible collapsed={loadingCollapsed}>
         <ActivityIndicator
           animating={isLoading}

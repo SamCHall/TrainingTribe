@@ -1,5 +1,5 @@
-import { View, Text } from "react-native";
-import React, { useState } from "react";
+import { View, Text, Alert } from "react-native";
+import React, { useEffect, useState } from "react";
 import { COLORS, SIZES, SHADOWS } from "../constants";
 import globalStyles from "../constants/GlobalStyle";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
@@ -26,23 +26,87 @@ const ExerciseCard = ({
     return 1;
   };
 
+  const initialWeightReps = () => {
+    if (initialExerciseData) {
+      if (initialExerciseData.sets) {
+        return initialExerciseData.sets;
+      }
+    }
+    return [{ weight: "", reps: "" }];
+  }
+
+  const initialDistance = () => {
+    if (initialExerciseData) {
+      if (initialExerciseData.distance) {
+        console.log("initialExerciseData", initialExerciseData.distance);
+        return initialExerciseData.distance;
+      }
+    }
+    return "";
+  }
+
+  const initialTime = () => {
+    if (initialExerciseData) {
+      if (initialExerciseData.time) {
+        return initialExerciseData.time;
+      }
+    }
+    return "";
+  }
+
+  const initialSpeed = () => {
+    if (initialExerciseData) {
+      if (initialExerciseData.speed) {
+        return initialExerciseData.speed;
+      }
+    }
+    return "";
+  }
+
+  const initialElevation = () => {
+    if (initialExerciseData) {
+      if (initialExerciseData.elevation) {
+        return initialExerciseData.elevation;
+      }
+    }
+    return "";
+  }
+
   const [setNumber, setSetNumber] = useState(initialSetNumber());
-  const [weightReps, setWeightReps] = useState([{ weight: "", reps: "" }]);
-  const [distance, setDistance] = useState(0);
-  const [time, setTime] = useState(0);
-  const [speed, setSpeed] = useState(0);
-  const [elevation, setElevation] = useState(0);
+  const [weightReps, setWeightReps] = useState(initialWeightReps());
+  const [distance, setDistance] = useState(initialDistance());
+  const [time, setTime] = useState(initialTime());
+  const [speed, setSpeed] = useState(initialSpeed());
+  const [elevation, setElevation] = useState(initialElevation());
 
   const handleLocalDeleteExercise = () => {
-    // Deleting an exercise
-    setWeightReps([{ weight: "", reps: "" }]); // Reset the sets for the deleted exercise
-    setDistance(0); // Reset cardio input values
-    setTime(0);
-    setSpeed(0);
-    setElevation(0);
-    // Call the parent component's handleDeleteExercise function
-    handleDeleteExercise(exercise);
+    Alert.alert(
+      "Delete Exercise",
+      "Are you sure you want to delete this exercise?",
+      [
+        {
+          text: "Yes",
+          onPress: () => {
+            setWeightReps([{ weight: "", reps: "" }]); // Reset the sets for the deleted exercise
+            setDistance(""); // Reset cardio input values
+            setTime("");
+            setSpeed("");
+            setElevation("");
+            // Call the parent component's handleDeleteExercise function
+            handleDeleteExercise(exercise);
+          },
+        },
+        {
+          text: "No",
+          onPress: () => console.log("No pressed"),
+        },
+      ]
+    );
   };
+
+  useEffect(() => {
+    handleAdjustedExercise();
+  }, [setNumber, weightReps, distance, time, speed, elevation]);
 
   const handleAddSet = () => {
     setSetNumber((prevNumber) => prevNumber + 1);
@@ -58,7 +122,6 @@ const ExerciseCard = ({
       updatedWeightReps[setIndex].weight = weight;
       return updatedWeightReps;
     });
-    handleAdjustedExercise();
   };
 
   const handleRepChange = (setIndex, reps) => {
@@ -67,27 +130,22 @@ const ExerciseCard = ({
       updatedWeightReps[setIndex].reps = reps;
       return updatedWeightReps;
     });
-    handleAdjustedExercise();
   };
 
   const handleDistanceChange = (distance) => {
     setDistance(distance);
-    handleAdjustedExercise();
   };
 
   const handleTimeChange = (time) => {
     setTime(time);
-    handleAdjustedExercise();
   };
 
   const handleSpeedChange = (speed) => {
     setSpeed(speed);
-    handleAdjustedExercise();
   };
 
   const handleElevationChange = (elevation) => {
     setElevation(elevation);
-    handleAdjustedExercise();
   };
 
   const renderWeightRepInputs = () => {
@@ -111,6 +169,10 @@ const ExerciseCard = ({
   const renderCardioInputs = () => {
     return (
       <CardioInput
+        initialDistance={initialExerciseData && initialExerciseData?.distance}
+        initialTime={initialExerciseData && initialExerciseData?.time}
+        initialSpeed={initialExerciseData && initialExerciseData?.speed}
+        initialElevation={initialExerciseData && initialExerciseData?.elevation}
         onDistanceChange={handleDistanceChange}
         onTimeChange={handleTimeChange}
         onSpeedChange={handleSpeedChange}
@@ -121,13 +183,17 @@ const ExerciseCard = ({
   };
 
   const handleAdjustedExercise = () => {
-    const exerciseData = { exercise: exercise, sets: weightReps };
+    const exerciseData = { exercise: exercise } 
     if (exercise.type === "Cardio") {
       exerciseData.distance = distance;
       exerciseData.time = time;
       exerciseData.speed = speed;
       exerciseData.elevation = elevation;
     }
+    else {
+      exerciseData.sets = weightReps;
+    }
+
     onAdjustedExercise(exerciseData);
   };
 
@@ -144,13 +210,13 @@ const ExerciseCard = ({
       }}
     >
       <Text style={[globalStyles.h3, { marginTop: 10 }]}>{exercise.name}</Text>
-      <Ionicons
-        name="trash"
-        size={20}
-        color={"red"}
-        onPress={() => handleLocalDeleteExercise()}
-        style={{ position: "absolute", right: 10, top: 10 }}
-      />
+        <Ionicons
+          name="trash"
+          size={20}
+          color={"red"}
+          onPress={() => handleLocalDeleteExercise()}
+          style={{ position: "absolute", right: 0, top: 0, padding:15 }}
+        />
 
       {exercise.type !== "Cardio" && (
         <>
