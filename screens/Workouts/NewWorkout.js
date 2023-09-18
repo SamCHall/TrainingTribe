@@ -145,8 +145,8 @@ const NewWorkout = ({ navigation }) => {
             const sets = exerciseData.sets.map((set) => {
               return realm.create("Set", {
                 _id: Realm.BSON.ObjectId(),
-                weight: set.weight,
-                reps: set.reps,
+                weight: set.weight || 0,
+                reps: set.reps || 0,
               });
             });
 
@@ -154,10 +154,10 @@ const NewWorkout = ({ navigation }) => {
           } else {
             const cardioTracking = realm.create("CardioTracking", {
               _id: Realm.BSON.ObjectId(),
-              distance: exerciseData.distance,
-              time: exerciseData.time,
-              speed: exerciseData.speed,
-              elevation: exerciseData.elevation,
+              distance: exerciseData.distance || 0,
+              time: exerciseData.time || 0,
+              speed: exerciseData.speed || 0,
+              elevation: exerciseData.elevation || 0,
             });
             exercise.cardioTracking = [cardioTracking];
           }
