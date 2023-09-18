@@ -170,6 +170,7 @@ const globalStyles = StyleSheet.create({
   bottomButtonContainer: {
     position: "absolute",
     bottom: 0,
+    zIndex: 1,
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",

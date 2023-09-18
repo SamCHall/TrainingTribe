@@ -25,9 +25,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 const Feed = ({navigation}) => {
   const app = useApp();
   const realm = useRealm();
-  const tribe = realm
-    .objects("Tribe")
-    .filtered("_id == $0", user.customData.tribe)[0];
+  
   const user = useUser();
 
   if (!user.customData.tribe) {
@@ -43,23 +41,11 @@ const Feed = ({navigation}) => {
         />
       </View>
     );
-  } else if (tribe.war === null) {
-    return (
-      <View style={[globalStyles.container, { gap: 15 }]}>
-        <CustomStatusBar />
-        <View style={{ alignItems: "center", paddingTop: 15 }}>
-          <Text style={[globalStyles.subTitle, { color: COLORS.secondary }]}>
-            {tribe.name}
-          </Text>
-        </View>
-        <View style={{ alignItems: "center" }}>
-          <Text style={[globalStyles.subTitle, { color: "red" }]}>
-            No opposing tribe
-          </Text>
-        </View>
-      </View>
-    );
-  } else {
+  }
+  else {
+    const tribe = realm
+    .objects("Tribe")
+    .filtered("_id == $0", user.customData.tribe)[0];
     const [leaderboard, setLeaderboard] = useState("Total Volume");
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const totalCategories = 5;
