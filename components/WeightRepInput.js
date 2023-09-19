@@ -25,17 +25,14 @@ const WeightRepInput = ({
   }, []);
 
   const handleWeightChange = (weight) => {
-    console.log("weight", weight);
     setWeight(weight);
     const weightDouble = parseFloat(weight);
-    console.log("weightDouble", weightDouble);
     onWeightChange(weightDouble);
   };
 
   const handleRepChange = (reps) => {
     setReps(reps);
     const repsNumber = parseInt(reps);
-    console.log("repsNumber", repsNumber);
     onRepChange(repsNumber);
   };
 
