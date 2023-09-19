@@ -3,6 +3,7 @@ import React from "react";
 import globalStyles from "../constants/GlobalStyle";
 import { COLORS } from "../constants/theme";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useEffect, useState } from "react";
 
 const CardioInput = ({
   onFocus,
@@ -15,22 +16,48 @@ const CardioInput = ({
   initialTime,
   initialElevation,
 }) => {
+  const [distance, setDistance] = useState("");
+  const [speed, setSpeed] = useState("");
+  const [time, setTime] = useState("");
+  const [elevation, setElevation] = useState("");
+
+  useEffect(() => {
+    if (initialDistance) {
+      setDistance(initialDistance.toString());
+    }
+    if (initialSpeed) {
+      setSpeed(initialSpeed.toString());
+    }
+    if (initialTime) {
+      setTime(initialTime.toString());
+    }
+    if (initialElevation) {
+      setElevation(initialElevation.toString());
+    }
+  }, []);
+
   const handleDistanceChange = (distance) => {
+    setDistance(distance);
     const distanceDouble = parseFloat(distance);
     onDistanceChange(distanceDouble);
   };
+
   const handleSpeedChange = (speed) => {
+    setSpeed(speed);
     const speedDouble = parseFloat(speed);
     onSpeedChange(speedDouble);
   };
   const handleTimeChange = (time) => {
+    setTime(time);
     const timeDouble = parseFloat(time);
     onTimeChange(timeDouble);
   };
   const handleElevationChange = (elevation) => {
+    setElevation(elevation);
     const elevationDouble = parseFloat(elevation);
     onElevationChange(elevationDouble);
   };
+
   return (
     <View
       style={{
@@ -57,7 +84,7 @@ const CardioInput = ({
           onChangeText={handleDistanceChange}
           placeholder="Distance"
           placeholderTextColor={COLORS.gray}
-          value={initialDistance ? initialDistance.toString() : ""}
+          value={distance}
           inputmode="Numeric"
           keyboardType="decimal-pad"
           returnKeyType="done"
@@ -74,7 +101,7 @@ const CardioInput = ({
         <TextInput
           style={globalStyles.smallInput}
           onFocus={onFocus}
-          value={initialSpeed ? initialSpeed.toString() : ""}
+          value={speed}
           onChangeText={handleSpeedChange}
           placeholder="Avg. Speed"
           inputmode="Numeric"
@@ -104,7 +131,7 @@ const CardioInput = ({
           style={globalStyles.smallInput}
           onFocus={onFocus}
           onChangeText={handleTimeChange}
-          value={initialTime ? initialTime.toString() : ""}
+          value={time}
           placeholder="Time"
           placeholderTextColor={COLORS.gray}
           inputmode="Numeric"
@@ -124,12 +151,12 @@ const CardioInput = ({
           style={globalStyles.smallInput}
           onFocus={onFocus}
           onChangeText={handleElevationChange}
-          value={initialElevation ? initialElevation.toString() : ""}
+          value={elevation}
           placeholder="Incline"
           inputmode="Numeric"
           keyboardType="decimal-pad"
           placeholderTextColor={COLORS.gray}
-          returnKeyType = "done"
+          returnKeyType="done"
         />
         <Text style={[globalStyles.text, { position: "relative", right: 25 }]}>
           %

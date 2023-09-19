@@ -17,6 +17,8 @@ const ExerciseCard = ({
   index
 }) => {
 
+  console.log("initialExerciseData", initialExerciseData);
+  
   const initialSetNumber = () => {
     if (initialExerciseData) {
       if (initialExerciseData.sets) {

@@ -80,7 +80,8 @@ function App() {
     Roboto_400Regular,
     Roboto_500Medium,
     Roboto_700Bold,
-    Roboto_900Black
+    Roboto_900Black,
+    Ionicons: require('@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf'),
   });
   
   if (!loaded || !isReady) {
