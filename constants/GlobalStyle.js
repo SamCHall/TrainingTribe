@@ -178,11 +178,7 @@ const globalStyles = StyleSheet.create({
   emptyListComponent: {
     justifyContent: "center",
     alignItems: "center",
-    height: '100%',
-    width: '100%',
-    color: COLORS.white,
-    fontFamily: fontFamily('regular'),
-    fontWeight: fontWeights('regular'),
+    marginTop: SIZES.large,
   },
   leaderboardEntry: {
     flexDirection: "row",

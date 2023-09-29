@@ -46,7 +46,7 @@ export const TextButton = ({ text, onPress, ...props }) => {
       title={text}
     >
       <Text
-        style={[globalStyles.text, { color: COLORS.secondary }]}
+        style={[globalStyles.h3, { color: COLORS.secondary }]}
       >
         {text}
       </Text>

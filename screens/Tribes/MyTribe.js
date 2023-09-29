@@ -201,7 +201,7 @@ const MyTribe = ({ navigation }) => {
               showsVerticalScrollIndicator={true}
               dropdownStyle={{
                 width: 150,
-                height: 120,
+                height: 160,
                 backgroundColor: COLORS.primary,
                 borderColor: COLORS.secondary,
                 borderWidth: 1,

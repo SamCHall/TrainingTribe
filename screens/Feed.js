@@ -42,10 +42,23 @@ const Feed = ({navigation}) => {
       </View>
     );
   }
+
   else {
     const tribe = realm
     .objects("Tribe")
     .filtered("_id == $0", user.customData.tribe)[0];
+
+    if(tribe.war === null){
+      return (
+        <View style={[globalStyles.container]}>
+          <CustomStatusBar />
+          <View style={globalStyles.centeredContainer}>
+            <Text style={globalStyles.text}> No War Available </Text>
+            </View>
+        </View>
+      );
+    }
+
     const [leaderboard, setLeaderboard] = useState("Total Volume");
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const totalCategories = 5;
@@ -231,80 +244,80 @@ const Feed = ({navigation}) => {
           totalCategories={totalCategories}
         />
         <View style={{ alignItems: "center", position: "relative" }}>
-          <SelectDropdown
-            defaultValue={"Total Volume"}
-            onFocus={() => setDropdownOpen(true)}
-            onBlur={() => setDropdownOpen(false)}
-            showsVerticalScrollIndicator={true}
-            dropdownStyle={{
-              width: 150,
-              height: 120,
-              backgroundColor: COLORS.primary,
-              borderColor: COLORS.secondary,
-              borderWidth: 1,
-              borderRadius: 10,
-              position: "absolute",
-              marginTop: -40,
-              zIndex: 1,
-            }}
-            rowTextStyle={[globalStyles.text, { fontSize: SIZES.small }]}
-            rowStyle={{
-              backgroundColor: COLORS.primary,
-              height: 40,
-              borderBottomColor: COLORS.secondary,
-              borderBottomWidth: 1,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-            dropdownOverlayColor="transparent"
-            buttonStyle={{
-              width: 150,
-              height: 40,
-              backgroundColor: COLORS.primary,
-              borderColor: COLORS.secondary,
-              borderWidth: 1,
-              borderRadius: 10,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-            buttonTextStyle={[globalStyles.text, { fontSize: SIZES.small }]}
-            data={[
-              "Total Volume",
-              "Total Distance",
-              "Total Workouts",
-              "Total Reps",
-              "Total Time"
-            ]}
-            onSelect={(selectedItem) => {
-              setLeaderboard(selectedItem);
-            }}
-            renderDropdownIcon={() => {
-              if (dropdownOpen) {
+        <SelectDropdown
+              defaultValue={"Total Volume"}
+              onFocus={() => setDropdownOpen(true)}
+              onBlur={() => setDropdownOpen(false)}
+              showsVerticalScrollIndicator={true}
+              dropdownStyle={{
+                width: 150,
+                height: 160,
+                backgroundColor: COLORS.primary,
+                borderColor: COLORS.secondary,
+                borderWidth: 1,
+                borderRadius: 10,
+                position: "absolute",
+                marginTop: -40,
+                zIndex: 1,
+              }}
+              rowTextStyle={[globalStyles.text, { fontSize: SIZES.small }]}
+              rowStyle={{
+                backgroundColor: COLORS.primary,
+                height: 40,
+                borderBottomColor: COLORS.secondary,
+                borderBottomWidth: 1,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              dropdownOverlayColor="transparent"
+              buttonStyle={{
+                width: 150,
+                height: 40,
+                backgroundColor: COLORS.primary,
+                borderColor: COLORS.secondary,
+                borderWidth: 1,
+                borderRadius: 10,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              buttonTextStyle={[globalStyles.text, { fontSize: SIZES.small }]}
+              data={[
+                "Total Volume",
+                "Total Distance",
+                "Total Workouts",
+                "Total Reps",
+                "Total Time",
+              ]}
+              onSelect={(selectedItem) => {
+                setLeaderboard(selectedItem);
+              }}
+              renderDropdownIcon={() => {
+                if (dropdownOpen) {
+                  return (
+                    <Ionicons
+                      name="chevron-up"
+                      size={20}
+                      color={COLORS.secondary}
+                    />
+                  );
+                }
                 return (
                   <Ionicons
-                    name="chevron-up"
+                    name="chevron-down"
                     size={20}
                     color={COLORS.secondary}
                   />
                 );
-              }
-              return (
-                <Ionicons
-                  name="chevron-down"
-                  size={20}
-                  color={COLORS.secondary}
-                />
-              );
-            }}
-            buttonTextAfterSelection={(selectedItem) => {
-              return selectedItem;
-            }}
-            rowTextForSelection={(item) => {
-              return item;
-            }}
-            selectedRowStyle={{ display: "none" }}
-            disableAutoScroll={true}
-          />
+              }}
+              buttonTextAfterSelection={(selectedItem) => {
+                return selectedItem;
+              }}
+              rowTextForSelection={(item) => {
+                return item;
+              }}
+              selectedRowStyle={{ display: "none" }}
+              disableAutoScroll={true}
+            />
         </View>
 
         <View style={{ alignItems: "center" }}>

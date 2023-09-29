@@ -1,4 +1,5 @@
 import Constants from "expo-constants";
+import { Platform } from "react-native";
 const { statusBarHeight } = Constants;
 
 export const COLORS = {
@@ -22,7 +23,7 @@ export const SIZES = {
   medium: 16,
   large: 18,
   extraLarge: 24,
-  statusBarHeight: 0,
+  statusBarHeight: Platform.OS === "ios" ? statusBarHeight : 0,
 };
 
 export const SHADOWS = {
