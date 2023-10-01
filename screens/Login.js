@@ -36,8 +36,12 @@ const Login = ({ navigation }) => {
   };
 
   async function registerUser() {
-    if (registerPassword != confirmRegisterPassword)
+    if (registerPassword != confirmRegisterPassword){
       return Alert.alert("Passwords do not match");
+    }
+    if (registerPassword.length < 6) {
+      return Alert.alert("Password must be at least 6 characters");
+    }
     else {
       try {
         await app.emailPasswordAuth.registerUser({
@@ -50,6 +54,7 @@ const Login = ({ navigation }) => {
           Alert.alert("Email already in use. Please try again.");
         } else {
           Alert.alert("Error registering user. Please try again.");
+          console.error(error);
         }
       }
     }

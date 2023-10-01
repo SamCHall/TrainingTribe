@@ -3,12 +3,13 @@ import React from "react";
 import { useRealm } from "../../models";
 import globalStyles from "../../constants/GlobalStyle";
 import { FlatList } from "react-native-gesture-handler";
-import { OvalButton } from "../../components";
+import { OvalButton, TextButton } from "../../components";
 import { COLORS } from "../../constants";
 import { FontAwesome } from "@expo/vector-icons";
 import { ActivityIndicator } from "react-native";
 import { useState } from "react";
 import { useUser } from "@realm/react";
+import { Alert } from "react-native";
 
 const JoinTribe = ({ navigation }) => {
   const realm = useRealm();
@@ -24,6 +25,11 @@ const JoinTribe = ({ navigation }) => {
     try {
       const tribe = realm.objects("Tribe").filtered("_id == $0", tribeId)[0];
       if (tribe) {
+        if (tribe.members.length >= 4) {
+          Alert.alert("This tribe is full. Please choose another.");
+          setIsLoading(false);
+          return;
+        }
         realm.write(() => {
           tribe.members.push(user.id);
         });
@@ -52,6 +58,10 @@ const JoinTribe = ({ navigation }) => {
 
   return (
     <View style={[globalStyles.container, {marginTop: 15}]}>
+      <View style={{alignItems: "flex-start"}}>
+        <TextButton text={"Back"} onPress={() => navigation.goBack()}/>
+      </View>
+      
       <Text style={globalStyles.subTitle}>Join A Tribe:</Text>
       <FlatList
         data={tribes}
@@ -62,8 +72,7 @@ const JoinTribe = ({ navigation }) => {
               <FontAwesome name="users" size={16} color={COLORS.secondary} />
               <Text style={globalStyles.text}>
                 {" "}
-                {item.members.length}
-                {item._id.toHexString}
+                {item.members.length} / 4
               </Text>
             </View>
             <OvalButton

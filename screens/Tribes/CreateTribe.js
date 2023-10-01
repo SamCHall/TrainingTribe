@@ -3,7 +3,7 @@ import React from "react";
 import globalStyles from "../../constants/GlobalStyle";
 import { TextInput } from "react-native-gesture-handler";
 import { COLORS } from "../../constants";
-import { OvalButton } from "../../components";
+import { OvalButton, TextButton } from "../../components";
 import { useState } from "react";
 import { useRealm } from "../../models";
 import { useUser } from "@realm/react";
@@ -71,6 +71,9 @@ const CreateTribe = ({ navigation }) => {
 
   return (
     <View style={globalStyles.centeredContainer}>
+      <View style={{alignItems: "flex-start"}}>
+        <TextButton text={"Back"} onPress={() => navigation.goBack()}/>
+      </View>
       <TextInput
         style={globalStyles.input}
         placeholder="Tribe Name"

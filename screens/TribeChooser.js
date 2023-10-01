@@ -10,14 +10,24 @@ const TribeChooser = () => {
   const navigation = useNavigation();
   const app = useApp();
 
+  const tribes = useRealm().objects("Tribe");
+  
+ 
+  const renderCreateTribeButton = () => {
+    if (tribes.length < 4) {
+      return (
+        <OvalButton
+          text="Create a Tribe"
+          onPress={() => navigation.navigate("CreateTribe")}
+        />
+      );
+    }
+  }
     return (
       <View style={globalStyles.container}>
         <View style={globalStyles.centeredContainer}>
           <CustomStatusBar />
-          <OvalButton
-            text="Create a Tribe"
-            onPress={() => navigation.navigate("CreateTribe")}
-          />
+          {renderCreateTribeButton()}
           <OvalButton
             text="Join a Tribe"
             onPress={() => navigation.navigate("JoinTribe")}

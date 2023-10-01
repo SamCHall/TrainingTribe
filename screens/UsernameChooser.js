@@ -7,6 +7,7 @@ import { useRealm } from "../models";
 import { useUser } from "@realm/react";
 import { useNavigation } from "@react-navigation/native";
 import { COLORS } from "../constants";
+import { Alert } from "react-native";
 
 function UsernameChooser() {
   const realm = useRealm();
@@ -15,6 +16,10 @@ function UsernameChooser() {
 
   const [displayName, setDisplayName] = useState("");
   const handleSaveUsername = async () => {
+    if (parseInt(displayName) >= 9 || parseInt(displayName) <= 0) {
+      Alert.alert("Please enter a valid Participant ID");
+      return;
+    }
     const customUserDataCollection = user
       .mongoClient("mongodb-atlas")
       .db("todo")
@@ -39,11 +44,12 @@ function UsernameChooser() {
   return (
     <View style={globalStyles.centeredContainer}>
       <CustomStatusBar />
-      <Text style={globalStyles.text}>Choose a display name:</Text>
+      <Text style={globalStyles.h3}>Please enter your Participant ID:</Text>
       <TextInput
         style={globalStyles.input}
         placeholder="Display Name"
         placeholderTextColor={COLORS.gray}
+        keyboardType="numeric"
         onChangeText={(text) => setDisplayName(text)}
         value={displayName}
       />
@@ -61,8 +67,7 @@ function UsernameChooser() {
           { fontSize: 12, textAlign: "center", padding: 10 },
         ]}
       >
-        Note: For the experiment, please refrain from using your First or Last
-        name to protect anonymity
+        Note: You can find your Participant ID in the email you received from HallSC3@cardiff.ac.uk
       </Text>
       <OvalButton text={"Save"} onPress={() => handleSaveUsername()} />
     </View>
