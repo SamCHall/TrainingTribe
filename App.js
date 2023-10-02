@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { ActivityIndicator, StyleSheet, View} from 'react-native';
+import { ActivityIndicator, StyleSheet, View, Text} from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useFonts, Roboto_100Thin, Roboto_300Light, Roboto_400Regular, Roboto_500Medium, Roboto_700Bold, Roboto_900Black } from '@expo-google-fonts/roboto';
 
@@ -89,6 +89,7 @@ function App() {
     return <View style={globalStyles.centeredContainer}>
       <CustomStatusBar />
       <ActivityIndicator size='large' animating={true} color={COLORS.tertiary}/>
+      <Text style={globalStyles.text}>Loading...</Text>
     </View>;
   }
 

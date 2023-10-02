@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, ActivityIndicator } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useApp, useUser } from "@realm/react";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -13,22 +13,53 @@ import TribeNavigator from "./Tribes/TribeNavigator";
 import { useRealm } from "../models";
 import { Platform } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { CustomStatusBar } from "../components";
 
 const Tab = createBottomTabNavigator();
 
 const Home = () => {
-  useEffect(() => {
-    user.refreshCustomData();
-  }, []);
-
+  
   const realm = useRealm();
   const user = useUser();
   const navigation = useNavigation();
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+      load();
+    }, [user, user.customData.username, user.customData.tribe]);
 
-  if (!user.customData.username) {
+    
+  const load = async () => {
+    setIsLoading(true);
+    try {
+      await useUser()
+      await realm.syncSession.downloadAllServerChanges();
+      await user.refreshCustomData();
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+      return(
+        <View style={globalStyles.centeredContainer}>
+          <CustomStatusBar />
+          <Text style={globalStyles.text}>Error loading user data.</Text>
+        </View>
+      )
+    }
+    setIsLoading(false);
+    if (!user.customData.username) {
     navigation.replace("UsernameChooser");
   } else if (!user.customData.tribe) {
     navigation.replace("TribeChooser");
+  }
+  };
+
+  if (isLoading) {
+    return (
+      <View style={globalStyles.centeredContainer}>
+        <CustomStatusBar />
+        <ActivityIndicator size="large" color={COLORS.secondary} />
+        <Text style={globalStyles.text}>Loading user data</Text>
+      </View>
+    );
   }
 
   return (
