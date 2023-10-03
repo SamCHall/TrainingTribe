@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { ActivityIndicator, StyleSheet, View, Text} from 'react-native';
+import { ActivityIndicator, StyleSheet, View, Text, Alert} from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useFonts, Roboto_100Thin, Roboto_300Light, Roboto_400Regular, Roboto_500Medium, Roboto_700Bold, Roboto_900Black } from '@expo-google-fonts/roboto';
 
@@ -37,11 +37,10 @@ const theme = {
 };
 
 function App() {
-
   const realm = useRealm()
   // const PERSISTENCE_KEY = 'NAVIGATION_STATE'
   // const [initialState, setInitialState] = useState();
-  const [isReady, setIsReady] = useState(true); //Change back to false when using persistence
+
 
   useEffect(() => {
     realm.subscriptions.update((mutableSubs, realm) => {
@@ -54,9 +53,7 @@ function App() {
       mutableSubs.add(realm.objects('War'))
     })
 
-
-    realm.syncSession.downloadAllServerChanges()
-    realm.syncSession.uploadAllLocalChanges()
+  }, [])
 
   //   const restoreState = async () => {
   //     try {
@@ -71,8 +68,6 @@ function App() {
   //   if (!isReady) {
   //     restoreState();
   //   }
-  }, [])
-
 
   const [loaded] = useFonts({
     Roboto_100Thin,
@@ -84,7 +79,7 @@ function App() {
     Ionicons: require('@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf'),
   });
   
-  if (!loaded || !isReady) {
+  if (!loaded) {
     
     return <View style={globalStyles.centeredContainer}>
       <CustomStatusBar />
@@ -101,7 +96,7 @@ function App() {
     //   AsyncStorage.setItem(PERSISTENCE_KEY, JSON.stringify(state))
     // }
     >
-      <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.primary }}>
+      {/* <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.primary }}> */}
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
@@ -119,10 +114,11 @@ function App() {
           <Stack.Screen name="WorkoutDetails" component={WorkoutDetails} />
           <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
-      </SafeAreaView>
+      {/* </SafeAreaView> */}
     </NavigationContainer>
   );
 }
+
 function AppWrapper() {
 
 return (
@@ -143,5 +139,6 @@ return (
   </GestureHandlerRootView>
 )
 }
+
 
 export default AppWrapper;

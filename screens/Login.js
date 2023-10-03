@@ -72,7 +72,12 @@ const Login = ({ navigation }) => {
   async function logInUser() {
     try {
       await app.logIn(Realm.Credentials.emailPassword(email, password));
-      navigation.replace("Home");
+      if (email == "demo@demo.com"){
+        navigation.replace("UsernameChooser")
+      }
+      else{
+        navigation.replace("Home");
+      }
     } catch (error) {
       if (error.message == "invalid username/password") {
         Alert.alert("Incorrect email and/or password. Please try again.");
