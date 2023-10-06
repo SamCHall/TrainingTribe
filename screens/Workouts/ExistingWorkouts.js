@@ -61,7 +61,7 @@ const ExistingWorkouts = ({ navigation }) => {
 
     const fetchData = async () => {
       try {
-        const workoutData = await SecureStore.getItemAsync('workoutData');
+        const workoutData = await SecureStore.getItemAsync(`workoutData-${user.id}`);
         if (isMounted) {
           
           if (workoutData!=null)

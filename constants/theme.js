@@ -23,7 +23,7 @@ export const SIZES = {
   medium: 16,
   large: 18,
   extraLarge: 24,
-  statusBarHeight: Platform.OS === "ios" ? statusBarHeight : 0,
+  statusBarHeight: 0,
 };
 
 export const SHADOWS = {

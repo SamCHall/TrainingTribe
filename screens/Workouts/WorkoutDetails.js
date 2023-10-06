@@ -5,6 +5,8 @@ import { useRoute } from "@react-navigation/native";
 import { ExerciseCardReadOnly, TextButton } from "../../components";
 import { FlatList } from "react-native-gesture-handler";
 import { COLORS } from "../../constants";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { CustomStatusBar } from "../../components";
 
 // Inside the 'WorkoutDetails' component
 
@@ -13,7 +15,8 @@ const WorkoutDetails = ({ navigation }) => {
   const { name, type, date, exercises } = route.params;
 
   return (
-    <View style={globalStyles.container}>
+    <SafeAreaView style={[globalStyles.container]}>
+      <CustomStatusBar />
       <View
         style={{
           justifyContent: "flex-start",
@@ -49,7 +52,7 @@ const WorkoutDetails = ({ navigation }) => {
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => <ExerciseCardReadOnly exercise={item} />}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

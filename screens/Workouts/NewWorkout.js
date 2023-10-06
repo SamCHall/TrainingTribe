@@ -56,7 +56,7 @@ const NewWorkout = ({ navigation }) => {
 
   const saveWorkoutDataToSecureStore = async (workoutData) => {
     try {
-      await SecureStore.setItemAsync("workoutData", JSON.stringify(workoutData));
+      await SecureStore.setItemAsync(`workoutData-${user.id}`, JSON.stringify(workoutData));
     } catch (err) {
       console.error(err);
     }
@@ -64,7 +64,7 @@ const NewWorkout = ({ navigation }) => {
 
   const loadWorkoutFromSecureStore = async () => {
     try {
-      const savedWorkoutData = await SecureStore.getItemAsync("workoutData");
+      const savedWorkoutData = await SecureStore.getItemAsync(`workoutData-${user.id}`);
       if (savedWorkoutData) {
         const parsedWorkoutData = await JSON.parse(savedWorkoutData);
         setWorkoutData(parsedWorkoutData); // Set workoutData in the state
@@ -79,7 +79,7 @@ const NewWorkout = ({ navigation }) => {
 
   const clearWorkoutDataFromSecureStore = async () => {
     try {
-      await SecureStore.deleteItemAsync("workoutData");
+      await SecureStore.deleteItemAsync(`workoutData-${user.id}`);
     } catch (err) {
       console.error(err);
     }

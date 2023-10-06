@@ -6,6 +6,7 @@ import { User } from "../models";
 import { COLORS } from "../constants/theme";
 import { FlatList } from "react-native-gesture-handler";
 import { useRealm } from "../models";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Profile = ({ route, navigation }) => {
   const realm = useRealm();
@@ -18,7 +19,7 @@ const Profile = ({ route, navigation }) => {
     return workouts;
   };
   return (
-    <View style={globalStyles.container}>
+    <SafeAreaView style={globalStyles.container}>
       <CustomStatusBar />
       <View style={{ alignItems: "flex-start" }}>
         <TextButton text="Back" onPress={() => navigation.goBack()} />
@@ -99,7 +100,7 @@ const Profile = ({ route, navigation }) => {
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => <WorkoutCard workout={item} />}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

@@ -25,14 +25,15 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
       load();
-    }, [user, user.customData.username, user.customData.tribe]);
+    }, []);
 
     
   const load = async () => {
     setIsLoading(true);
+
     try {
-      await useUser()
       await realm.syncSession.downloadAllServerChanges();
+      await realm.syncSession.uploadAllLocalChanges();
       await user.refreshCustomData();
     } catch (error) {
       console.log(error);
