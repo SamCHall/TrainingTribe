@@ -21,7 +21,7 @@ const Profile = ({ route, navigation }) => {
   return (
     <SafeAreaView style={globalStyles.container}>
       <CustomStatusBar />
-      <View style={{ alignItems: "flex-start" }}>
+      <View style={{ alignItems: "flex-start", marginTop: 15 }}>
         <TextButton text="Back" onPress={() => navigation.goBack()} />
       </View>
 

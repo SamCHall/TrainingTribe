@@ -17,11 +17,7 @@ const ProgressBar = ({ teamPercentage, categoryCount, totalCategories }) => {
 
     // Update the initial animation value after a short delay
     const timer = setTimeout(() => {
-      Animated.timing(progress, {
-        toValue: teamPercentage,
-        duration: 0,
-        useNativeDriver: false,
-      }).start();
+      Animated.timing(progress, {toValue: teamPercentage, duration: 0, useNativeDriver: false,}).start();
       setInitialized(true);
     }, 0.01);
 
@@ -30,31 +26,18 @@ const ProgressBar = ({ teamPercentage, categoryCount, totalCategories }) => {
 
   return (
     <View
-      style={{
-        alignItems: "flex-start",
-        justifyContent: "space-between",
-        flexDirection: "row",
-        position: "relative",
-        borderRadius: 10,
-        margin: 10,
-        backgroundColor: "red",
+      style={{alignItems: "flex-start", justifyContent: "space-between", flexDirection: "row",
+       position: "relative", borderRadius: 10, margin: 10, backgroundColor: "red",
       }}
     >
       <Text
-        style={[
-          globalStyles.text,
-          { marginHorizontal: 5, zIndex: 1, color: "black" },
-        ]}
+        style={[globalStyles.text,{ marginHorizontal: 5, zIndex: 1, color: "black" },]}
       >
         {categoryCount}
       </Text>
       {initialized && (
         <Animated.View
-          style={{
-            width: progress.interpolate({
-              inputRange: [0, 100],
-              outputRange: ["0%", "100%"],
-            }),
+          style={{width: progress.interpolate({inputRange: [0, 100], outputRange: ["0%", "100%"]}),
             position: "absolute",
             borderRadius: 10,
             backgroundColor: COLORS.secondary,

@@ -22,6 +22,7 @@ const WorkoutDetails = ({ navigation }) => {
           justifyContent: "flex-start",
           alignItems: "flex-start",
           width: "100%",
+          marginTop: 15,
         }}
       >
         <TextButton text={"Back"} onPress={() => navigation.goBack()} />
